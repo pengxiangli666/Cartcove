@@ -10,6 +10,8 @@ Request:
   - hint: string
   - hint_answer: string
 Register a new customer. If success, return 201 Created.
+
+
 Login-1
 URL: /api/customer/login
 Method: POST
@@ -20,6 +22,7 @@ Use the username and password to login. If the username and password are correct
 {
   "token": "string"
 }
+
 Get customer info
 URL: /api/customer/info
 Method: GET
@@ -31,6 +34,7 @@ Get the customer info. If success, return 200 OK.
   "email": "string",
   "hint": "string"
 }
+
 Update customer info
 URL: /api/customer/info
 Method: PUT
@@ -41,6 +45,7 @@ Request:
   - hint: string
   - hint_answer: string
 Update the customer info. If success, return 200 OK.
+
 Seller
 Register-2
 URL: /api/seller
@@ -52,6 +57,7 @@ Request:
   - hint: string
   - hint_answer: string
 Register a new seller. If success, return 201 Created.
+
 Login-2
 URL: /api/seller/login
 Method: POST
@@ -62,6 +68,7 @@ Use the username and password to login. If the username and password are correct
 {
   "token": "string"
 }
+
 Get seller info
 URL: /api/seller/info
 Method: GET
@@ -73,6 +80,7 @@ Get the seller info. If success, return 200 OK.
   "email": "string",
   "hint": "string"
 }
+
 Update seller info
 URL: /api/seller/info
 Method: PUT
@@ -83,6 +91,8 @@ Request:
   - hint: string
   - hint_answer: string
 Update the seller info. If success, return 200 OK.
+
+
 Product
 Get product list
 URL: /api/products/<int:page>
@@ -102,6 +112,8 @@ Get the product list. If success, return 200 OK.
   "total": "int",
   "pages": "int"
 }
+
+
 Get product detail
 URL: /api/product/<int:id>
 Method: GET
@@ -114,6 +126,7 @@ Get the product detail. If success, return 200 OK.
   "image": "string",
   "seller": "string"
 }
+
 Create product
 URL: /api/product
 Method: POST
@@ -125,6 +138,8 @@ Request:
   - description: string
   - image: string # base64 encoded
 Create a new product. If success, return 201 Created.
+
+
 Update product
 URL: /api/product/<int:id>
 Method: PUT
@@ -136,6 +151,8 @@ Request:
   - description: string
   - image: string
 Update the product. If success, return 200 OK.
+
+
 Delete product
 URL: /api/product/<int:id>
 Method: DELETE
@@ -165,6 +182,8 @@ Get the order list (of the current customer or seller). If success, return 200 O
   "total": "int",
   "pages": "int"
 }
+
+
 Get order detail
 URL: /api/order/<int:id>
 Method: GET
@@ -181,6 +200,8 @@ Get the order detail (of the current customer or seller). If success, return 200
   "status": "string",
   "created_at": "string"
 }
+
+
 Create order
 URL: /api/order
 Method: POST
@@ -191,6 +212,8 @@ Request:
   - quantity: int
   - address: string
 Create a new order. If success, return 201 Created.
+
+
 Update order
 URL: /api/order/<int:id>
 Method: PUT
@@ -199,6 +222,8 @@ Header:
 Request:
   - status: string
 Update the order. If success, return 200 OK.
+
+
 Delete order
 URL: /api/order/<int:id>
 Method: DELETE
@@ -222,6 +247,8 @@ Get the cart. If success, return 200 OK.
   ],
   "total": "float"
 }
+
+
 Add product to cart
 URL: /api/cart
 Method: POST
@@ -239,12 +266,16 @@ Header:
 Request:
   - quantity: int
 Update the product in the cart. If success, return 200 OK.
+
+
 Delete product in cart
 URL: /api/cart/<int:id>
 Method: DELETE
 Header:
   - token: string
 Delete the product in the cart. If success, return 200 OK.
+
+
 Search
 Search product
 URL: /api/search/<string:keyword>/<int:page>
@@ -264,6 +295,8 @@ Search the product by keyword. If success, return 200 OK.
   "total": "int",
   "pages": "int"
 }
+
+
 Review
 Get review list
 URL: /api/reviews/<int:product>/<int:page>
@@ -283,6 +316,8 @@ Get the review list of the product. If success, return 200 OK.
   "total": "int",
   "pages": "int"
 }
+
+
 Create review
 URL: /api/review
 Method: POST
@@ -293,6 +328,8 @@ Request:
   - rating: int
   - comment: string
 Create a new review. If success, return 201 Created.
+
+
 Update review
 URL: /api/review/<int:id>
 Method: PUT
