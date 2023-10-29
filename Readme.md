@@ -15,6 +15,7 @@ In order to build this project you first have to install:
 Backend:
 * [Vscode](https://code.visualstudio.com/Download)
 * [Python for Windows/Mac/Linux](https://www.python.org/downloads/)
+* [Black](https://black.readthedocs.io/en/stable/the_black_code_style/current_style.html)
 * [Django](https://www.djangoproject.com/download/)
 * [venv](https://docs.python.org/3/library/venv.html)
 * [django-cors-headers](https://pypi.org/project/django-cors-headers/)
@@ -32,6 +33,9 @@ Backend:
 For mac users
 * Install Python: brew install python
 * Install Django: pip install django
+* Install Black: pip install black
+* Auto check code style: pip install pre-commit
+* Run auto check(Black): pre-commit install
 * venv: python -m venv myenv
 * Activate virtual environment: source venv/bin/activate
 * Install django-cors-headers: pip install django-cors-headers
@@ -39,8 +43,10 @@ For mac users
 * Install dj-rest-auth: pip install dj-rest-auth
 * Install jangorestframework: pip install djangorestframework
 
+## Coding Style
 
-
+Backend:
+* Black
 
 ## Setup
 
@@ -82,4 +88,7 @@ Explain how to run the automated tests.
 
 # Authors
 
-Your names and emails
+* Pengxiang li
+* Jamel
+* Yixuan Liu
+* Zhongsheng Li	zl11@email.sc.edu
