@@ -4,7 +4,7 @@ Welcome to the TheOverlords, a comprehensive shopping website that allows users 
 ## External Requirements
 
 List all the stuff the reader will need to install in order to get you app to 
-run in their laptop. For example:
+run in their laptop.
 
 In order to build this project you first have to install:
 
@@ -27,6 +27,10 @@ If possible, list the actual commands you used to install these, so the reader
 can just cut-n-paste the commands and get everything setup.
 
 You only need to add instructions for the OS you are using.
+
+Backend:
+For mac users
+* Install Django: pip install django
 
 ## Setup
 
