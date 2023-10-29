@@ -60,6 +60,11 @@ your repo. Sometimes there is no need for this section, but some apps require
 some first-time configuration from the developer, for example: setting up a
 database for running your webapp locally.
 
+Backend:
+ First, create a virtual environment and then download the necessary
+  apps for the backend (you can find the list of applications above).
+  You need to download everything.
+
 ## Running
 
 Specify the commands for a developer to run the app from the cloned repo.
