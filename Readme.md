@@ -102,7 +102,7 @@ Explain how to run the automated tests.
 
 # Authors
 
-* Pengxiang li
+* Pengxiang li pl7@email.sc.edu
 * Jamel
 * Yixuan Liu
 * Zhongsheng Li	zl11@email.sc.edu
