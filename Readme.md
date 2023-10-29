@@ -11,6 +11,12 @@ In order to build this project you first have to install:
 * [Node.js](https://nodejs.org/en/)
 * [MongoDB](https://www.mongodb.com/)
 
+
+Backend:
+*[Python for Windows](https://www.python.org/)
+*[Python for Mac](brew install python)
+* [Django]()
+
 If possible, list the actual commands you used to install these, so the reader
 can just cut-n-paste the commands and get everything setup.
 
