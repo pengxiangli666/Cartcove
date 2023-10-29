@@ -39,8 +39,10 @@ For mac users
 * Install dj-rest-auth: pip install dj-rest-auth
 * Install jangorestframework: pip install djangorestframework
 
+## Coding Style
 
-
+Backend:
+* Black
 
 ## Setup
 
