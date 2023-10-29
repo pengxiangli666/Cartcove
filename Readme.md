@@ -13,8 +13,15 @@ In order to build this project you first have to install:
 
 
 Backend:
+* [Vscode](https://code.visualstudio.com/Download)
 * [Python for Windows/Mac/Linux](https://www.python.org/downloads/)
 * [Django](https://www.djangoproject.com/download/)
+* [venv](https://docs.python.org/3/library/venv.html)
+* [django-cors-headers](https://pypi.org/project/django-cors-headers/)
+* [django-allauth](https://pypi.org/project/django-allauth/)
+* [dj-rest-auth](https://pypi.org/project/dj-rest-auth/)
+* [djangorestframework](https://www.django-rest-framework.org/)
+* 
 
 If possible, list the actual commands you used to install these, so the reader
 can just cut-n-paste the commands and get everything setup.
