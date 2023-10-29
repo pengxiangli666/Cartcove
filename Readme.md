@@ -30,7 +30,11 @@ You only need to add instructions for the OS you are using.
 
 Backend:
 For mac users
+* Install Python: brew install python
 * Install Django: pip install django
+* venv: python -m venv myenv\
+* source venv/bin/activate
+* 
 
 ## Setup
 
