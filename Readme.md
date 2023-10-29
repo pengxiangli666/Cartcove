@@ -82,4 +82,7 @@ Explain how to run the automated tests.
 
 # Authors
 
-Your names and emails
+Pengxiang li
+Jamel
+Yixuan Liu
+Zhongsheng Li	zl11@email.sc.edu
