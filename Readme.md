@@ -3,59 +3,44 @@ Welcome to the TheOverlords, a comprehensive shopping website that allows users 
 
 ## External Requirements
 
-To build an application with Django REST framework and React, you need to install the following software and libraries on your Windows PC.
+List all the stuff the reader will need to install in order to get you app to 
+run in their laptop.
 
-### Required:
+In order to build this project you first have to install:
 
-1. **Python**:
-   - Django is written in Python, so you need to have Python installed. You can download the Windows version of Python from the [official Python website](https://www.python.org/downloads/windows/).
-   - Installation command: Visit the [official Python website](https://www.python.org/downloads/windows/), download the version applicable to your system (usually the latest version), and follow the installation guide.
+* [Node.js](https://nodejs.org/en/)
+* [MongoDB](https://www.mongodb.com/)
 
-2. **pip**:
-   - The Python package manager, usually installed with Python.
 
-3. **Node.js and npm**:
-   - Required for React. You can download them from the [official Node.js website](https://nodejs.org/en/).
-   - Installation command: Visit the [official Node.js website](https://nodejs.org/en/), download the version applicable to your system, and follow the installation guide.
+Backend:
+* [Vscode](https://code.visualstudio.com/Download)
+* [Python for Windows/Mac/Linux](https://www.python.org/downloads/)
+* [Django](https://www.djangoproject.com/download/)
+* [venv](https://docs.python.org/3/library/venv.html)
+* [django-cors-headers](https://pypi.org/project/django-cors-headers/)
+* [django-allauth](https://pypi.org/project/django-allauth/)
+* [dj-rest-auth](https://pypi.org/project/dj-rest-auth/)
+* [djangorestframework](https://www.django-rest-framework.org/)
+* 
 
-4. **Django and Django REST framework**:
-   - You can install Django and Django REST framework using pip.
-   - Installation command:
-     ```powershell
-     pip install django djangorestframework
-     ```
+If possible, list the actual commands you used to install these, so the reader
+can just cut-n-paste the commands and get everything setup.
 
-### Optional:
+You only need to add instructions for the OS you are using.
 
-1. **Virtual Environment**:
-   - It¡¯s recommended to work within a Python virtual environment to manage project dependencies.
-   - Installation command:
-     ```powershell
-     pip install virtualenv
-     ```
+Backend:
+For mac users
+* Install Python: brew install python
+* Install Django: pip install django
+* venv: python -m venv myenv
+* Activate virtual environment: source venv/bin/activate
+* Install django-cors-headers: pip install django-cors-headers
+* Install django-allauth: pip install django-allauth
+* Install dj-rest-auth: pip install dj-rest-auth
+* Install jangorestframework: pip install djangorestframework
 
-2. **Database**:
-   - Django uses SQLite by default, so you don¡¯t need to install another database immediately. However, if you decide to use PostgreSQL or MySQL, you need to install the respective database and Python library.
-   - To install PostgreSQL and the corresponding Python library:
-     ```powershell
-     # Download and install PostgreSQL from: https://www.postgresql.org/download/windows/
-     pip install psycopg2
-     ```
-   - To install MySQL and the corresponding Python library:
-     ```powershell
-     # Download and install MySQL from: https://dev.mysql.com/downloads/installer/
-     pip install mysqlclient
-     ```
 
-### Installation Steps:
 
-1. Install Python, pip, and Virtual Environment.
-2. Create and activate a virtual environment (if you choose to use one).
-3. Install Django and Django REST framework.
-4. Install Node.js and npm.
-5. Depending on your project requirements, choose and install a database (if you decide not to use SQLite).
-
-After completing these steps, you should be ready to start developing your Django-React application. Remember to activate your virtual environment with the command `.\venv\Scripts\activate` (where `venv` is the name of your virtual environment) every time you start a new command prompt session to work on your project.
 
 ## Setup
 
