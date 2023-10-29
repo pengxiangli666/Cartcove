@@ -69,6 +69,10 @@ Backend:
 
 Specify the commands for a developer to run the app from the cloned repo.
 
+Backend:
+* cd project490
+* python3 manage.py runserver
+
 # Deployment
 
 Webapps need a deployment section that explains how to get it deployed on the 
