@@ -4,17 +4,43 @@ Welcome to the TheOverlords, a comprehensive shopping website that allows users 
 ## External Requirements
 
 List all the stuff the reader will need to install in order to get you app to 
-run in their laptop. For example:
+run in their laptop.
 
 In order to build this project you first have to install:
 
 * [Node.js](https://nodejs.org/en/)
 * [MongoDB](https://www.mongodb.com/)
 
+
+Backend:
+* [Vscode](https://code.visualstudio.com/Download)
+* [Python for Windows/Mac/Linux](https://www.python.org/downloads/)
+* [Django](https://www.djangoproject.com/download/)
+* [venv](https://docs.python.org/3/library/venv.html)
+* [django-cors-headers](https://pypi.org/project/django-cors-headers/)
+* [django-allauth](https://pypi.org/project/django-allauth/)
+* [dj-rest-auth](https://pypi.org/project/dj-rest-auth/)
+* [djangorestframework](https://www.django-rest-framework.org/)
+* 
+
 If possible, list the actual commands you used to install these, so the reader
 can just cut-n-paste the commands and get everything setup.
 
 You only need to add instructions for the OS you are using.
+
+Backend:
+For mac users
+* Install Python: brew install python
+* Install Django: pip install django
+* venv: python -m venv myenv
+* Activate virtual environment: source venv/bin/activate
+* Install django-cors-headers: pip install django-cors-headers
+* Install django-allauth: pip install django-allauth
+* Install dj-rest-auth: pip install dj-rest-auth
+* Install jangorestframework: pip install djangorestframework
+
+
+
 
 ## Setup
 
