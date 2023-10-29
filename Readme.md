@@ -13,9 +13,8 @@ In order to build this project you first have to install:
 
 
 Backend:
-* [Python for Windows](https://www.python.org/)
-* [Python for Mac](brew install python)
-* [Django]()
+* [Python for Windows/Mac/Linux](https://www.python.org/downloads/)
+* [Django](https://www.djangoproject.com/download/)
 
 If possible, list the actual commands you used to install these, so the reader
 can just cut-n-paste the commands and get everything setup.
