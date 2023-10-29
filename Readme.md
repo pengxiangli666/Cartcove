@@ -32,9 +32,15 @@ Backend:
 For mac users
 * Install Python: brew install python
 * Install Django: pip install django
-* venv: python -m venv myenv\
-* source venv/bin/activate
-* 
+* venv: python -m venv myenv
+* Activate virtual environment: source venv/bin/activate
+* Install django-cors-headers: pip install django-cors-headers
+* Install django-allauth: pip install django-allauth
+* Install dj-rest-auth: pip install dj-rest-auth
+* Install jangorestframework: pip install djangorestframework
+
+
+
 
 ## Setup
 
