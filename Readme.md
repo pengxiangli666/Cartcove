@@ -1,5 +1,5 @@
 # TheOverlords
-Welcome to the TheOverlords, a comprehensive shopping website that allows users to freely upload and manage product listings, complete with prices, images, and contact information. Customers can browse through the site to find and learn more about the products they are interested in.
+CartCove is a shopping website dedicated towards offering an easy shopping experience for our customers. This webapp is being developed using Django and React, with the Django REST api being used as well. We're using JavaScript for React, but we plan on upgrading that to TypeScript later on. For Django, we're using Python.
 
 ## External Requirements
 
