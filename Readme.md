@@ -56,5 +56,5 @@ Backend:
 
 * Pengxiang li pl7@email.sc.edu
 * Jamel chouarfj@email.sc.edu
-* Yixuan Liu
+* Yixuan Liu yixuanl@email.sc.edu
 * Zhongsheng Li	zl11@email.sc.edu
