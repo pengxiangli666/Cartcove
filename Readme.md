@@ -31,7 +31,7 @@ git clone https://github.com/SCCapstone/TheOverlords
 
 ## Setup
 
-Once the repo is done downloading, navigate to ~TheOverlords/CartCove/frontend/ and run this command.
+Once the repo is done downloading, navigate to ~/TheOverlords/CartCove/frontend/ and run this command.
 ```
 npm install
 ```
