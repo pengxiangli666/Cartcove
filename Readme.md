@@ -104,5 +104,5 @@ Explain how to run the automated tests.
 
 * Pengxiang li pl7@email.sc.edu
 * Jamel
-* Yixuan Liu
+* Yixuan Liu yixuanl@email.sc.edu
 * Zhongsheng Li	zl11@email.sc.edu
