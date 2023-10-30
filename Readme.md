@@ -1,5 +1,10 @@
 # TheOverlords
-CartCove is a shopping website dedicated towards offering an easy shopping experience for our customers. This webapp is being developed using Django and React, with the Django REST api being used as well. We're using JavaScript for React, but we plan on upgrading that to TypeScript later on. For Django, we're using Python.
+CartCove is a shopping website dedicated towards offering an easy shopping experience for our customers.
+
+This webapp is being developed using Django and React, with the Django REST api being used as well. We're also utilizing Babel, Webpack, and Bootstrap.
+
+For React, we're using JavaScript.
+For Django, we're using Python.
 
 ## External Requirements
 
