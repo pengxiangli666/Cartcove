@@ -13,9 +13,9 @@ export default class App extends Component {
           <h1>CartCove</h1>
         </div>
 
-            <div className="text">
-                <h1>"Hello World!" - Jamel</h1>
-                <h1>"Hello World!" - Zhongsheng</h1>
+        <div className="text">
+          <h1>"Hello World!" - Jamel</h1>
+          <h1>"Hello World!" - Zhongsheng</h1>
         </div>
       </>
     );
