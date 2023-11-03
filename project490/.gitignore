@@ -4,3 +4,10 @@ __pycache__/
 *.log
 .DS_Store
 
+# 字节编译/优化/DLL 文件
+__pycache__/
+*.py[cod]
+
+# SQLite 数据库文件（如果使用SQLite）
+*.sqlite3
+

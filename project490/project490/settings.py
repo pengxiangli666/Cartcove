@@ -40,12 +40,14 @@ INSTALLED_APPS = [
     "rest_framework",
     "Custom",
     "Cartcove",
+    "django.contrib.sites",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "allauth.socialaccount",
 ]
 
 MIDDLEWARE = [
@@ -150,3 +152,8 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 
 CORS_ORIGIN_WHITELIST = ["http://localhost:3000"]
+
+SIZE_ID = 1
+
+# just for test regist function
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
