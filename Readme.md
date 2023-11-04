@@ -1,108 +1,65 @@
 # TheOverlords
-Welcome to the TheOverlords, a comprehensive shopping website that allows users to freely upload and manage product listings, complete with prices, images, and contact information. Customers can browse through the site to find and learn more about the products they are interested in.
+CartCove is a shopping website dedicated towards offering an easy shopping experience for our customers.
+
+This webapp is being developed using Django and React, with the Django REST api being used as well. We're also utilizing Babel, Webpack, and Bootstrap.
+
+For React, we're using JavaScript.
+For Django, we're using Python.
 
 ## External Requirements
 
-List all the stuff the reader will need to install in order to get you app to 
-run in their laptop.
-
 In order to build this project you first have to install:
 
+* [Python](https://https://www.python.org/downloads/)
 * [Node.js](https://nodejs.org/en/)
-* [MongoDB](https://www.mongodb.com/)
 
+For installing Django and the REST framework, run the following commands.
+```
+pip install Django==4.2.6
+pip install djangorestframework
+```
 
-Backend:
-* [Vscode](https://code.visualstudio.com/Download)
-* [Python for Windows/Mac/Linux](https://www.python.org/downloads/)
-* [Black](https://black.readthedocs.io/en/stable/the_black_code_style/current_style.html)
-* [Django](https://www.djangoproject.com/download/)
-* [venv](https://docs.python.org/3/library/venv.html)
-* [django-cors-headers](https://pypi.org/project/django-cors-headers/)
-* [django-allauth](https://pypi.org/project/django-allauth/)
-* [dj-rest-auth](https://pypi.org/project/dj-rest-auth/)
-* [djangorestframework](https://www.django-rest-framework.org/)
-* 
+To install React and the other related libraries, run the following command.
+```
+npm i react react-dom react-router-dom
+```
 
-If possible, list the actual commands you used to install these, so the reader
-can just cut-n-paste the commands and get everything setup.
-
-You only need to add instructions for the OS you are using.
-
-Backend:
-For mac users
-* Install Python: brew install python
-* Install Django: pip install django
-* Install Black: pip install black
-* Auto check code style: pip install pre-commit
-* Run auto check(Black): pre-commit install
-* venv: python -m venv myenv
-* Activate virtual environment: source venv/bin/activate
-* Install django-cors-headers: pip install django-cors-headers
-* Install django-allauth: pip install django-allauth
-* Install dj-rest-auth: pip install dj-rest-auth
-* Install jangorestframework: pip install djangorestframework
-
-## Coding Style
-
-Backend:
-* Black
-
-## .gitignore
-
-Backend:
-* There is a .gitignore file in project490
+Once that is done, clone the repository with the following command.
+```
+git clone https://github.com/SCCapstone/TheOverlords
+```
 
 ## Setup
 
-Here you list all the one-time things the developer needs to do after cloning
-your repo. Sometimes there is no need for this section, but some apps require
-some first-time configuration from the developer, for example: setting up a
-database for running your webapp locally.
-
-Backend:
- First, create a virtual environment and then download the necessary
-  apps for the backend (you can find the list of applications above).
-  You need to download everything.
+Once the repo is done downloading, navigate to ~/TheOverlords/CartCove/frontend/ and run this command.
+```
+npm install
+```
 
 ## Running
 
-Specify the commands for a developer to run the app from the cloned repo.
+To run this site, first open up two terminals. In the first one, navigate to ~/CartCove and run the following command.
+```
+python .\manage.py runserver
+```
+Then, use the other terminal and navigate to ~/CartCove/frontend/ and run the following command.
+```
+npm run dev
+```
+
+After that, open up a browser and visit http://127.0.0.1:8000/
+
+## Coding Style
+
+Frontend:
+* [Prettier](https://prettier.io/)
 
 Backend:
-* cd project490
-* python3 manage.py runserver
-
-# Deployment
-
-Webapps need a deployment section that explains how to get it deployed on the 
-Internet. These should be detailed enough so anyone can re-deploy if needed
-. Note that you **do not put passwords in git**. 
-
-Mobile apps will also sometimes need some instructions on how to build a
-"release" version, maybe how to sign it, and how to run that binary in an
-emulator or in a physical phone.
-
-# Testing
-
-In 492 you will write automated tests. When you do you will need to add a 
-section that explains how to run them.
-
-The unit tests are in `/test/unit`.
-
-The behavioral tests are in `/test/casper/`.
-
-## Testing Technology
-
-In some cases you need to install test runners, etc. Explain how.
-
-## Running Tests
-
-Explain how to run the automated tests.
+* [Black](https://black.readthedocs.io/en/stable/)
 
 # Authors
 
-* Pengxiang li
-* Jamel
-* Yixuan Liu
+* Pengxiang li pl7@email.sc.edu
+* Jamel chouarfj@email.sc.edu
+* Yixuan Liu yixuanl@email.sc.edu
 * Zhongsheng Li	zl11@email.sc.edu
