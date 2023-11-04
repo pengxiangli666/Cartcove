@@ -5,7 +5,7 @@ from .models import Account
 
 # Create your views here.
 
+
 class AccountView(generics.CreateAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
-    
