@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +28,16 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
+##
+
+# Add this if your static files are stored in the 'static' directory of your Django app
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, '../frontend/static/frontend/main.js')]
+
+# Add this to collect static files to a common location
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+##
 
 # Application definition
 
