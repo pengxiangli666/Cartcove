@@ -41,6 +41,7 @@ def add_to_cart(request, product_id):
     # 重定向到购物车页面或其他合适的页面
     return redirect("view_cart_items")
 
+
 @login_required
 def remove_from_cart(request, product_id):
     # 先检查这个产品是否存在
@@ -56,7 +57,8 @@ def remove_from_cart(request, product_id):
         # 例如： return render(request, 'cart/error.html', {'message': '商品不存在于购物车中。'})
         pass
 
-    return redirect('view_cart_items')
+    return redirect("view_cart_items")
+
 
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
