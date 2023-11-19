@@ -1,5 +1,5 @@
 """
-URL configuration for project490 project.
+URL configuration for CartCove project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -15,14 +15,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from django.urls import path, include
-from django.urls import include, path
-
+from django.urls import path, include, re_path
+from django.views.generic import TemplateView
 
 urlpatterns = [
-    path("auth/", include("dj_rest_auth.urls")),
-    path("auth/registration/", include("dj_rest_auth.registration.urls")),
-    path("admin/", admin.site.urls),
-    path("cart/", include("cart.urls")),
+    path('admin/', admin.site.urls),
+    path('api/', include('api.urls')),
+    path('', include('frontend.urls')),
+    re_path(r'^.*', TemplateView.as_view(template_name='frontend\index.html'))
 ]

@@ -1,26 +1,23 @@
-import "./index.scss";
-import { Button, Input, Dropdown, Space,message } from "antd";
-import { ShoppingCartOutlined, DownOutlined } from "@ant-design/icons";
-import { Link, useNavigate,useLocation } from "react-router-dom";
+import React from "react";
+import "./index.css";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-const { Search } = Input;
-
+import { Button, Dropdown, Form } from "react-bootstrap";
 export default function Header() {
+  console.log(Button, "Button");
+
   const navigateTo = useNavigate();
   const location = useLocation();
   const [useName, setUseName] = useState("");
-  const onSearch = (value: string) => {
-
-  };
   const setting = () => {
     navigateTo("/PersonalSettings");
   };
-  const logOut=()=>{
-    window.localStorage.removeItem('userName')
-    setUseName('');
-    message.success("Log out successfully");
+  const logOut = () => {
+    window.localStorage.removeItem("userName");
+    setUseName("");
+    // message.success("Log out successfully");
     navigateTo("/");
-  }
+  };
   const items = [
     {
       key: "1",
@@ -40,8 +37,8 @@ export default function Header() {
     },
   ];
   useEffect(() => {
-    console.log(location.pathname,'location.pathname');
-    
+    console.log(location.pathname, "location.pathname");
+
     const localUserName: string = window.localStorage.getItem("userName") || "";
     setUseName(localUserName);
   }, [location.pathname]);
@@ -49,36 +46,29 @@ export default function Header() {
     <header className="header">
       <div>Cartcove</div>
       <div className="search">
-        <Search
+        <Form.Control
+          type="text"
+          aria-label="Disabled input example"
           placeholder="input search text"
-          allowClear
-          enterButton="Search"
-          size="large"
-          onSearch={onSearch}
         />
       </div>
       <div>
-        <Button shape="round">
-          <ShoppingCartOutlined />
-          My Bag
-        </Button>
+        <Button variant="primary">My Bag</Button>
       </div>
       {useName ? (
-        <Dropdown
-          menu={{
-            items,
-          }}
-          placement="bottom"
-        >
-          <a onClick={(e) => e.preventDefault()} style={{color:'#1677ff',cursor:'pointer'}}>
-            <Space>
-              {useName}
-              <DownOutlined />
-            </Space>
-          </a>
+        <Dropdown>
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+            {useName}
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            {items.map((res) => {
+              return <Dropdown.Item key={res.key}>{res.label}</Dropdown.Item>;
+            })}
+          </Dropdown.Menu>
         </Dropdown>
       ) : (
-        <Button shape="round">
+        <Button variant="light">
           <Link to="/SignIn">Sign In</Link>
         </Button>
       )}

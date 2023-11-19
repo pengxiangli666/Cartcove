@@ -1,9 +1,8 @@
 import React from "react";
-import type { CollapseProps } from "antd";
-import { Collapse, Switch, Breadcrumb } from "antd";
-import { HomeOutlined } from "@ant-design/icons";
-
-const items: CollapseProps["items"] = [
+import Breadcrumb from "react-bootstrap/Breadcrumb";
+import Accordion from "react-bootstrap/Accordion";
+import Form from "react-bootstrap/Form";
+const items = [
   {
     key: "1",
     label: "Privacy Settings",
@@ -11,11 +10,19 @@ const items: CollapseProps["items"] = [
       <ul>
         <li>
           Records search behavior logs
-          <Switch style={{ marginLeft: "10px" }} defaultChecked={false} />
+          <Form.Check // prettier-ignore
+            type="switch"
+            id="custom-switch"
+            label="Check this switch"
+          />
         </li>
         <li>
           Display search history terms
-          <Switch defaultChecked style={{ marginLeft: "10px" }} />
+          <Form.Check // prettier-ignore
+            type="switch"
+            id="custom-switch"
+            label="Check this switch"
+          />
         </li>
       </ul>
     ),
@@ -27,11 +34,19 @@ const items: CollapseProps["items"] = [
       <ul>
         <li>
           Silent mode
-          <Switch style={{ marginLeft: "10px" }} defaultChecked={false} />
+          <Form.Check // prettier-ignore
+            type="switch"
+            id="custom-switch"
+            label="Check this switch"
+          />
         </li>
         <li>
           Audio prompt
-          <Switch defaultChecked style={{ marginLeft: "10px" }} />
+          <Form.Check // prettier-ignore
+            type="switch"
+            id="custom-switch"
+            label="Check this switch"
+          />
         </li>
       </ul>
     ),
@@ -43,11 +58,19 @@ const items: CollapseProps["items"] = [
       <ul>
         <li>
           firewall
-          <Switch style={{ marginLeft: "10px" }} defaultChecked={false} />
+          <Form.Check // prettier-ignore
+            type="switch"
+            id="custom-switch"
+            label="Check this switch"
+          />
         </li>
         <li>
           Operating system and application updates
-          <Switch defaultChecked style={{ marginLeft: "10px" }} />
+          <Form.Check // prettier-ignore
+            type="switch"
+            id="custom-switch"
+            label="Check this switch"
+          />
         </li>
       </ul>
     ),
@@ -61,24 +84,21 @@ const PersonalSettings: React.FC = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <Breadcrumb
-        style={{ marginBottom: "10px" }}
-        items={[
-          {
-            href: "/",
-            title: (
-              <>
-                <HomeOutlined />&nbsp;
-                Home
-              </>
-            ),
-          },
-          {
-            title: "PersonalSettings",
-          },
-        ]}
-      />
-      <Collapse items={items} defaultActiveKey={["1"]} onChange={onChange} />
+      <Breadcrumb style={{ marginBottom: "10px" }}>
+        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+        <Breadcrumb.Item href="#">PersonalSettings</Breadcrumb.Item>
+      </Breadcrumb>
+
+      <Accordion defaultActiveKey="0">
+        {items.map((res) => {
+          return (
+            <Accordion.Item eventKey={res.key}>
+              <Accordion.Header>{res.label}</Accordion.Header>
+              <Accordion.Body>{res.children}</Accordion.Body>
+            </Accordion.Item>
+          );
+        })}
+      </Accordion>
     </div>
   );
 };

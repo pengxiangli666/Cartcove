@@ -1,0 +1,14 @@
+.SignIn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 65px);
+}
+.SignIn .login-form {
+  width: 300px;
+}
+.SignIn .login-form .login-form-button {
+  display: block;
+  width: 300px;
+  margin: 0 auto;
+}

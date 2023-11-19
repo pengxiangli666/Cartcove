@@ -1,4 +1,9 @@
-function Main() {
-  return <div>Home</div>;
+import React from "react";
+function Home() {
+  return (
+    <div>
+      Home1
+    </div>
+  );
 }
-export default Main;
+export default Home;
