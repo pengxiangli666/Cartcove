@@ -16,6 +16,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
+from django.shortcuts import render
+from .forms import SearchForm
+
 
 
 @login_required
@@ -43,7 +46,7 @@ def add_to_cart(request, product_id):
 
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
-def view_cart_items(request):
+def view_cart(request):
     cart_items = CartItem.objects.filter(user=request.user)
     serializer = CartItemSerializer(cart_items, many=True)
     return Response(serializer.data)
@@ -63,3 +66,14 @@ def create_product(request):
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+
+def search_view(request):
+    form = SearchForm(request.GET or None)
+    results = None
+
+    if form.is_valid():
+        query = form.cleaned_data['query']
+        results = Product.objects.filter(name__icontains=query)  # find products using product's name 
+
+    return render(request, 'search_results.html', {'form': form, 'results': results})
