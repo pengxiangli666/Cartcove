@@ -1,22 +1,15 @@
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
-from .models import Product, CartItem
-from .models import Product
-from django.views.decorators.http import require_http_methods
-import json
+from django.views.decorators.http import require_POST, require_http_methods
 from rest_framework import viewsets
-from .models import Product
-from .serializers import ProductSerializer
-from django.shortcuts import redirect
-from .models import CartItem
-from .serializers import CartItemSerializer
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import api_view, permission_classes
-from django.shortcuts import redirect, get_object_or_404
+import json
+
+from .models import Product, CartItem
+from .serializers import ProductSerializer, CartItemSerializer
 
 
 @login_required
@@ -25,7 +18,6 @@ def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     quantity = int(request.POST.get("quantity", 1))
 
-    # 确保数量有效
     if quantity <= 0:
         quantity = 1
 
@@ -34,27 +26,20 @@ def add_to_cart(request, product_id):
     )
 
     if not created:
-        # 如果购物车中已存在此商品，更新数量
         cart_item.quantity += quantity
         cart_item.save()
 
-    # 重定向到购物车页面或其他合适的页面
     return redirect("view_cart_items")
 
 
 @login_required
 def remove_from_cart(request, product_id):
-    # 先检查这个产品是否存在
     product = get_object_or_404(Product, id=product_id)
 
-    # 然后检查用户的购物车中是否有这个产品
     try:
         cart_item = CartItem.objects.get(user=request.user, product=product)
         cart_item.delete()
-        # 可以添加一些消息来通知用户商品已被删除
     except CartItem.DoesNotExist:
-        # 如果没有找到，可以重定向到错误页面或显示一个错误消息
-        # 例如： return render(request, 'cart/error.html', {'message': '商品不存在于购物车中。'})
         pass
 
     return redirect("view_cart_items")
@@ -82,3 +67,12 @@ def create_product(request):
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+
+class CartItemViewSet(viewsets.ModelViewSet):
+    queryset = CartItem.objects.all()
+    serializer_class = CartItemSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return self.queryset.filter(user=self.request.user)
