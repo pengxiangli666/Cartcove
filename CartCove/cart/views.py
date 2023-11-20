@@ -16,6 +16,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
+from django.shortcuts import redirect, get_object_or_404
 
 
 @login_required
@@ -38,7 +39,25 @@ def add_to_cart(request, product_id):
         cart_item.save()
 
     # 重定向到购物车页面或其他合适的页面
-    return redirect("cart_view")
+    return redirect("view_cart_items")
+
+
+@login_required
+def remove_from_cart(request, product_id):
+    # 先检查这个产品是否存在
+    product = get_object_or_404(Product, id=product_id)
+
+    # 然后检查用户的购物车中是否有这个产品
+    try:
+        cart_item = CartItem.objects.get(user=request.user, product=product)
+        cart_item.delete()
+        # 可以添加一些消息来通知用户商品已被删除
+    except CartItem.DoesNotExist:
+        # 如果没有找到，可以重定向到错误页面或显示一个错误消息
+        # 例如： return render(request, 'cart/error.html', {'message': '商品不存在于购物车中。'})
+        pass
+
+    return redirect("view_cart_items")
 
 
 @api_view(["GET"])
