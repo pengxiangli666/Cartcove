@@ -2,10 +2,12 @@ from rest_framework import serializers
 from django.shortcuts import get_object_or_404
 from .models import Product, CartItem
 
+
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ["id", "name", "price", "image"]
+
 
 class CartItemSerializer(serializers.ModelSerializer):
     product_name = serializers.ReadOnlyField(source="product.name")
@@ -15,6 +17,7 @@ class CartItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartItem
         fields = ["id", "product_name", "product_price", "product_image", "quantity"]
+
 
 class AddToCartSerializer(serializers.Serializer):
     product_id = serializers.IntegerField()
@@ -26,9 +29,9 @@ class AddToCartSerializer(serializers.Serializer):
         return value
 
     def create(self, validated_data):
-        user = self.context['request'].user
-        product_id = validated_data.get('product_id')
-        quantity = validated_data.get('quantity')
+        user = self.context["request"].user
+        product_id = validated_data.get("product_id")
+        quantity = validated_data.get("quantity")
 
         product = get_object_or_404(Product, id=product_id)
 
@@ -42,11 +45,12 @@ class AddToCartSerializer(serializers.Serializer):
 
         return cart_item
 
+
 class RemoveFromCartSerializer(serializers.Serializer):
     product_id = serializers.IntegerField()
 
     def validate_product_id(self, value):
-        user = self.context['request'].user
+        user = self.context["request"].user
         if not Product.objects.filter(id=value).exists():
             raise serializers.ValidationError("无效的产品ID")
         if not CartItem.objects.filter(user=user, product_id=value).exists():

@@ -11,6 +11,7 @@ import json
 from .models import Product, CartItem
 from .serializers import ProductSerializer, CartItemSerializer
 
+
 @login_required
 # @require_POST
 def add_to_cart(request, product_id):
@@ -30,6 +31,7 @@ def add_to_cart(request, product_id):
 
     return redirect("view_cart_items")
 
+
 @login_required
 def remove_from_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
@@ -42,12 +44,14 @@ def remove_from_cart(request, product_id):
 
     return redirect("view_cart_items")
 
+
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def view_cart_items(request):
     cart_items = CartItem.objects.filter(user=request.user)
     serializer = CartItemSerializer(cart_items, many=True)
     return Response(serializer.data)
+
 
 def create_product(request):
     try:
@@ -59,9 +63,11 @@ def create_product(request):
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
 
+
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
 
 class CartItemViewSet(viewsets.ModelViewSet):
     queryset = CartItem.objects.all()
