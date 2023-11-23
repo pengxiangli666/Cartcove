@@ -1,12 +1,24 @@
 from rest_framework import serializers
 from django.shortcuts import get_object_or_404
 from .models import Product, CartItem
+from .models import Product
+from django.conf import settings
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    image_url = serializers.SerializerMethodField()
+
     class Meta:
         model = Product
-        fields = ["id", "name", "price", "image"]
+        fields = ["id", "name", "price", "image", "image_url"]
+
+    def get_image_url(self, product):
+        request = self.context.get("request")
+        if product.image and hasattr(product.image, "url"):
+            return request.build_absolute_uri(
+                settings.MEDIA_URL + str(product.image.url)
+            )
+        return None
 
 
 class CartItemSerializer(serializers.ModelSerializer):

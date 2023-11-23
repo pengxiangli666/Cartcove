@@ -7,11 +7,13 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
+
 from cart.views import (
     ProductViewSet,
     CartItemViewSet,
     add_to_cart,
     remove_from_cart,
+    search_products,
     view_cart_items,
 )
 
@@ -42,6 +44,7 @@ urlpatterns = [
     path("auth/registration/", include("dj_rest_auth.registration.urls")),  # 注册相关的 URL
     path("cart/", include("cart.urls")),  # 购物车应用的 URL
     # 你现有的API路径
+    path("api/search/", search_products, name="search_products"),
     path("api/add-to-cart/<int:product_id>/", add_to_cart, name="add_to_cart"),
     path("api/cart-items/", view_cart_items, name="view_cart_items"),
     path(
