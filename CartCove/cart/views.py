@@ -90,6 +90,6 @@ def search_products(request):
     else:
         products = Product.objects.all()
 
-    # 使用 DRF 序列化器
+    # Using the DRF Serializer
     serializer = ProductSerializer(products, many=True, context={"request": request})
     return Response(serializer.data)

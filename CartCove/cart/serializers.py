@@ -37,7 +37,7 @@ class AddToCartSerializer(serializers.Serializer):
 
     def validate_product_id(self, value):
         if not Product.objects.filter(id=value).exists():
-            raise serializers.ValidationError("无效的产品ID")
+            raise serializers.ValidationError("Ineffective productsID")
         return value
 
     def create(self, validated_data):
@@ -64,7 +64,9 @@ class RemoveFromCartSerializer(serializers.Serializer):
     def validate_product_id(self, value):
         user = self.context["request"].user
         if not Product.objects.filter(id=value).exists():
-            raise serializers.ValidationError("无效的产品ID")
+            raise serializers.ValidationError("Ineffective productsID")
         if not CartItem.objects.filter(user=user, product_id=value).exists():
-            raise serializers.ValidationError("购物车中不存在该产品")
+            raise serializers.ValidationError(
+                "This product does not exist in the shopping cart"
+            )
         return value
