@@ -1,5 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from .views import search_products
 from .views import (
     ProductViewSet,
     CartItemViewSet,
@@ -22,5 +23,6 @@ urlpatterns = [
         remove_from_cart,
         name="remove_from_cart",
     ),
+    path("api/search/", search_products, name="search_products"),
     path("api/", include(router.urls)),
 ]
