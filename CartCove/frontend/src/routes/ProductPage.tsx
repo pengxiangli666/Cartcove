@@ -7,13 +7,8 @@ function HomePage() {
     <>
       <Navigation />
 
-      <div className="homeRecommended">
-        <ProductPreview />
-        <ProductPreview />
-        <ProductPreview />
-        <ProductPreview />
-        <ProductPreview />
-      </div>
+      <h1>This is a product page!</h1>
+      <ProductPreview />
     </>
   );
 }
