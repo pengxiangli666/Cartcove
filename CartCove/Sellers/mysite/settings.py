@@ -24,9 +24,21 @@ SECRET_KEY = 'django-insecure-i024@cz$or&n$jm95qi+igy*qq%6_k=npb-2b5^-umj81ydz@8
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+ 
+# CORS_ALLOW_ALL_ORIGINS = True  # 
+# CORS_ALLOWED_ORIGINS = [
+#     "http://127.0.0.1:8000",  # 
+# ]
 
-ALLOWED_HOSTS = []
+CORS_ALLOW_CREDENTIALS = True
 
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:8000",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://127.0.0.1:8000",
+]
 
 # Application definition
 
@@ -40,12 +52,14 @@ INSTALLED_APPS = [
 	'rest_framework', # add the rest framework
 	'polls', # add the polls app,
 	'rest_framework_swagger', # Swagger
-	'drf_yasg'                # Yet Another Swagger generator
+	'drf_yasg',                # Yet Another Swagger generator
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

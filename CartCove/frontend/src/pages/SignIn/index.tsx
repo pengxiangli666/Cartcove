@@ -1,33 +1,35 @@
 import React from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
+import Cookies from 'js-cookie';
 import "./index.css";
 
 const SignIn: React.FC = () => {
   const [formData, setFormData] = useState({
     username: "",
-    email: "",
     password: "",
   });
 
   const [errors, setErrors] = useState({
     username: "",
-    email: "",
     password: "",
   });
+  const [show, setShow] = useState(false);
+  const [variant, setVariant] = useState("");
+  const [message, setMessage] = useState("");
   const navigateTo = useNavigate();
   const onFinish = (e: any) => {
     e.preventDefault();
 
-    // 检查表单字段是否为空
     let hasErrors = false;
     const newErrors = {
       username: "",
       password: "",
     };
-    console.log(formData,'formData');
-    
+    console.log(formData, "formData");
+
     if (formData.username.trim() === "") {
       newErrors.username = "username cannot be empty";
       hasErrors = true;
@@ -40,9 +42,29 @@ const SignIn: React.FC = () => {
       setErrors(newErrors);
       return;
     }
-    // message.success("Successful landing");
-    window.localStorage.setItem("userName", formData.username);
-    navigateTo("/");
+    axios
+      .post("http://127.0.0.1:8001/api/customer/login", formData)
+      .then((response:any) => {
+        // handle success
+        setShow(true);
+        setVariant("success");
+        setMessage("Registered successfully");
+        window.localStorage.setItem("userName", formData.username);
+        console.log(response, "response");
+        Cookies.set('Token', response.data.token);
+        setTimeout(() => {
+          navigateTo("/");
+        }, 1000);
+      })
+      .catch(function (error) {
+        // handle error
+        setShow(true);
+        setVariant("danger");
+        setMessage(JSON.stringify(error.response.data, null, 2));
+      })
+      .finally(function () {
+        // always executed
+      });
   };
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -53,6 +75,20 @@ const SignIn: React.FC = () => {
   };
   return (
     <div className="SignIn">
+      <Alert
+        show={show}
+        variant={variant}
+        style={{
+          position: "fixed",
+          top: "10px",
+          left: "50%",
+          transform: "translateX(-50%)",
+        }}
+        onClose={() => setShow(false)}
+        dismissible
+      >
+        <p>{message}</p>
+      </Alert>
       <Form name="normal_login" className="login-form" onSubmit={onFinish}>
         <Form.Group controlId="username">
           <Form.Control

@@ -13,6 +13,9 @@ import Header from "./components/header";
 import PersonalSettings from "./pages/PersonalSettings";
 import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
+import Detail from "./pages/Detail";
+
+
 import "../static/css/index.css";
 
 
@@ -32,6 +35,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/" element={<Home></Home>} />
         <Route path="/SignIn" element={<SignIn></SignIn>} />
         <Route path="/Register" element={<Register></Register>} />
+        <Route path="/Detail" element={<Detail></Detail>} />
         <Route
           path="/PersonalSettings"
           element={<PersonalSettings></PersonalSettings>}

@@ -1,7 +1,8 @@
 import React from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 import "./index.css";
 
 const Register: React.FC = () => {
@@ -10,20 +11,20 @@ const Register: React.FC = () => {
     username: "",
     email: "",
     password: "",
-    address: "",
+    hint: "",
+    hint_answer: "",
   });
-
   const [errors, setErrors] = useState({
     username: "",
-    email: "",
     password: "",
-    address: "",
   });
+  const [show, setShow] = useState(false);
+  const [variant, setVariant] = useState("");
+  const [message, setMessage] = useState("");
   const onFinish = (e: any) => {
     // message.success("Registered successfully");
     e.preventDefault();
 
-    // 检查表单字段是否为空
     let hasErrors = false;
     const newErrors = {
       username: "",
@@ -43,7 +44,26 @@ const Register: React.FC = () => {
       setErrors(newErrors);
       return;
     }
-    navigateTo("/SignIn");
+    axios
+      .post("http://127.0.0.1:8001/api/customer", formData)
+      .then(function (response) {
+        // handle success
+        setShow(true);
+        setVariant("success");
+        setMessage("Registered successfully");
+        setTimeout(() => {
+          navigateTo("/SignIn");
+        }, 1000);
+      })
+      .catch(function (error) {
+        // handle error
+        setShow(true);
+        setVariant("danger");
+        setMessage(JSON.stringify(error.response.data, null, 2));
+      })
+      .finally(function () {
+        // always executed
+      });
   };
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -55,6 +75,20 @@ const Register: React.FC = () => {
 
   return (
     <div className="Register">
+      <Alert
+        show={show}
+        variant={variant}
+        style={{
+          position: "fixed",
+          top: "10px",
+          left: "50%",
+          transform: "translateX(-50%)",
+        }}
+        onClose={() => setShow(false)}
+        dismissible
+      >
+        <p>{message}</p>
+      </Alert>
       <Form onSubmit={onFinish} name="normal_login" className="login-form">
         <Form.Group controlId="username">
           <Form.Label column sm="2">
@@ -104,20 +138,36 @@ const Register: React.FC = () => {
             {errors.email}
           </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group controlId="Shipping Address">
+        <Form.Group controlId="hint">
           <Form.Label column sm="4">
-            Shipping Address
+            hint
           </Form.Label>
           <Form.Control
-            type="address"
-            name="address"
-            value={formData.address}
+            type="text"
+            name="hint"
+            value={formData.hint}
             onChange={handleChange}
-            isInvalid={!!errors.address}
-            placeholder="address"
+            isInvalid={!!errors.hint}
+            placeholder="hint"
           />
           <Form.Control.Feedback type="invalid">
-            {errors.address}
+            {errors.hint}
+          </Form.Control.Feedback>
+        </Form.Group>
+        <Form.Group controlId="hint_answer">
+          <Form.Label column sm="4">
+            hint_answer
+          </Form.Label>
+          <Form.Control
+            type="text"
+            name="hint_answer"
+            value={formData.hint_answer}
+            onChange={handleChange}
+            isInvalid={!!errors.hint_answer}
+            placeholder="hint_answer"
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.hint_answer}
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group>

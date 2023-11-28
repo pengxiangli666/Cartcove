@@ -3,6 +3,10 @@ import "./index.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button, Dropdown, Form } from "react-bootstrap";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
 export default function Header() {
   console.log(Button, "Button");
 
@@ -44,7 +48,25 @@ export default function Header() {
   }, [location.pathname]);
   return (
     <header className="header">
-      <div>Cartcove</div>
+      <Navbar expand="lg">
+        <Container>
+          <Navbar.Brand href="/">Cartcove</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link href="#home">Fresh Grocery</Nav.Link>
+              <Nav.Link href="#link">Fast Food</Nav.Link>
+              <Nav.Link href="#link">Drinks</Nav.Link>
+              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                <NavDropdown.Item href="#action/3.1">Homes</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">Tools</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.3">Makeup</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.4">Health</NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
       <div className="search">
         <Form.Control
           type="text"

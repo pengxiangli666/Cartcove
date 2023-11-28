@@ -1,17 +1,17 @@
-.Register {
+.PersonalSettings {
   display: flex;
   justify-content: center;
   align-items: center;
   height: calc(100vh - 65px);
 }
-.Register .login-form {
+.PersonalSettings .login-form {
   width: 500px;
 }
-.Register .login-form .login-form-button {
+.PersonalSettings .login-form .login-form-button {
   display: block;
   width: 500px;
   margin: 0 auto;
 }
-.Register p {
+.PersonalSettings p {
   margin: 0;
 }

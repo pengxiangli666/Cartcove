@@ -21,6 +21,7 @@ class JWTAuthentication(BaseBackend):
 		# Extract the JWT from the Authorization header
 		print(request.headers)
 		jwt_token = request.COOKIES.get("Token")
+		print(jwt_token)
 		if jwt_token is None:
 			return None
 
