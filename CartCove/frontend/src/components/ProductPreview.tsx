@@ -1,12 +1,16 @@
 import React from "react";
 
-function ProductPreview() {
+function ProductPreview({ name = "Product", imagePath = "Image" }) {
   return (
     <>
-      <div className="ProductPreview">
-        <img />
-        <h1> Product </h1>
-      </div>
+      <a className="productPreview" href={"product/" + imagePath}>
+        <img
+          src={"/static/images/" + imagePath + ".png"}
+          width="100"
+          height="100"
+        />
+        <h1> {name} </h1>
+      </a>
     </>
   );
 }

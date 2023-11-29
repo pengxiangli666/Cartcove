@@ -8,11 +8,11 @@ function HomePage() {
       <Navigation />
 
       <div className="homeRecommended">
-        <ProductPreview />
-        <ProductPreview />
-        <ProductPreview />
-        <ProductPreview />
-        <ProductPreview />
+        <ProductPreview name="Butter" imagePath="Butter" />
+        <ProductPreview name="Cereal" imagePath="Cereal" />
+        <ProductPreview name="Chocolate" imagePath="Chocolate" />
+        <ProductPreview name="Eggs" imagePath="Eggs" />
+        <ProductPreview name="Milk" imagePath="Milk" />
       </div>
     </>
   );

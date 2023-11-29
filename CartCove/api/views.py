@@ -6,6 +6,7 @@ from .models import Account
 
 # Create your views here.
 
+
 def custom404(request, exception=None):
     return JsonResponse({
         'status_code': 404,
@@ -15,4 +16,3 @@ def custom404(request, exception=None):
 class AccountView(generics.CreateAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
-    

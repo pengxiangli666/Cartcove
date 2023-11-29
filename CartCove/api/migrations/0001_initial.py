@@ -4,20 +4,32 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Account',
+            name="Account",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('username', models.CharField(default='account', max_length=16, unique=True)),
-                ('password', models.CharField(default='password', max_length=16, unique=True)),
-                ('seller', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "username",
+                    models.CharField(default="account", max_length=16, unique=True),
+                ),
+                (
+                    "password",
+                    models.CharField(default="password", max_length=16, unique=True),
+                ),
+                ("seller", models.BooleanField(default=False)),
             ],
         ),
     ]

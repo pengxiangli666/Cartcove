@@ -207,3 +207,6 @@ sketch
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,react,django
 CartCove/frontend/static/frontend/main.js
 CartCove/frontend/static/frontend/main.js.LICENSE.txt
+
+# JavaScript
+main.js

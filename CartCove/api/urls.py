@@ -4,6 +4,4 @@ from .views import custom404
 
 handler404 = custom404
 
-urlpatterns = [
-    path('', AccountView.as_view())
-]
+urlpatterns = [path("", AccountView.as_view())]
