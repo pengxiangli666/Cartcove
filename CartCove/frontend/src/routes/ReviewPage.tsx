@@ -1,6 +1,5 @@
 import React from "react";
 import Navigation from "../components/Navigation";
-import ProductPageReview from "../components/ProductPageReview";
 
 function getProductID(ID = "") {
   let position = 0;
@@ -14,16 +13,14 @@ function getProductID(ID = "") {
   return ID.substring(position + 1);
 }
 
-function ProductPage() {
+function ReviewPage() {
   let productName = getProductID(window.location.pathname);
 
   return (
     <>
       <Navigation />
 
-      <div className="productPage">
-        <img src={"/static/images/" + productName + ".png"} />
-
+      <div className="reviewPage">
         <div className="productInfo">
           <h1>{productName}</h1>
           <p>
@@ -35,10 +32,8 @@ function ProductPage() {
           </p>
         </div>
       </div>
-
-      <ProductPageReview productName={productName} />
     </>
   );
 }
 
-export default ProductPage;
+export default ReviewPage;

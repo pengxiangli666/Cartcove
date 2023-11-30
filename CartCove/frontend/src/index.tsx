@@ -5,6 +5,7 @@ import "../static/css/index.css";
 import HomePage from "./routes/HomePage";
 import NotFound from "./routes/NotFound";
 import ProductPage from "./routes/ProductPage";
+import ReviewPage from "./routes/ReviewPage";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,11 @@ const router = createBrowserRouter([
   {
     path: "/product/*",
     element: <ProductPage />,
+    errorElement: <NotFound />,
+  },
+  {
+    path: "/reviews/*",
+    element: <ReviewPage />,
     errorElement: <NotFound />,
   },
 ]);
