@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
@@ -7,13 +8,17 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 import json
+<<<<<<< HEAD
 
+=======
+from .models import Product
+>>>>>>> e2a45cfc5baa7bc091c4e748374f1d2e2f1506c5
 from .models import Product, CartItem
 from .serializers import ProductSerializer, CartItemSerializer
 
 
 @login_required
-# @require_POST
+@require_POST
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     quantity = int(request.POST.get("quantity", 1))
@@ -75,4 +80,24 @@ class CartItemViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
+<<<<<<< HEAD
         return self.queryset.filter(user=self.request.user)
+=======
+        if self.request.user.is_authenticated:
+            return CartItem.objects.filter(user=self.request.user)
+        else:
+            return CartItem.objects.none()
+
+
+@api_view(["GET"])
+def search_products(request):
+    query = request.GET.get("q", "")
+    if query:
+        products = Product.objects.filter(name__icontains=query)
+    else:
+        products = Product.objects.all()
+
+    # Using the DRF Serializer
+    serializer = ProductSerializer(products, many=True, context={"request": request})
+    return Response(serializer.data)
+>>>>>>> e2a45cfc5baa7bc091c4e748374f1d2e2f1506c5
