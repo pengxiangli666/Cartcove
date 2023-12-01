@@ -50,6 +50,12 @@ Then, back to Seller folder open new terminal to type
 ```
 python .\manage.py runserver 8001
 ```
+if you find out error or bug 
+```
+cd Sellers
+python manage.py makemigrations  
+python manage.py migrate 
+```
 After that, open up a browser and visit http://127.0.0.1:8000/
 
 ## Coding Style
