@@ -1,0 +1,17 @@
+.header {
+  width: 100%;
+  min-width: 1190px;
+  height: 65px;
+  background: #f5d07e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header > div {
+  margin: 0 15px;
+}
+.header .search {
+  .ant-input-group-wrapper {
+    width: 500px;
+  }
+}

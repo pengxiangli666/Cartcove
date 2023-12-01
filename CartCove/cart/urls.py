@@ -1,6 +1,9 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+<<<<<<< HEAD
+=======
 from .views import search_products
+>>>>>>> e2a45cfc5baa7bc091c4e748374f1d2e2f1506c5
 from .views import (
     ProductViewSet,
     CartItemViewSet,
@@ -23,6 +26,9 @@ urlpatterns = [
         remove_from_cart,
         name="remove_from_cart",
     ),
+<<<<<<< HEAD
+=======
     path("api/search/", search_products, name="search_products"),
+>>>>>>> e2a45cfc5baa7bc091c4e748374f1d2e2f1506c5
     path("api/", include(router.urls)),
 ]
