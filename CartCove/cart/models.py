@@ -5,11 +5,7 @@ from django.conf import settings
 class Product(models.Model):
     name = models.CharField(max_length=100, db_index=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-<<<<<<< HEAD
     image = models.ImageField(upload_to="products/", blank=True, null=True)  # Add image field
-=======
-    image = models.ImageField(upload_to="products/", blank=True, null=True)  # 添加图像字段
->>>>>>> e2a45cfc5baa7bc091c4e748374f1d2e2f1506c5
 
     def __str__(self):
         return self.name
