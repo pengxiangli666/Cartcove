@@ -4,8 +4,6 @@ from .models import Product, CartItem
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    image_url = serializers.SerializerMethodField()
-
     class Meta:
         model = Product
         fields = ["id", "name", "price", "image"]
