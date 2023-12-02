@@ -52,7 +52,7 @@ python .\manage.py runserver 8001
 ```
 if you find out error or bug 
 ```
-cd Sellers
+cd  Sellers
 python manage.py makemigrations  
 python manage.py migrate 
 ```

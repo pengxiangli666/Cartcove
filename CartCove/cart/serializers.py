@@ -1,11 +1,6 @@
 from rest_framework import serializers
 from django.shortcuts import get_object_or_404
 from .models import Product, CartItem
-<<<<<<< HEAD
-=======
-from .models import Product
-from django.conf import settings
->>>>>>> e2a45cfc5baa7bc091c4e748374f1d2e2f1506c5
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -13,19 +8,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-<<<<<<< HEAD
         fields = ["id", "name", "price", "image"]
-=======
-        fields = ["id", "name", "price", "image", "image_url"]
-
-    def get_image_url(self, product):
-        request = self.context.get("request")
-        if product.image and hasattr(product.image, "url"):
-            return request.build_absolute_uri(
-                settings.MEDIA_URL + str(product.image.url)
-            )
-        return None
->>>>>>> e2a45cfc5baa7bc091c4e748374f1d2e2f1506c5
 
 
 class CartItemSerializer(serializers.ModelSerializer):
@@ -44,11 +27,7 @@ class AddToCartSerializer(serializers.Serializer):
 
     def validate_product_id(self, value):
         if not Product.objects.filter(id=value).exists():
-<<<<<<< HEAD
             raise serializers.ValidationError("Invalid product ID")
-=======
-            raise serializers.ValidationError("Ineffective productsID")
->>>>>>> e2a45cfc5baa7bc091c4e748374f1d2e2f1506c5
         return value
 
     def create(self, validated_data):
@@ -75,15 +54,7 @@ class RemoveFromCartSerializer(serializers.Serializer):
     def validate_product_id(self, value):
         user = self.context["request"].user
         if not Product.objects.filter(id=value).exists():
-<<<<<<< HEAD
             raise serializers.ValidationError("Invalid product ID")
         if not CartItem.objects.filter(user=user, product_id=value).exists():
             raise serializers.ValidationError("The product does not exist in the shopping cart")
-=======
-            raise serializers.ValidationError("Ineffective productsID")
-        if not CartItem.objects.filter(user=user, product_id=value).exists():
-            raise serializers.ValidationError(
-                "This product does not exist in the shopping cart"
-            )
->>>>>>> e2a45cfc5baa7bc091c4e748374f1d2e2f1506c5
         return value
