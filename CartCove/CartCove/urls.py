@@ -1,6 +1,4 @@
 from django.contrib import admin
-
-from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from django.conf import settings
@@ -15,36 +13,7 @@ router.register(
     r"cart-items", CartItemViewSet, basename="cartitem"
 )  # Used to process items related to shopping carts API request
 
-from cart.views import (
-    ProductViewSet,
-    CartItemViewSet,
-    add_to_cart,
-    remove_from_cart,
-    search_products,
-    view_cart_items,
-)
-
-# Setting up Swagger and Redoc documentation
-schema_view = get_schema_view(
-    openapi.Info(
-        title="Cartcove apis",
-        default_version="v1",
-        description="some Apis",
-        terms_of_service="https://www.google.com/policies/terms/",
-        contact=openapi.Contact(email="pl7@email.sc.edu"),
-        license=openapi.License(name="BSD License"),
-    ),
-    public=True,
-    permission_classes=(permissions.AllowAny,),
-)
-
-# Creating a router and registering your view set
-router = DefaultRouter()
-router.register(r"products", ProductViewSet)
-router.register(r"cart-items", CartItemViewSet, basename="cartitem")
-
 urlpatterns = [
-
     path("", index),  # Used to handle front-end applications URL
     path("SignIn", index),  
     path("Register", index),  
@@ -55,7 +24,6 @@ urlpatterns = [
     path("auth/registration/", include("dj_rest_auth.registration.urls")),  # registration-related URL
     path("cart/", include("cart.urls")),  # Shopping cart application URL
     path("api/", include(router.urls)),  # API Path set to /api/
-
 ]
 
 if settings.DEBUG:
