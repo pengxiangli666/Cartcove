@@ -35,6 +35,7 @@ def add_to_cart(request, product_id):
 
 
 @login_required
+@require_POST
 def remove_from_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
 
