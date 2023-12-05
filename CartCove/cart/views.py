@@ -7,7 +7,9 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 import json
-
+from rest_framework import permissions, viewsets
+from .models import Review
+from .serializers import ReviewSerializer
 from .models import Product, CartItem
 from .serializers import ProductSerializer, CartItemSerializer
 
@@ -76,3 +78,11 @@ class CartItemViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return self.queryset.filter(user=self.request.user)
+
+
+class ReviewViewSet(viewsets.ModelViewSet):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
