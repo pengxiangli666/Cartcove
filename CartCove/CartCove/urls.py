@@ -24,6 +24,7 @@ urlpatterns = [
     path("Register", index),
     path("PersonalSettings", index),
     path("Detail", index),
+    path("MyBag", index), 
     path("admin/", admin.site.urls),
     path("auth/", include("dj_rest_auth.urls")),  # authentication-related URL
     path(
