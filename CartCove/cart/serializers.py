@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.shortcuts import get_object_or_404
 from .models import Product, CartItem
+from .models import Review, Product
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -54,5 +55,16 @@ class RemoveFromCartSerializer(serializers.Serializer):
         if not Product.objects.filter(id=value).exists():
             raise serializers.ValidationError("Invalid product ID")
         if not CartItem.objects.filter(user=user, product_id=value).exists():
-            raise serializers.ValidationError("The product does not exist in the shopping cart")
+            raise serializers.ValidationError(
+                "The product does not exist in the shopping cart"
+            )
         return value
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())
+    user = serializers.ReadOnlyField(source="user.id")  # 设置 user 为只读
+
+    class Meta:
+        model = Review
+        fields = ["id", "user", "product", "rating", "comment", "created_at"]
