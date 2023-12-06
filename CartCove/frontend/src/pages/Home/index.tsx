@@ -1,27 +1,37 @@
-import React from "react";
-import {  useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./index.css";
 function Home() {
   const navigateTo = useNavigate();
-  const liClick=()=>{
-    navigateTo("/Detail");
-  }
+  const [lists, setLists] = useState([]);
+
+  const liClick = (res: any) => {
+    navigateTo("/Detail?res=" + JSON.stringify(res));
+  };
+  useEffect(() => {
+    axios
+      .get("http://127.0.0.1:8000/api/products/", {
+        headers: {
+          Authorization: "Token " + window.localStorage.getItem("Token"),
+        },
+      })
+      .then((res) => {
+        setLists(res.data);
+      });
+  }, []);
   return (
     <div className="Home">
       <ul>
-        {[1, 2, 3, 4, 5, 6].map((res,i) => {
+        {lists.map((res: any, i) => {
           return (
-            <li key={i} onClick={liClick}>
+            <li key={i} onClick={() => liClick(res)}>
               <div>
-                <img
-                  src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F201502%2F25%2F20150225220538_QnGZZ.thumb.1000_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1703486875&t=f9d29c955f51cadf9c88d5cc52d37843"
-                  alt=""
-                />
+                <img src={res.image} alt="" />
               </div>
               <div>
-                <div>
-                Anta plank shoes women's shoes 2023 autumn and winter new white casual shoes increase small white shoes retro sports shoes
-                </div>
+                <div>{res.name}</div>
+                <div>${res.price}</div>
               </div>
             </li>
           );

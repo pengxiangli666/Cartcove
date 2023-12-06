@@ -1,11 +1,42 @@
 import React, { useState } from "react";
 import Carousel from "react-bootstrap/Carousel";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
+import qs from "qs";
+import { Alert } from "react-bootstrap";
 import "./index.css";
 const Detail = () => {
+  const location: any = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const res: any = JSON.parse(searchParams.get("res") || "");
+
   const [index, setIndex] = useState(0);
+  const [show, setShow] = useState(false);
+  const [variant, setVariant] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleSelect = (selectedIndex: any) => {
     setIndex(selectedIndex);
+  };
+  const add = () => {
+    axios
+      .post(
+        `http://127.0.0.1:8000/cart/api/add-to-cart/${res.id}/`,
+        qs.stringify({ quantity: 1 }),
+        {
+          headers: {
+            Authorization: "Token " + window.localStorage.getItem("Token"),
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          setShow(true);
+          setVariant("success");
+          setMessage("Add successfully");
+        }
+      });
   };
   return (
     <div className="Detail">
@@ -20,42 +51,35 @@ const Detail = () => {
           >
             <Carousel.Item>
               <Carousel.Caption>
-                <video
-                  controls
-                  src="https://tbm-auth.alicdn.com/73bbe9f95b148212/454bbb754840ce84/20230810_b1f9f134d73f660c_423105067804_44633566790844_published_mp4_264_hd_taobao.mp4?auth_key=1700977334-0-0-4873f003d3960de27a7369e1b16f5c32&biz=tbs_vsucai-86202041669735ef&t=213e29dc17009746341828110e1414&b=tbs_vsucai&p=cloudvideo_http_tb_seller_vsucai_publish"
-                ></video>
-              </Carousel.Caption>
-            </Carousel.Item>
-            <Carousel.Item>
-              <Carousel.Caption>
-                <img
-                  src="https://gw.alicdn.com/imgextra/i4/2066012447/O1CN01sYqWWg1Twm2yTl3KW_!!2066012447.jpg_Q75.jpg_.webp"
-                  alt=""
-                />
-              </Carousel.Caption>
-            </Carousel.Item>
-            <Carousel.Item>
-              <Carousel.Caption>
-                <img
-                  src="https://gw.alicdn.com/imgextra/i1/2066012447/O1CN01XMHsJI1TwlzP9aOZi_!!2066012447.jpg_Q75.jpg_.webp"
-                  alt=""
-                />
+                <img src={res.image} alt="" />
               </Carousel.Caption>
             </Carousel.Item>
           </Carousel>
           <div>
-            <div>
-            Mousse children's bed Children's Fun soft pack silicone solid wood bed Boys bed Cloud girl Pearl Princess bed children's room
-            </div>
-            <div>¥6832</div>
+            <div>{res.name}</div>
+            <div>${res.price}</div>
             <div>Description</div>
             <div>500 remaining</div>
           </div>
         </div>
         <div>
-            <div>Add to cart</div>
+          <div onClick={add} style={{cursor:'pointer'}}>Add to cart</div>
         </div>
       </div>
+      <Alert
+        show={show}
+        variant={variant}
+        style={{
+          position: "fixed",
+          top: "10px",
+          left: "50%",
+          transform: "translateX(-50%)",
+        }}
+        onClose={() => setShow(false)}
+        dismissible
+      >
+        <p>{message}</p>
+      </Alert>
     </div>
   );
 };

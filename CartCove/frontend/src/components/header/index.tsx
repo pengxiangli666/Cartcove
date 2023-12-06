@@ -40,6 +40,9 @@ export default function Header() {
       ),
     },
   ];
+  const MyBag=()=>{
+    navigateTo("/MyBag");
+  }
   useEffect(() => {
     console.log(location.pathname, "location.pathname");
 
@@ -75,7 +78,7 @@ export default function Header() {
         />
       </div>
       <div>
-        <Button variant="primary">My Bag</Button>
+        <Button variant="primary" onClick={MyBag}>My Bag</Button>
       </div>
       {useName ? (
         <Dropdown>
