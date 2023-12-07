@@ -19,5 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('api/', include('polls.urls')), # include the api urls
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # serve tge media filesm, files are in MEDIA_ROOT
+    path("api/", include("polls.urls")),  # include the api urls
+] + static(
+    settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
+)  # serve tge media filesm, files are in MEDIA_ROOT
