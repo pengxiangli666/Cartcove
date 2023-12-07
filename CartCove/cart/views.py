@@ -22,9 +22,13 @@ from .serializers import (
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def add_to_cart(request, product_id):
-    data = request.data
-    data["product_id"] = product_id  # 将 product_id 添加到请求数据中
+    # make data copy
+    data = request.data.copy()
+    data["product_id"] = product_id  # add product_id to copy
+
+    # use copy to create serializer
     serializer = AddToCartSerializer(data=data, context={"request": request})
+
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
