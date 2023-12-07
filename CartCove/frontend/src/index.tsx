@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import "../static/css/index.css";
 import HomePage from "./routes/HomePage";
 import NotFound from "./routes/NotFound";
 import ProductPage from "./routes/ProductPage";

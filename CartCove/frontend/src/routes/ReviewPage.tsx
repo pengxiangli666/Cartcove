@@ -21,8 +21,21 @@ function ReviewPage() {
       <Navigation />
 
       <div className="reviewPage">
-        <div className="productInfo">
-          <h1>{productName}</h1>
+        <h1>{productName}</h1>
+
+        <div className="reviewInfo">
+          <div className="productRating">
+            <h1>Rating</h1>
+
+            <img
+              src={
+                "/static/images/rating/" +
+                Math.floor(Math.random() * 11) +
+                ".png"
+              }
+            />
+          </div>
+
           <p>
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus
             recusandae iure necessitatibus reprehenderit inventore, dolores,
