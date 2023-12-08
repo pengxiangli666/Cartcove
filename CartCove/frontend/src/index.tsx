@@ -5,6 +5,7 @@ import HomePage from "./routes/HomePage";
 import NotFound from "./routes/NotFound";
 import ProductPage from "./routes/ProductPage";
 import ReviewPage from "./routes/ReviewPage";
+import AddProduct from "./routes/AddProduct";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,11 @@ const router = createBrowserRouter([
   {
     path: "/reviews/*",
     element: <ReviewPage />,
+    errorElement: <NotFound />,
+  },
+  {
+    path: "/add/*",
+    element: <AddProduct />,
     errorElement: <NotFound />,
   },
 ]);

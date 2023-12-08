@@ -131,6 +131,23 @@ p {
   width: 50%;
 }
 
+.addProduct {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: aqua;
+}
+
+.addProduct form {
+  display: flex;
+  flex-direction: column;
+}
+
+.addProduct form * {
+  margin: 10px 0 10px 0;
+}
+
 .errorMsg {
   width: 100%;
   height: 100%;

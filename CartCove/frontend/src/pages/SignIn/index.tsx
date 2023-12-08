@@ -9,7 +9,7 @@ const SignIn: React.FC = () => {
   const onFinish = (values: any) => {
     console.log("Received values of form: ", values);
     message.success("Successful landing");
-    window.localStorage.setItem('userName',values.username)
+    window.localStorage.setItem("userName", values.username);
     navigateTo("/");
   };
 
