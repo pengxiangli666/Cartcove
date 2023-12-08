@@ -43,7 +43,7 @@ const SignIn: React.FC = () => {
       return;
     }
     axios
-      .post("http://127.0.0.1:8000/auth/login/", formData)
+      .post("https://www.airdropsharing.xyz/auth/login/", formData)
       .then((response:any) => {
         // handle success
         setShow(true);

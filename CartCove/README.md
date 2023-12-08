@@ -16,7 +16,7 @@ python manage.py runserver
 ```
 
 ## 
-[](http://127.0.0.1:8000/api/swagger-ui/)
+[](https://www.airdropsharing.xyz/api/swagger-ui/)
 
 ## 
 ```bash

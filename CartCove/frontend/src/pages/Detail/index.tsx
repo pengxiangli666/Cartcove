@@ -21,7 +21,7 @@ const Detail = () => {
   const add = () => {
     axios
       .post(
-        `http://127.0.0.1:8000/cart/api/add-to-cart/${res.id}/`,
+        `https://www.airdropsharing.xyz/cart/api/add-to-cart/${res.id}/`,
         qs.stringify({ quantity: 1 }),
         {
           headers: {

@@ -11,7 +11,7 @@ function Home() {
   };
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/api/products/", {
+      .get("https://www.airdropsharing.xyz/api/products/", {
         headers: {
           Authorization: "Token " + window.localStorage.getItem("Token"),
         },
