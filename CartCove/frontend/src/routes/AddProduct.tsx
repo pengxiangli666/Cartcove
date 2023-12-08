@@ -46,7 +46,6 @@ function AddProduct() {
 
   return (
     <>
-      <Navigation />
       <div className="productCreatePage">
         <h1>Add a new product!</h1>
 

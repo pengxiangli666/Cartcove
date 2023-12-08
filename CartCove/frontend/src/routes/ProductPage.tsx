@@ -19,8 +19,6 @@ function ProductPage() {
 
   return (
     <>
-      <Navigation />
-
       <div className="productPage">
         <img src={"/static/images/" + productName + ".png"} />
 

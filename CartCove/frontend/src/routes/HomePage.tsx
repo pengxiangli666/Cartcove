@@ -40,11 +40,8 @@ function HomePage() {
 
   const listPreview = generateNames();
 
-
   return (
     <>
-      <Navigation />
-
       <h1 className="homeWelcome">Recommended Items</h1>
 
       <div className="homeRecommended">
