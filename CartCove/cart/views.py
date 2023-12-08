@@ -1,51 +1,50 @@
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST, require_http_methods
-from rest_framework import viewsets
+from django.views.decorators.http import require_POST
+from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 import json
-from rest_framework import permissions, viewsets
-from .models import Review
-from .serializers import ReviewSerializer
-from .models import Product, CartItem
-from .serializers import ProductSerializer, CartItemSerializer
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from .models import Product, CartItem, Review
+from .serializers import (
+    ProductSerializer,
+    CartItemSerializer,
+    AddToCartSerializer,
+    ReviewSerializer,
+    RemoveFromCartSerializer,
+)
 
 
-@login_required
-@require_POST
+@csrf_exempt
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
 def add_to_cart(request, product_id):
-    product = get_object_or_404(Product, id=product_id)
-    quantity = int(request.POST.get("quantity", 1))
+    # make data copy
+    data = request.data.copy()
+    data["product_id"] = product_id  # add product_id to copy
 
-    if quantity <= 0:
-        quantity = 1
+    # use copy to create serializer
+    serializer = AddToCartSerializer(data=data, context={"request": request})
 
-    cart_item, created = CartItem.objects.get_or_create(
-        user=request.user, product=product, defaults={"quantity": quantity}
-    )
-
-    if not created:
-        cart_item.quantity += quantity
-        cart_item.save()
-
-    return redirect("view_cart_items")
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@login_required
-@require_POST
+@csrf_exempt
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
 def remove_from_cart(request, product_id):
-    product = get_object_or_404(Product, id=product_id)
-
-    try:
-        cart_item = CartItem.objects.get(user=request.user, product=product)
-        cart_item.delete()
-    except CartItem.DoesNotExist:
-        pass
-
-    return redirect("view_cart_items")
+    data = {"product_id": product_id, "quantity": request.data.get("quantity", 1)}
+    serializer = RemoveFromCartSerializer(data=data, context={"request": request})
+    if serializer.is_valid():
+        serializer.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["GET"])

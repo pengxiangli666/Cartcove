@@ -14,10 +14,9 @@ import PersonalSettings from "./pages/PersonalSettings";
 import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
 import Detail from "./pages/Detail";
-
+import MyBag from "./pages/MyBag";
 
 import "../static/css/index.css";
-
 
 const router = createBrowserRouter([
   {
@@ -36,6 +35,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/SignIn" element={<SignIn></SignIn>} />
         <Route path="/Register" element={<Register></Register>} />
         <Route path="/Detail" element={<Detail></Detail>} />
+        <Route path="/MyBag" element={<MyBag></MyBag>} />
         <Route
           path="/PersonalSettings"
           element={<PersonalSettings></PersonalSettings>}

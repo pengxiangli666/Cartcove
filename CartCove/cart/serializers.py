@@ -49,21 +49,33 @@ class AddToCartSerializer(serializers.Serializer):
 
 class RemoveFromCartSerializer(serializers.Serializer):
     product_id = serializers.IntegerField()
+    quantity = serializers.IntegerField(min_value=1, default=1)
 
     def validate_product_id(self, value):
         user = self.context["request"].user
-        if not Product.objects.filter(id=value).exists():
-            raise serializers.ValidationError("Invalid product ID")
         if not CartItem.objects.filter(user=user, product_id=value).exists():
             raise serializers.ValidationError(
                 "The product does not exist in the shopping cart"
             )
         return value
 
+    def delete(self):
+        user = self.context["request"].user
+        product_id = self.validated_data.get("product_id")
+        quantity = self.validated_data.get("quantity")
+
+        cart_item = CartItem.objects.filter(user=user, product_id=product_id).first()
+        if cart_item:
+            cart_item.quantity -= quantity
+            if cart_item.quantity <= 0:
+                cart_item.delete()
+            else:
+                cart_item.save()
+
 
 class ReviewSerializer(serializers.ModelSerializer):
     product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())
-    user = serializers.ReadOnlyField(source="user.id")  # 设置 user 为只读
+    user = serializers.ReadOnlyField(source="user.id")  # user just can read
 
     class Meta:
         model = Review

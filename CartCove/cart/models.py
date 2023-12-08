@@ -9,6 +9,7 @@ class Product(models.Model):
     image = models.ImageField(
         upload_to="products/", blank=True, null=True
     )  # Add image field
+    ##description = models.TextField(blank=True)  
 
     def __str__(self):
         return self.name

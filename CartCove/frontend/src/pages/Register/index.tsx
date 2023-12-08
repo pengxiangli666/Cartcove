@@ -10,13 +10,12 @@ const Register: React.FC = () => {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
-    password: "",
-    hint: "",
-    hint_answer: "",
+    password1: "",
+    password2: "",
   });
   const [errors, setErrors] = useState({
     username: "",
-    password: "",
+    password1: "",
   });
   const [show, setShow] = useState(false);
   const [variant, setVariant] = useState("");
@@ -28,7 +27,7 @@ const Register: React.FC = () => {
     let hasErrors = false;
     const newErrors = {
       username: "",
-      password: "",
+      password1: "",
     };
     console.log(formData, "formData");
 
@@ -36,16 +35,22 @@ const Register: React.FC = () => {
       newErrors.username = "username cannot be empty";
       hasErrors = true;
     }
-    if (formData.password.trim() === "") {
-      newErrors.password = "password cannot be empty";
+    if (formData.password1.trim() === "") {
+      newErrors.password1 = "password cannot be empty";
       hasErrors = true;
+    }
+    if (formData.password1.trim()!==formData.password2.trim()) {
+      setShow(true);
+      setVariant("danger");
+      setMessage("The two password entries are inconsistent");
+      return
     }
     if (hasErrors) {
       setErrors(newErrors);
       return;
     }
     axios
-      .post("http://127.0.0.1:8001/api/customer", formData)
+      .post("https://www.airdropsharing.xyz/auth/registration/", formData)
       .then(function (response) {
         // handle success
         setShow(true);
@@ -106,20 +111,36 @@ const Register: React.FC = () => {
             {errors.username}
           </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group controlId="password">
+        <Form.Group controlId="password1">
           <Form.Label column sm="2">
             Password
           </Form.Label>
           <Form.Control
-            type="password"
-            name="password"
-            value={formData.password}
+            type="password1"
+            name="password1"
+            value={formData.password1}
             onChange={handleChange}
-            isInvalid={!!errors.password}
+            isInvalid={!!errors.password1}
             placeholder="Password"
           />
           <Form.Control.Feedback type="invalid">
-            {errors.password}
+            {errors.password1}
+          </Form.Control.Feedback>
+        </Form.Group>
+        <Form.Group controlId="password2">
+          <Form.Label column sm="10">
+            Enter the password once
+          </Form.Label>
+          <Form.Control
+            type="password2"
+            name="password2"
+            value={formData.password2}
+            onChange={handleChange}
+            isInvalid={!!errors.password2}
+            placeholder="Enter the password once"
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.password2}
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="email">
@@ -136,38 +157,6 @@ const Register: React.FC = () => {
           />
           <Form.Control.Feedback type="invalid">
             {errors.email}
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group controlId="hint">
-          <Form.Label column sm="4">
-            hint
-          </Form.Label>
-          <Form.Control
-            type="text"
-            name="hint"
-            value={formData.hint}
-            onChange={handleChange}
-            isInvalid={!!errors.hint}
-            placeholder="hint"
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.hint}
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group controlId="hint_answer">
-          <Form.Label column sm="4">
-            hint_answer
-          </Form.Label>
-          <Form.Control
-            type="text"
-            name="hint_answer"
-            value={formData.hint_answer}
-            onChange={handleChange}
-            isInvalid={!!errors.hint_answer}
-            placeholder="hint_answer"
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.hint_answer}
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group>

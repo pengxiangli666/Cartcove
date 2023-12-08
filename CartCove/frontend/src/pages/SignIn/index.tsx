@@ -43,15 +43,16 @@ const SignIn: React.FC = () => {
       return;
     }
     axios
-      .post("http://127.0.0.1:8001/api/customer/login", formData)
+      .post("https://www.airdropsharing.xyz/auth/login/", formData)
       .then((response:any) => {
         // handle success
         setShow(true);
         setVariant("success");
         setMessage("Registered successfully");
         window.localStorage.setItem("userName", formData.username);
+        window.localStorage.setItem("Token", response.data.key);
         console.log(response, "response");
-        Cookies.set('Token', response.data.token);
+        // Cookies.set('Token', response.data.key);
         setTimeout(() => {
           navigateTo("/");
         }, 1000);
