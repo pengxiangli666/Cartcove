@@ -17,11 +17,29 @@ import Detail from "./pages/Detail";
 import MyBag from "./pages/MyBag";
 
 import "../static/css/index.css";
+import ProductPage from "./routes/ProductPage";
+import ReviewPage from "./routes/ReviewPage";
+import AddProduct from "./routes/AddProduct";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <HomePage />,
+    errorElement: <NotFound />,
+  },
+  {
+    path: "/product/*",
+    element: <ProductPage />,
+    errorElement: <NotFound />,
+  },
+  {
+    path: "/reviews/*",
+    element: <ReviewPage />,
+    errorElement: <NotFound />,
+  },
+  {
+    path: "/add/*",
+    element: <AddProduct />,
     errorElement: <NotFound />,
   },
 ]);

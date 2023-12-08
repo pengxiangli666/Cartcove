@@ -20,6 +20,21 @@ const SignIn: React.FC = () => {
   const [variant, setVariant] = useState("");
   const [message, setMessage] = useState("");
   const navigateTo = useNavigate();
+  const onFinish = (values: any) => {
+    console.log("Received values of form: ", values);
+    message.success("Successful landing");
+    window.localStorage.setItem("userName", values.username);
+    navigateTo("/");
+  };
+
+  const [errors, setErrors] = useState({
+    username: "",
+    password: "",
+  });
+  const [show, setShow] = useState(false);
+  const [variant, setVariant] = useState("");
+  const [message, setMessage] = useState("");
+  const navigateTo = useNavigate();
   const onFinish = (e: any) => {
     e.preventDefault();
 
