@@ -46,7 +46,6 @@ Then, use the other terminal and navigate to ~/CartCove/frontend/ and run the fo
 ```
 npm run dev
 ```
-
 After that, open up a browser and visit http://127.0.0.1:8000/
 
 ## Coding Style

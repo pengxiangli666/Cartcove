@@ -1,0 +1,77 @@
+.Detail {
+  background: #e8e4e6;
+  height: calc(100% - 65px);
+}
+.Detail > div:nth-of-type(1) {
+  width: 1190px;
+  height: 100%;
+  margin: 0 auto;
+  background: white;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  justify-content: space-around;
+  align-content: flex-start;
+  padding: 0px;
+}
+.Detail > div:nth-of-type(1) > div:nth-of-type(1) {
+  width: 100%;
+  padding: 12px;
+  display: flex;
+}
+.Detail > div:nth-of-type(1) > div:nth-of-type(1) > .myCarousel {
+  width: 450px;
+  height: 450px;
+}
+.Detail > div:nth-of-type(1) > div:nth-of-type(1) > .myCarousel > .carousel-inner {
+  width: 450px;
+  height: 450px;
+}
+.Detail
+  > div:nth-of-type(1)
+  > div:nth-of-type(1)
+  > .myCarousel
+  > .carousel-inner
+  > .carousel-item {
+  width: 450px;
+  height: 450px;
+}
+.Detail
+  > div:nth-of-type(1)
+  > div:nth-of-type(1)
+  > .myCarousel
+  > .carousel-inner
+  > .carousel-item
+  > .carousel-caption
+  > video,
+img {
+  width: 100%;
+  height: 100%;
+}
+.Detail > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2)>div{
+    margin-bottom: 20px;
+}
+.Detail > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2)> div:nth-of-type(1) {
+  line-height: 28px;
+  color: #000;
+  font-size: 20px;
+  font-family: PingFang SC;
+  font-weight: 900;
+}
+.Detail > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2)> div:nth-of-type(2){
+    color: rgb(255, 79, 0);
+    font-size: 28px;
+    line-height: 28px;
+}
+.Detail > div:nth-of-type(1) > div:nth-of-type(2)>div:nth-of-type(1){
+    width: 152px;
+    height: 48px;
+    background: rgb(255, 203, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 34px;
+}

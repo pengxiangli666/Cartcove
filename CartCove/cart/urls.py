@@ -6,12 +6,14 @@ from .views import (
     add_to_cart,
     remove_from_cart,
     view_cart_items,
+    ReviewViewSet,
     create_product,
 )
 
 router = DefaultRouter()
 router.register(r"products", ProductViewSet)
 router.register(r"cart-items", CartItemViewSet, basename="cartitem")
+router.register(r"reviews", ReviewViewSet, basename="review")
 
 urlpatterns = [
     path("api/add-to-cart/<int:product_id>/", add_to_cart, name="add_to_cart"),
