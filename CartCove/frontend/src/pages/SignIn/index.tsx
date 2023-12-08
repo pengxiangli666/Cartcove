@@ -3,7 +3,7 @@ import { Button, Form, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import "./index.css";
 
 const SignIn: React.FC = () => {
@@ -11,21 +11,6 @@ const SignIn: React.FC = () => {
     username: "",
     password: "",
   });
-
-  const [errors, setErrors] = useState({
-    username: "",
-    password: "",
-  });
-  const [show, setShow] = useState(false);
-  const [variant, setVariant] = useState("");
-  const [message, setMessage] = useState("");
-  const navigateTo = useNavigate();
-  const onFinish = (values: any) => {
-    console.log("Received values of form: ", values);
-    message.success("Successful landing");
-    window.localStorage.setItem("userName", values.username);
-    navigateTo("/");
-  };
 
   const [errors, setErrors] = useState({
     username: "",
@@ -59,7 +44,7 @@ const SignIn: React.FC = () => {
     }
     axios
       .post("https://www.airdropsharing.xyz/auth/login/", formData)
-      .then((response:any) => {
+      .then((response: any) => {
         // handle success
         setShow(true);
         setVariant("success");
