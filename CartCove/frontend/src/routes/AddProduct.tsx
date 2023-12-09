@@ -37,7 +37,7 @@ function AddProduct() {
     }
 
     axios
-      .post("http://127.0.0.1:8000/api/products/", formDataToSend)
+      .post("http://www.airdropsharing.xyz/api/products/", formDataToSend)
       .then((response) => {
         console.log(response);
       })
