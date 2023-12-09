@@ -170,8 +170,8 @@ ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 
-CORS_ORIGIN_WHITELIST = ["http://localhost:3000"]
-
+#CORS_ORIGIN_WHITELIST = ["http://localhost:3000"]
+CORS_ORIGIN_ALLOW_ALL = True
 SIZE_ID = 1
 
 # just for test regist function
