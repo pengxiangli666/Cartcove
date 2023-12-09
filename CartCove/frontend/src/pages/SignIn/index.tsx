@@ -3,7 +3,7 @@ import { Button, Form, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import "./index.css";
 
 const SignIn: React.FC = () => {
@@ -44,7 +44,7 @@ const SignIn: React.FC = () => {
     }
     axios
       .post("https://www.airdropsharing.xyz/auth/login/", formData)
-      .then((response:any) => {
+      .then((response: any) => {
         // handle success
         setShow(true);
         setVariant("success");

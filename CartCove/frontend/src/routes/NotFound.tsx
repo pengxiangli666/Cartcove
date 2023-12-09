@@ -4,9 +4,7 @@ import Navigation from "../components/Navigation";
 function NotFound() {
   return (
     <>
-      <Navigation />
-
-      <div className="ErrorMsg">
+      <div className="errorMsg">
         <h1>Page Not Found</h1>
 
         <p>Our site could not find the requested web page</p>

@@ -1,8 +1,15 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from rest_framework.routers import DefaultRouter
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
+from rest_framework.routers import DefaultRouter
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+
 from cart.views import (
     ProductViewSet,
     CartItemViewSet,
@@ -32,6 +39,7 @@ urlpatterns = [
     ),  # registration-related URL
     path("cart/", include("cart.urls")),  # Shopping cart application URL
     path("api/", include(router.urls)),  # API Path set to /api/
+    re_path(r'^.*', TemplateView.as_view(template_name='frontend/index.html')) # Makes it so that the frontend handles unknown URLs
 ]
 
 if settings.DEBUG:
