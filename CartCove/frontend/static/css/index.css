@@ -44,12 +44,12 @@ p {
   padding: 10px 100px 10px 100px;
   justify-content: space-between;
   align-content: center;
-  background-color: green;
+  background-color: #faf4f4;
 }
 
 .homeWelcome {
   text-align: center;
-  background-color: salmon;
+  background-color: #faf4f4;
 }
 
 .productPreview {
@@ -81,7 +81,7 @@ p {
   height: 95%;
   width: 100%;
   padding-top: 5%;
-  background-color: aqua;
+  background-color: #faf4f4;
 } 
 
 .productPage img {
@@ -89,7 +89,7 @@ p {
   height: 80%;
   margin: 0 5% 0 5%;
   object-fit: scale-down;
-  background-color: pink;
+  background-color: #faf4f4;
   border-style: solid;
   border-radius: 10px;
   border-color: black;
@@ -100,7 +100,9 @@ p {
 }
 
 .productPageReview {
-  background-color: greenyellow;
+  background-color: #E8E4E6;
+  border-top-style: solid;
+  padding-top: 1%;
   text-align: center;
 }
 
@@ -110,6 +112,13 @@ p {
   margin: 0;
 }
 
+.reviewSubmissions {
+  background-color: #f5d07e;
+  border-left-style: solid;
+  height: 100%;
+  width: 200%;
+}
+
 .reviewInfo {
   display: flex;
   height: 100%;
@@ -117,8 +126,8 @@ p {
 }
 
 .reviewInfo p {
-  background-color: crimson;
-  border-left-style: solid;
+  background-color: #f5d07e;
+  border-bottom-style: solid;
   height: 100%;
 }
 
@@ -129,6 +138,13 @@ p {
 .productRating img {
   object-fit: scale-down;
   width: 50%;
+  height: 50%;
+}
+
+.productCreatePage h1 {
+  margin-top: 5%;
+  margin-bottom: 5%;
+  text-align: center;
 }
 
 .addProduct {
@@ -136,7 +152,7 @@ p {
   align-items: center;
   justify-content: center;
   height: 100%;
-  background-color: aqua;
+  background-color: #faf4f4;
 }
 
 .addProduct form {

@@ -5,6 +5,7 @@ import axios from "axios";
 import qs from "qs";
 import { Alert } from "react-bootstrap";
 import "./index.css";
+import ProductPageReview from "../../components/ProductPageReview";
 const Detail = () => {
   const location: any = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -63,7 +64,9 @@ const Detail = () => {
           </div>
         </div>
         <div>
-          <div onClick={add} style={{cursor:'pointer'}}>Add to cart</div>
+          <div onClick={add} style={{ cursor: "pointer" }}>
+            Add to cart
+          </div>
         </div>
       </div>
       <Alert
@@ -80,6 +83,8 @@ const Detail = () => {
       >
         <p>{message}</p>
       </Alert>
+
+      <ProductPageReview productName={res.name} />
     </div>
   );
 };

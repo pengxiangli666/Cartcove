@@ -4,7 +4,7 @@ function ProductPageReview({ productName = "" }) {
   return (
     <>
       <div className="productPageReview">
-        <h1>{productName}</h1>
+        <h1>Reviews for {productName}</h1>
         <a href={"/reviews/" + productName}>Click here to view all reviews</a>
         <p>
           {" "}

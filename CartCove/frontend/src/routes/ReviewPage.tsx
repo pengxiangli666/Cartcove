@@ -177,12 +177,15 @@ function ReviewPage() {
     createReview(),
     createReview(),
     createReview(),
+    createReview(),
+    createReview(),
+    createReview(),
   ];
 
   return (
     <>
       <div className="reviewPage">
-        <h1>{productName}</h1>
+        <h1>Reviews for {productName}</h1>
 
         <div className="reviewInfo">
           <div className="productRating">
@@ -197,14 +200,16 @@ function ReviewPage() {
             />
           </div>
 
-          {productReviews?.map((review) => (
-            <div className="userReview">
-              <h1>
-                {review.name}: {review.rating}/5
-              </h1>
-              <p>{review.review}</p>
-            </div>
-          ))}
+          <div className="reviewSubmissions">
+            {productReviews.map((review) => (
+              <div className="userReview">
+                <h1>
+                  {review.name}: {review.rating}/5
+                </h1>
+                <p>{review.review}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </>
