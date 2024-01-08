@@ -25,7 +25,8 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
-        context: .
+        context: ./CartCove
+        file: ./CartCove/Dockerfile
         push: true
         tags: pengxiangli/cartcove:latest
 
