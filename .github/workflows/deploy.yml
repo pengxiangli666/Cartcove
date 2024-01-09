@@ -3,7 +3,7 @@ name: Deploy to AWS EC2
 on:
   push:
     branches:
-      - pengxiangli
+      - main
 
 jobs:
   build-and-deploy:
@@ -25,17 +25,17 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
-        context: ./CartCove
-        file: ./CartCove/Dockerfile
+        context: .
+        file: Dockerfile
         push: true
-        tags: pengxiangli/cartcove:latest
+        tags: your-dockerhub-username/your-image-name:latest
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: 'us-east-2'
+        aws-region: us-east-1
 
     - name: Deploy to AWS EC2
       uses: appleboy/ssh-action@master
@@ -43,9 +43,7 @@ jobs:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_SSH_KEY }}
-        debug: true
         script: |
-          docker pull pengxiangli/cartcove:latest
           docker stop cartcove || true
-          docker run -d --name cartcove -p 8000:8000 pengxiangli/cartcove:latest
-
+          docker rm -f cartcove || true
+          docker run -d --name cartcove -p 8000:8000 your-dockerhub-username/your-image-name:latest
