@@ -37,21 +37,15 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: 'us-east-2'
 
-    - name: Decode SSH Key
-      env:
-        SSH_KEY: ${{ secrets.EC2_SSH_KEY_BASE64 }}
-      run: |
-        echo "$SSH_KEY" | base64 -d > $HOME/ssh_key.pem
-        chmod 600 $HOME/ssh_key.pem
-
     - name: Deploy to AWS EC2
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
-        key: $HOME/ssh_key.pem
+        key: ${{ secrets.EC2_SSH_KEY }}
         debug: true
         script: |
           docker pull pengxiangli/cartcove:latest
           docker stop cartcove || true
           docker run -d --name cartcove -p 8000:8000 pengxiangli/cartcove:latest
+
