@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from rest_framework import viewsets, permissions, status
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes,authentication_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 import json
@@ -65,6 +65,7 @@ def create_product(request):
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
 
+@authentication_classes([])
 @permission_classes([AllowAny])
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
