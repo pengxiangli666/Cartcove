@@ -18,7 +18,7 @@ from .serializers import (
 )
 
 
-@csrf_exempt
+#@csrf_exempt
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def add_to_cart(request, product_id):
@@ -35,7 +35,7 @@ def add_to_cart(request, product_id):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@csrf_exempt
+#@csrf_exempt
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def remove_from_cart(request, product_id):
