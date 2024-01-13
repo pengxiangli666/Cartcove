@@ -24,6 +24,7 @@ jobs:
 
     - name: Install dependencies and build
       run: |
+        cd CarCove/frontend
         npm install
         npm run build
 
