@@ -43,7 +43,7 @@ const SignIn: React.FC = () => {
       return;
     }
     axios
-      .post("https://www.airdropsharing.xyz/auth/login/", formData)
+      .post("https://www.cartcove.org/auth/login/", formData)
       .then((response: any) => {
         // handle success
         setShow(true);

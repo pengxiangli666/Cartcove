@@ -16,7 +16,7 @@ python manage.py runserver
 ```
 
 ## 
-[](https://www.airdropsharing.xyz/api/swagger-ui/)
+[](https://www.cartcove.org/api/swagger-ui/)
 
 ## 
 ```bash

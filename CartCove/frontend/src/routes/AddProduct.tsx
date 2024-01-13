@@ -37,7 +37,7 @@ function AddProduct() {
     }
 
     axios
-      .post("http://www.airdropsharing.xyz/api/products/", formDataToSend)
+      .post("http://www.cartcove.org/api/products/", formDataToSend)
       .then((response) => {
         console.log(response);
       })
