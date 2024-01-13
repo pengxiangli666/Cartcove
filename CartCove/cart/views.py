@@ -65,7 +65,7 @@ def create_product(request):
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
 
-@authentication_classes([])
+#@authentication_classes([])
 @permission_classes([AllowAny])
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
