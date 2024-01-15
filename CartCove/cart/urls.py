@@ -8,6 +8,7 @@ from .views import (
     view_cart_items,
     ReviewViewSet,
     create_product,
+    delete_product
 )
 
 router = DefaultRouter()
@@ -19,6 +20,7 @@ urlpatterns = [
     path("api/add-to-cart/<int:product_id>/", add_to_cart, name="add_to_cart"),
     path("api/cart-items/", view_cart_items, name="view_cart_items"),
     # path('api/create-product/', create_product, name='create_product'),
+    path('product/delete/<int:product_id>/', delete_product, name='delete_product'),
     path(
         "api/remove-from-cart/<int:product_id>/",
         remove_from_cart,

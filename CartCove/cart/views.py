@@ -9,6 +9,8 @@ import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Product, CartItem, Review
+from django.views.decorators.http import require_http_methods
+
 from .serializers import (
     ProductSerializer,
     CartItemSerializer,
@@ -87,3 +89,9 @@ class ReviewViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+@require_http_methods(["DELETE"])
+def delete_product(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    product.delete()
+    return JsonResponse({'message': 'Product deleted successfully'}, status=200)
