@@ -49,3 +49,4 @@ jobs:
           docker stop cartcove || true
           docker rm -f cartcove || true
           sudo docker run -p 8000:8000 -d -v /home/ubuntu/database/db.sqlite3:/app/db.sqlite3 -v /home/ubuntu/static/:/app/frontend/sratic/ -v /home/ubuntu/media/:/app/media/  pengxiangli/cartcove
+

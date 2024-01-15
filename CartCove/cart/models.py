@@ -8,7 +8,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     image = models.ImageField(
         upload_to="products/", blank=True, null=True
-    )  # Add image field
+    )  
     ##description = models.TextField(blank=True)  
 
     def __str__(self):
