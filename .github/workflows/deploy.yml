@@ -48,4 +48,5 @@ jobs:
           docker pull pengxiangli/cartcove:latest
           docker stop cartcove || true
           docker rm -f cartcove || true
-          docker run -d --name cartcove -p 8000:8000 pengxiangli/cartcove:latest
+          sudo docker run -p 8000:8000 -d -v /home/ubuntu/database/db.sqlite3:/app/db.sqlite3 pengxiangli/cartcove
+
