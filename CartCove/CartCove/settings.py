@@ -177,5 +177,5 @@ SIZE_ID = 1
 # just for test regist function
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-MEDIA_URL = 'https://www.cartcove.org/media/'
+MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
