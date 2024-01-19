@@ -183,5 +183,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 CSRF_COOKIE_SECURE = True
 
-CSRF_TRUSTED_ORIGINS = ['https://www.cartcove.org']
+CSRF_TRUSTED_ORIGINS = ['https://www.cartcove.org','https://cartcove.org']
 
