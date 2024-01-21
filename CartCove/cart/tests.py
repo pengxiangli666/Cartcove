@@ -50,4 +50,3 @@ class AddToCartViewTest(TestCase):
         self.assertFalse(Product.objects.filter(id=product.id).exists())
         print("=====\nProduct successfully deleted.\n=====")
 
-
