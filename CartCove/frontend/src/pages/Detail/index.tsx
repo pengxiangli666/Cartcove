@@ -22,7 +22,7 @@ const Detail = () => {
   const add = () => {
     axios
       .post(
-        `https://www.airdropsharing.xyz/cart/api/add-to-cart/${res.id}/`,
+        `https://www.cartcove.org/cart/api/add-to-cart/${res.id}/`,
         qs.stringify({ quantity: 1 }),
         {
           headers: {

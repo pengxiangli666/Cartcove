@@ -11,7 +11,7 @@ function Home() {
   };
   useEffect(() => {
     axios
-      .get("https://www.airdropsharing.xyz/api/products/", {
+      .get("https://www.cartcove.org/api/products/", {
         headers: {
           Authorization: "Token " + window.localStorage.getItem("Token"),
         },

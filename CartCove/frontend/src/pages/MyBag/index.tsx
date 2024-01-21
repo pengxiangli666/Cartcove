@@ -8,7 +8,7 @@ const MyBag = () => {
   const [allPrice, setAllPrice] = useState(0);
   useEffect(() => {
     axios
-      .get("https://www.airdropsharing.xyz/cart/api/cart-items/", {
+      .get("https://www.cartcove.org/cart/api/cart-items/", {
         headers: {
           Authorization: "Token " + window.localStorage.getItem("Token"),
         },

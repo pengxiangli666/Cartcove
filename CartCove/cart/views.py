@@ -2,13 +2,15 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from rest_framework import viewsets, permissions, status
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes,authentication_classes
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Product, CartItem, Review
+from django.views.decorators.http import require_http_methods
+
 from .serializers import (
     ProductSerializer,
     CartItemSerializer,
@@ -18,7 +20,7 @@ from .serializers import (
 )
 
 
-@csrf_exempt
+#@csrf_exempt
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def add_to_cart(request, product_id):
@@ -35,7 +37,7 @@ def add_to_cart(request, product_id):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@csrf_exempt
+#@csrf_exempt
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def remove_from_cart(request, product_id):
@@ -65,7 +67,8 @@ def create_product(request):
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
 
-
+@authentication_classes([])
+@permission_classes([AllowAny])
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
@@ -86,3 +89,17 @@ class ReviewViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+
+from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods
+from django.shortcuts import get_object_or_404
+
+@require_http_methods(["DELETE"])
+def delete_product(request, product_id):
+    try:
+        product = get_object_or_404(Product, id=product_id)
+        product.delete()
+        return JsonResponse({'message': 'Product deleted successfully'}, status=200)
+    except Exception as e:
+        return JsonResponse({'error': 'Product deletion failed', 'details': str(e)}, status=500)

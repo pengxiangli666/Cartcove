@@ -130,13 +130,13 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
+#.env
+#.venv
+#env/
+#venv/
+#ENV/
+#env.bak/
+#venv.bak/
 
 # Spyder project settings
 .spyderproject
@@ -205,10 +205,10 @@ sketch
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,react,django
-CartCove/frontend/static/frontend/main.js
+
 CartCove/frontend/static/frontend/main.js.LICENSE.txt
 
 # JavaScript
 
-CartCove/frontend/static/frontend/main.js
+
 CartCove/frontend/static/frontend/main.js.LICENSE.txt
