@@ -67,6 +67,10 @@ source venv/bin/activate
 ```
 cd CartCove
 ```
+* Download requirements app
+```
+pip install -r requirements.txt
+```
 * Run the test
 ```
 python3 manage.py test cart
@@ -76,7 +80,7 @@ This test includes whether a user can be successfully created and the correct to
 
 # Authors
 
-* Pengxiang li pl7@email.sc.edu
+* Pengxiang Li pl7@email.sc.edu
 * Jamel chouarfj@email.sc.edu
 * Yixuan Liu yixuanl@email.sc.edu
 * Zhongsheng Li	zl11@email.sc.edu
