@@ -56,10 +56,27 @@ Frontend:
 Backend:
 * [Black](https://black.readthedocs.io/en/stable/)
 
+## Testing Part
+Unit Test:
+* First enter the virtual environment.
+```
+cd TheOverlords
+source venv/bin/activate
+```
+* Go to Cartcove 
+```
+cd CartCove
+```
+* Run the test
+```
+pyyhon3 manage.py test cart
+```
+* 
+This test includes whether a user can be successfully created and the correct token is returned. Whether items can be added to the shopping cart and then removed. Whether new items can be created and deleted.
+
 # Authors
 
 * Pengxiang li pl7@email.sc.edu
 * Jamel chouarfj@email.sc.edu
 * Yixuan Liu yixuanl@email.sc.edu
 * Zhongsheng Li	zl11@email.sc.edu
-
