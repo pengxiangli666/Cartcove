@@ -69,7 +69,7 @@ cd CartCove
 ```
 * Run the test
 ```
-pyyhon3 manage.py test cart
+python3 manage.py test cart
 ```
 * 
 This test includes whether a user can be successfully created and the correct token is returned. Whether items can be added to the shopping cart and then removed. Whether new items can be created and deleted.
