@@ -95,11 +95,3 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import get_object_or_404
 
-@require_http_methods(["DELETE"])
-def delete_product(request, product_id):
-    try:
-        product = get_object_or_404(Product, id=product_id)
-        product.delete()
-        return JsonResponse({'message': 'Product deleted successfully'}, status=200)
-    except Exception as e:
-        return JsonResponse({'error': 'Product deletion failed', 'details': str(e)}, status=500)
