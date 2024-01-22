@@ -6,9 +6,7 @@ from .views import (
     add_to_cart,
     remove_from_cart,
     view_cart_items,
-    ReviewViewSet,
-    create_product,
-    delete_product
+    ReviewViewSet
 )
 
 router = DefaultRouter()
