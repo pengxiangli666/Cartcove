@@ -76,7 +76,7 @@ pip install -r requirements.txt
 python3 manage.py test cart
 ```
 * 
-This test includes whether a user can be successfully created and the correct token is returned. Whether items can be added to the shopping cart and then removed. Whether new items can be created and deleted.
+   This test includes whether a user can be successfully created and the correct token is returned. Whether items can be added to the shopping cart and then removed. Whether new items can be created and deleted.
 
 # Authors
 
