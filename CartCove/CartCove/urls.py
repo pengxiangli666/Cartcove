@@ -24,7 +24,6 @@ router.register(
 router.register(
     r"cart-items", CartItemViewSet, basename="cartitem"
 )  # Used to process items related to shopping carts API request
-
 urlpatterns = [
     path("", index),  # Used to handle front-end applications URL
     path("SignIn", index),
@@ -39,6 +38,7 @@ urlpatterns = [
     ),  # registration-related URL
     path("cart/", include("cart.urls")),  # Shopping cart application URL
     path("api/", include(router.urls)),  # API Path set to /api/
+
     re_path(r'^.*', TemplateView.as_view(template_name='frontend/index.html')) # Makes it so that the frontend handles unknown URLs
 ]
 
