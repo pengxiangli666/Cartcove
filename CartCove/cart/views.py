@@ -12,7 +12,7 @@ from .models import Product, CartItem, Review
 from django.views.decorators.http import require_http_methods
 from rest_framework.views import APIView
 from rest_framework import status
-from .serializers import ProductSerializer
+
 
 from .serializers import (
     ProductSerializer,
