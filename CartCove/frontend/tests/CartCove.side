@@ -1,0 +1,152 @@
+{
+  "id": "517a5cce-63bd-44f4-ba32-90bfa49a2e6e",
+  "version": "2.0",
+  "name": "CartCove",
+  "url": "https://cartcove.org",
+  "tests": [{
+    "id": "280b6c8c-47dc-4298-bbf6-7ef36a588c44",
+    "name": "Login",
+    "commands": [{
+      "id": "2f8af79b-eac4-484c-8ec7-df6e889d375d",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "61b99c5a-42cd-4aec-81c9-f09a9265eada",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Sign In",
+      "targets": [
+        ["linkText=Sign In", "linkText"],
+        ["css=.btn > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Sign In')]", "xpath:link"],
+        ["xpath=//div[@id='root']/header/button/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/SignIn')]", "xpath:href"],
+        ["xpath=//button/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Sign In')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d9b93dbb-0ab9-4afa-8453-29bb5033ae03",
+      "comment": "",
+      "command": "click",
+      "target": "id=username",
+      "targets": [
+        ["id=username", "id"],
+        ["name=username", "name"],
+        ["css=#username", "css:finder"],
+        ["xpath=//input[@id='username']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//form/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f6837fc1-8eb6-475c-a584-80d780658d90",
+      "comment": "",
+      "command": "type",
+      "target": "id=username",
+      "targets": [
+        ["id=username", "id"],
+        ["name=username", "name"],
+        ["css=#username", "css:finder"],
+        ["xpath=//input[@id='username']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//form/div/input", "xpath:position"]
+      ],
+      "value": "Automation"
+    }, {
+      "id": "2351c114-881a-4104-8af1-18be39d11184",
+      "comment": "",
+      "command": "click",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["name=password", "name"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4735abf2-0ec9-42b7-a792-62d1545bdedd",
+      "comment": "",
+      "command": "type",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["name=password", "name"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "AutoPass"
+    }, {
+      "id": "de28006a-cccf-4ea1-b692-6c9e24e92ae4",
+      "comment": "",
+      "command": "click",
+      "target": "css=.login-form-button",
+      "targets": [
+        ["css=.login-form-button", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/form/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3bc9ec5c-c4a6-4af3-9ad3-a3259ba5f293",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "linkText=Sign In",
+      "targets": [
+        ["linkText=Sign In", "linkText"],
+        ["css=.btn > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Sign In')]", "xpath:link"],
+        ["xpath=//div[@id='root']/header/button/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/SignIn')]", "xpath:href"],
+        ["xpath=//button/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Sign In')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c34bd5a8-e60f-4b32-a685-3f920b8dcceb",
+      "comment": "",
+      "command": "click",
+      "target": "id=dropdown-basic",
+      "targets": [
+        ["id=dropdown-basic", "id"],
+        ["css=#dropdown-basic", "css:finder"],
+        ["xpath=//button[@id='dropdown-basic']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/header/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Automation')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "14e92fba-98c8-4120-8006-0c336ff1bf82",
+      "comment": "",
+      "command": "click",
+      "target": "css=.dropdown-item:nth-child(2) > a",
+      "targets": [
+        ["css=.dropdown-item:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Log out')]", "xpath:link"],
+        ["xpath=//div[@id='root']/header/div[3]/div/a[2]/a", "xpath:idRelative"],
+        ["xpath=//a[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "0f6ab236-61db-4c76-a315-61b3fc174012",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["280b6c8c-47dc-4298-bbf6-7ef36a588c44"]
+  }],
+  "urls": ["https://cartcove.org/"],
+  "plugins": []
+}
