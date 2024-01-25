@@ -78,6 +78,16 @@ python3 manage.py test cart
 * 
    This test includes whether a user can be successfully created and the correct token is returned. Whether items can be added to the shopping cart and then removed. Whether new items can be created and deleted.
 
+Behavorial Test:
+* Navigate to ~/CartCove/frontend and run the following commands if this is the first time testing
+```
+npm install -g selenium-side-runner
+npm install -g chromedriver
+```
+* To run the test, use the following command
+```
+selenium-side-runner .\tests\CartCove.side
+```
 # Authors
 
 * Pengxiang Li pl7@email.sc.edu
