@@ -38,9 +38,8 @@ urlpatterns = [
     ),  # registration-related URL
     path("cart/", include("cart.urls")),  # Shopping cart application URL
     path("api/", include(router.urls)),  # API Path set to /api/
-
-    re_path(r'^.*', TemplateView.as_view(template_name='frontend/index.html')) # Makes it so that the frontend handles unknown URLs
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += [re_path(r'^.*', TemplateView.as_view(template_name='frontend/index.html'))]
