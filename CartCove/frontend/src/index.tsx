@@ -1,12 +1,90 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "../static/css/index.css";
-import App from "./components/App";
-import Navigation from "./components/Navigation";
+import {
+  Routes,
+  createBrowserRouter,
+  BrowserRouter,
+  Route,
+} from "react-router-dom";
+import HomePage from "./routes/HomePage";
+import NotFound from "./routes/NotFound";
+import Home from "./pages/Home";
+import Header from "./components/header";
+import PersonalSettings from "./pages/PersonalSettings";
+import Register from "./pages/Register";
+import SignIn from "./pages/SignIn";
+import Detail from "./pages/Detail";
+import MyBag from "./pages/MyBag";
+import ProductPage from "./routes/ProductPage";
+import ReviewPage from "./routes/ReviewPage";
+import AddProduct from "./routes/AddProduct";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+    errorElement: <NotFound />,
+  },
+  {
+    path: "/product/*",
+    element: <ProductPage />,
+    errorElement: <NotFound />,
+  },
+  {
+    path: "/reviews/*",
+    element: <ReviewPage />,
+    errorElement: <NotFound />,
+  },
+  {
+    path: "/add/*",
+    element: <AddProduct />,
+    errorElement: <NotFound />,
+  },
+  {
+    path: "/SignIn",
+    element: <SignIn />,
+    errorElement: <NotFound />,
+  },
+  {
+    path: "/Register",
+    element: <Register />,
+    errorElement: <NotFound />,
+  },
+  {
+    path: "/Detail",
+    element: <Detail />,
+    errorElement: <NotFound />,
+  },
+  {
+    path: "/MyBag",
+    element: <MyBag />,
+    errorElement: <NotFound />,
+  },
+  {
+    path: "PersonalSettings",
+    element: <PersonalSettings />,
+    errorElement: <NotFound />,
+  },
+]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Navigation />
-    <App />
+    <BrowserRouter>
+      <Header></Header>
+      <Routes>
+        <Route path="/" element={<Home></Home>} />
+        <Route path="/SignIn" element={<SignIn></SignIn>} />
+        <Route path="/Register" element={<Register></Register>} />
+        <Route path="/Detail" element={<Detail></Detail>} />
+        <Route path="/MyBag" element={<MyBag></MyBag>} />
+        <Route
+          path="/PersonalSettings"
+          element={<PersonalSettings></PersonalSettings>}
+        />
+        <Route path="/product/*" element={<ProductPage />} />
+        <Route path="/reviews/*" element={<ReviewPage />} />
+        <Route path="/add/*" element={<AddProduct />} />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );

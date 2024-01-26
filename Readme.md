@@ -46,7 +46,6 @@ Then, use the other terminal and navigate to ~/CartCove/frontend/ and run the fo
 ```
 npm run dev
 ```
-
 After that, open up a browser and visit http://127.0.0.1:8000/
 
 ## Coding Style
@@ -57,9 +56,31 @@ Frontend:
 Backend:
 * [Black](https://black.readthedocs.io/en/stable/)
 
+## Testing Part
+Unit Test:
+* First enter the virtual environment.
+```
+cd TheOverlords
+source venv/bin/activate
+```
+* Go to Cartcove 
+```
+cd CartCove
+```
+* Download requirements app
+```
+pip install -r requirements.txt
+```
+* Run the test
+```
+python3 manage.py test cart
+```
+* 
+   This test includes whether a user can be successfully created and the correct token is returned. Whether items can be added to the shopping cart and then removed. Whether new items can be created and deleted.
+
 # Authors
 
-* Pengxiang li pl7@email.sc.edu
+* Pengxiang Li pl7@email.sc.edu
 * Jamel chouarfj@email.sc.edu
 * Yixuan Liu yixuanl@email.sc.edu
 * Zhongsheng Li	zl11@email.sc.edu

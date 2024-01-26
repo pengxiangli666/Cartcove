@@ -1,24 +1,13 @@
 from rest_framework import serializers
 from django.shortcuts import get_object_or_404
 from .models import Product, CartItem
-from .models import Product
-from django.conf import settings
+from .models import Review, Product
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    image_url = serializers.SerializerMethodField()
-
     class Meta:
         model = Product
-        fields = ["id", "name", "price", "image", "image_url"]
-
-    def get_image_url(self, product):
-        request = self.context.get("request")
-        if product.image and hasattr(product.image, "url"):
-            return request.build_absolute_uri(
-                settings.MEDIA_URL + str(product.image.url)
-            )
-        return None
+        fields = ["id", "name", "price", "image"]
 
 
 class CartItemSerializer(serializers.ModelSerializer):
@@ -37,7 +26,7 @@ class AddToCartSerializer(serializers.Serializer):
 
     def validate_product_id(self, value):
         if not Product.objects.filter(id=value).exists():
-            raise serializers.ValidationError("Ineffective productsID")
+            raise serializers.ValidationError("Invalid product ID")
         return value
 
     def create(self, validated_data):
@@ -60,13 +49,36 @@ class AddToCartSerializer(serializers.Serializer):
 
 class RemoveFromCartSerializer(serializers.Serializer):
     product_id = serializers.IntegerField()
+    quantity = serializers.IntegerField(min_value=1, default=1)
 
     def validate_product_id(self, value):
         user = self.context["request"].user
-        if not Product.objects.filter(id=value).exists():
-            raise serializers.ValidationError("Ineffective productsID")
         if not CartItem.objects.filter(user=user, product_id=value).exists():
             raise serializers.ValidationError(
-                "This product does not exist in the shopping cart"
+                "The product does not exist in the shopping cart"
             )
         return value
+
+    def delete(self):
+        user = self.context["request"].user
+        product_id = self.validated_data.get("product_id")
+        quantity = self.validated_data.get("quantity")
+
+        cart_item = CartItem.objects.filter(user=user, product_id=product_id).first()
+        if cart_item:
+            cart_item.quantity -= quantity
+            if cart_item.quantity <= 0:
+                cart_item.delete()
+            else:
+                cart_item.save()
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())
+    user = serializers.ReadOnlyField(source="user.id")  # user just can read
+
+    class Meta:
+        model = Review
+        fields = ["id", "user", "product", "rating", "comment", "created_at"]
+
+

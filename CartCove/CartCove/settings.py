@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,8 +27,22 @@ SECRET_KEY = "django-insecure-)$+@04#=x&m5b!@ga%y%r%b@fs%w2f8ran8024tsmt*1zbu_kw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+
+APPEND_SLASH=False
+SITE_ID = 1
+
+##
+
+# Add this if your static files are stored in the 'static' directory of your Django app
+STATIC_URL = 'frontend/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend/static/frontend/')]
+
+# Add this to collect static files to a common location
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+##
 
 # Application definition
 
@@ -58,7 +73,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
+    #"django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
@@ -92,7 +107,7 @@ WSGI_APPLICATION = "CartCove.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": "/app/db.sqlite3",
     }
 }
 
@@ -155,8 +170,8 @@ ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 
-CORS_ORIGIN_WHITELIST = ["http://localhost:3000"]
-
+#CORS_ORIGIN_WHITELIST = ["http://localhost:3000"]
+CORS_ORIGIN_ALLOW_ALL = True
 SIZE_ID = 1
 
 # just for test regist function
@@ -164,3 +179,9 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+
+CSRF_COOKIE_SECURE = True
+
+CSRF_TRUSTED_ORIGINS = ['https://www.cartcove.org','https://cartcove.org']
+
