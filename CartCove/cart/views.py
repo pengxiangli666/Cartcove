@@ -75,10 +75,11 @@ def create_product(request):
 class ProductViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     def get_queryset(self):
-        queryset = Product.objects.all()
         query = self.request.query_params.get('query', None)
         if query is not None:
-            queryset = queryset.filter(name__icontains=query)
+            queryset = Product.objects.filter(name__icontains=query)
+        else:
+            queryset = Product.objects.all()
         return queryset
 
 
