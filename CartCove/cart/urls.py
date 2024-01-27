@@ -4,6 +4,7 @@ from .views import (
     ProductSearchView,
     ProductViewSet,
     CartItemViewSet,
+    ReviewViewSet,
     add_to_cart,
     remove_from_cart,
     view_cart_items,

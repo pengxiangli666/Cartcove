@@ -10,9 +10,6 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Product, CartItem, Review
 from django.views.decorators.http import require_http_methods
-from rest_framework.views import APIView
-from rest_framework import status
-
 
 from .serializers import (
     ProductSerializer,
@@ -93,12 +90,8 @@ class ReviewViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-@permission_classes([AllowAny])
-class ProductSearchView(APIView):
-    def get(self, request):
-        query = request.query_params.get('query', '')
-        products = Product.objects.filter(name__icontains=query)
-        serializer = ProductSerializer(products, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
 
+from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods
+from django.shortcuts import get_object_or_404
 
