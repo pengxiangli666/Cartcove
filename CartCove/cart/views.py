@@ -93,7 +93,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-
+@permission_classes([AllowAny])
 class ProductSearchView(APIView):
     def get(self, request):
         query = request.query_params.get('query', '')
