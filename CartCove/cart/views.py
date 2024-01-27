@@ -100,11 +100,6 @@ class ReviewViewSet(viewsets.ModelViewSet):
         serializer.save(user=self.request.user)
 
 
-class ProductSearchView(APIView):
-    def get(self, request):
-        query = request.query_params.get('query', '')
-        products = Product.objects.filter(name__icontains=query)
-        serializer = ProductSerializer(products, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 
