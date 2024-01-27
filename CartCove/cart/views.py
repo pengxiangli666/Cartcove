@@ -73,14 +73,8 @@ def create_product(request):
 @authentication_classes([])
 @permission_classes([AllowAny])
 class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    def get_queryset(self):
-        query = self.request.query_params.get('query', None)
-        if query is not None:
-            queryset = Product.objects.filter(name__icontains=query)
-        else:
-            queryset = Product.objects.all()
-        return queryset
 
 
 class CartItemViewSet(viewsets.ModelViewSet):
@@ -100,6 +94,11 @@ class ReviewViewSet(viewsets.ModelViewSet):
         serializer.save(user=self.request.user)
 
 
-
+class ProductSearchView(APIView):
+    def get(self, request):
+        query = request.query_params.get('query', '')
+        products = Product.objects.filter(name__icontains=query)
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
