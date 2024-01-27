@@ -10,7 +10,7 @@ function Home() {
   const [lists, setLists] = useState([]);
 
   useEffect(() => {
-    // 无论searchTerm是否为空，都发送请求
+    // Send the request regardless of whether searchTerm is empty or not
     axios
       .get("https://www.cartcove.org/api/products/", {
         headers: {
@@ -25,9 +25,9 @@ function Home() {
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);
-        // 可以在这里处理错误，例如设置错误状态或显示错误信息
+        // Errors can be handled here, such as setting error status or displaying error messages
       });
-  }, [searchTerm]); // 添加searchTerm作为依赖项
+  }, [searchTerm]); // Add searchTerm as dependency
 
   const liClick = (res: any) => {
     navigateTo("/Detail?res=" + JSON.stringify(res));
