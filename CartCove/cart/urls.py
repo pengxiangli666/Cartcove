@@ -18,5 +18,5 @@ urlpatterns = [
         remove_from_cart,
         name="remove_from_cart",
     ),
-    path("api/products/search", ProductSearchView.as_view(), name='product_search'),
+    #path("api/products/search", ProductSearchView.as_view(), name='product_search'),
 ]
