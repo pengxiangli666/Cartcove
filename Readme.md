@@ -95,4 +95,3 @@ selenium-side-runner .\tests\CartCove.side
 * Yixuan Liu yixuanl@email.sc.edu
 * Zhongsheng Li	zl11@email.sc.edu
 
-1
