@@ -6,7 +6,6 @@ import {
   BrowserRouter,
   Route,
 } from "react-router-dom";
-import HomePage from "./routes/HomePage";
 import NotFound from "./routes/NotFound";
 import Home from "./pages/Home";
 import Header from "./components/header";
@@ -18,73 +17,32 @@ import MyBag from "./pages/MyBag";
 import ProductPage from "./routes/ProductPage";
 import ReviewPage from "./routes/ReviewPage";
 import AddProduct from "./routes/AddProduct";
+import { SearchProvider } from './context/SearchContext'; // SearchProvider
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-    errorElement: <NotFound />,
-  },
-  {
-    path: "/product/*",
-    element: <ProductPage />,
-    errorElement: <NotFound />,
-  },
-  {
-    path: "/reviews/*",
-    element: <ReviewPage />,
-    errorElement: <NotFound />,
-  },
-  {
-    path: "/add/*",
-    element: <AddProduct />,
-    errorElement: <NotFound />,
-  },
-  {
-    path: "/SignIn",
-    element: <SignIn />,
-    errorElement: <NotFound />,
-  },
-  {
-    path: "/Register",
-    element: <Register />,
-    errorElement: <NotFound />,
-  },
-  {
-    path: "/Detail",
-    element: <Detail />,
-    errorElement: <NotFound />,
-  },
-  {
-    path: "/MyBag",
-    element: <MyBag />,
-    errorElement: <NotFound />,
-  },
-  {
-    path: "PersonalSettings",
-    element: <PersonalSettings />,
-    errorElement: <NotFound />,
-  },
-]);
+
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Header></Header>
-      <Routes>
-        <Route path="/" element={<Home></Home>} />
-        <Route path="/SignIn" element={<SignIn></SignIn>} />
-        <Route path="/Register" element={<Register></Register>} />
-        <Route path="/Detail" element={<Detail></Detail>} />
-        <Route path="/MyBag" element={<MyBag></MyBag>} />
-        <Route
-          path="/PersonalSettings"
-          element={<PersonalSettings></PersonalSettings>}
-        />
-        <Route path="/product/*" element={<ProductPage />} />
-        <Route path="/reviews/*" element={<ReviewPage />} />
-        <Route path="/add/*" element={<AddProduct />} />
-      </Routes>
-    </BrowserRouter>
+    <SearchProvider>
+      <BrowserRouter>
+        <Header></Header>
+        <Routes>
+          <Route path="/" element={<Home></Home>} />
+          <Route path="/SignIn" element={<SignIn></SignIn>} />
+          <Route path="/Register" element={<Register></Register>} />
+          <Route path="/Detail" element={<Detail></Detail>} />
+          <Route path="/MyBag" element={<MyBag></MyBag>} />
+          <Route
+            path="/PersonalSettings"
+            element={<PersonalSettings></PersonalSettings>}
+          />
+          <Route path="/product/*" element={<ProductPage />} />
+          <Route path="/reviews/*" element={<ReviewPage />} />
+          <Route path="/add/*" element={<AddProduct />} />
+          <Route path="*" element={<NotFound />} />
+
+        </Routes>
+      </BrowserRouter>
+    </SearchProvider>
   </React.StrictMode>
 );
