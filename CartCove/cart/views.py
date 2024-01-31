@@ -43,8 +43,8 @@ def add_to_cart(request, product_id):
 #@csrf_exempt
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
-def remove_from_cart(request, product_id):
-    data = {"product_id": request.data.get('product_id'), "quantity": request.data.get("quantity", 1)}
+def remove_from_cart(request):
+    data = {"product_id": request.data.get('id'), "quantity": request.data.get("quantity", 1)}
     serializer = RemoveFromCartSerializer(data=data, context={"request": request})
     if serializer.is_valid():
         serializer.delete()
