@@ -47,17 +47,17 @@ const MyBag = () => {
         }
       )
       .then(() => {
-        setLists(lists.filter((item) => item.id !== product_id));
+        //setLists(lists.filter((item) => item.id !== product_id));
 
-        // axios
-        // .get("https://www.cartcove.org/cart/api/cart-items/", {
-        //   headers: {
-        //     Authorization: "Token " + window.localStorage.getItem("Token"),
-        //   },
-        // })
-        // .then((res) => {
-        //   setLists(res.data);
-        // });
+         axios
+         .get("https://www.cartcove.org/cart/api/cart-items/", {
+           headers: {
+             Authorization: "Token " + window.localStorage.getItem("Token"),
+           },
+         })
+         .then((res) => {
+           setLists(res.data);
+         });
       });
   };
 
