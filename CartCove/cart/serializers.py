@@ -53,7 +53,7 @@ class RemoveFromCartSerializer(serializers.Serializer):
 
     def validate_product_id(self, value):
         user = self.context["request"].user
-        if not CartItem.objects.filter(user=user, product_id=value).exists():
+        if not CartItem.objects.filter(user=user, id=value).exists():
             raise serializers.ValidationError(
                 "The product does not exist in the shopping cart"
             )
@@ -64,7 +64,7 @@ class RemoveFromCartSerializer(serializers.Serializer):
         product_id = self.validated_data.get("product_id")
         quantity = self.validated_data.get("quantity")
 
-        cart_item = CartItem.objects.filter(user=user, product_id=product_id).first()
+        cart_item = CartItem.objects.filter(user=user, id=product_id).first()
         if cart_item:
             cart_item.quantity -= quantity
             if cart_item.quantity <= 0:
