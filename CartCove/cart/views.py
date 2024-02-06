@@ -92,17 +92,18 @@ class ReviewViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+from django.db.models import Q
+
 @authentication_classes([])
 @permission_classes([AllowAny])
-class ProductSearchView(APIView):
-    def get(self, request):
-        query = request.query_params.get('query', '')
-        if query:
-            products = Product.objects.filter(name__icontains=query)
-            serializer = ProductSerializer(products, many=True)
-        else:
-            products = Product.objects.all()
-            serializer = ProductSerializer(products, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+    def get_queryset(self):
+        query = self.request.query_params.get('query', None)
+        if query is not None:
+            return Product.objects.filter(Q(name__icontains=query))
+        return super().get_queryset()
 
 
