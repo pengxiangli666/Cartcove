@@ -86,10 +86,10 @@ class ReviewSerializer(serializers.ModelSerializer):
         fields = ["id", "user", "product", "rating", "comment", "created_at"]
 
 
-class AddressSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Address
-        fields = ["id", "address", "city", "state", "zip_code", "country"]
+#class AddressSerializer(serializers.ModelSerializer):
+    #class Meta:
+        #model = Address
+        #fields = ["id", "address", "city", "state", "zip_code", "country"]
 
 
 class PaymentSerializer(serializers.ModelSerializer):
