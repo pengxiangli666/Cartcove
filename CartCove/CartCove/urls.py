@@ -5,42 +5,37 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from rest_framework.routers import DefaultRouter
-from rest_framework import permissions
-from drf_yasg.views import get_schema_view
-from drf_yasg import openapi
-
+from frontend.views import index
 
 from cart.views import (
     ProductViewSet,
     CartItemViewSet,
-)  # Make sure to import CartItemViewSet
-from frontend.views import index
+    OrderViewSet,
+    PaymentViewSet,
+    AddressViewSet,
+)
 
-# Create a router and register your view set
+# ViewSet
 router = DefaultRouter()
-router.register(
-    r"products", ProductViewSet
-)  # Used for processing product-related API request
-router.register(
-    r"cart-items", CartItemViewSet, basename="cartitem"
-)  # Used to process items related to shopping carts API request
+router.register(r"products", ProductViewSet)
+router.register(r"cart-items", CartItemViewSet, basename="cart_item")
+router.register(r"orders", OrderViewSet)
+router.register(r"payments", PaymentViewSet)
+router.register(r"addresses", AddressViewSet)
+
+# URL patterns
 urlpatterns = [
-    path("", index),  # Used to handle front-end applications URL
-    path("SignIn", index),
-    path("Register", index),
-    path("PersonalSettings", index),
-    path("Detail", index),
-    path("MyBag", index), 
     path("admin/", admin.site.urls),
     path("auth/", include("dj_rest_auth.urls")),  # authentication-related URL
-    path(
-        "auth/registration/", include("dj_rest_auth.registration.urls")
-    ),  # registration-related URL
-    path("cart/", include("cart.urls")),  # Shopping cart application URL
-    path("api/", include(router.urls)),  # API Path set to /api/
+    path("auth/registration/", include("dj_rest_auth.registration.urls")),
+    # registration-related URL
+    path("cart/", include("cart.urls")),
+    path("api/", include(router.urls)),
 
-    re_path(r'^.*', TemplateView.as_view(template_name='frontend/index.html')) # Makes it so that the frontend handles unknown URLs
+    # Makes it so that the frontend handles unknown URLs
+    re_path(r'^.*', index)
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

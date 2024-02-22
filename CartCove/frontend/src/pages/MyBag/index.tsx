@@ -2,8 +2,18 @@ import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
 import "./index.css";
+
+interface ListItem {
+  id: number;
+  product_image: string;
+  product_name: string;
+  product_price: number;
+  quantity: number;
+}
+
+
 const MyBag = () => {
-  const [lists, setLists] = useState([]);
+  const [lists, setLists] = useState<ListItem[]>([]);
   const [numbers, setNumbers] = useState(0);
   const [allPrice, setAllPrice] = useState(0);
   useEffect(() => {
@@ -25,6 +35,31 @@ const MyBag = () => {
         setAllPrice(price);
       });
   }, []);
+
+  const handleDelete = (product_id: number) => {
+    axios
+      .post(`https://www.cartcove.org/cart/api/remove-from-cart`,
+        { product_id },
+        {
+          headers: {
+            Authorization: "Token " + window.localStorage.getItem("Token"),
+          },
+        }
+      )
+      .then(() => {
+        //setLists(lists.filter((item) => item.id !== product_id));
+
+         axios
+         .get("https://www.cartcove.org/cart/api/cart-items/", {
+           headers: {
+             Authorization: "Token " + window.localStorage.getItem("Token"),
+           },
+         })
+         .then((res) => {
+           setLists(res.data);
+         });
+      });
+  };
 
   return (
     <div className="MyBag">
@@ -59,7 +94,21 @@ const MyBag = () => {
                 </div>
                 <div>${res.quantity * res.product_price}</div>
                 <div>
-                  <div>delete</div>
+                  <div>
+                    <div
+                      onClick={() => handleDelete(res.id)}
+                      style={{
+                        color: 'white', 
+                        backgroundColor: 'red',
+                        padding: '10px',
+                        borderRadius: '5px',
+                        cursor: 'pointer',
+                        fontWeight: 'bold',
+                      }}
+                    >
+                      delete
+                    </div>
+                  </div>
                 </div>
               </li>
             );
@@ -69,4 +118,5 @@ const MyBag = () => {
     </div>
   );
 };
+
 export default MyBag;
