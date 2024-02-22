@@ -2,7 +2,8 @@ from rest_framework import serializers
 from django.shortcuts import get_object_or_404
 from .models import Product, CartItem
 from .models import Review, Product
-
+from .models import Address, Payment, Order
+import json
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
@@ -13,11 +14,13 @@ class ProductSerializer(serializers.ModelSerializer):
 class CartItemSerializer(serializers.ModelSerializer):
     product_name = serializers.ReadOnlyField(source="product.name")
     product_price = serializers.ReadOnlyField(source="product.price")
-    product_image = serializers.ImageField(source="product.image", read_only=True)
+    product_image = serializers.ImageField(
+        source="product.image", read_only=True)
 
     class Meta:
         model = CartItem
-        fields = ["id", "product_name", "product_price", "product_image", "quantity"]
+        fields = ["id", "product_name", "product_price",
+                  "product_image", "quantity"]
 
 
 class AddToCartSerializer(serializers.Serializer):
@@ -74,7 +77,8 @@ class RemoveFromCartSerializer(serializers.Serializer):
 
 
 class ReviewSerializer(serializers.ModelSerializer):
-    product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())
+    product = serializers.PrimaryKeyRelatedField(
+        queryset=Product.objects.all())
     user = serializers.ReadOnlyField(source="user.id")  # user just can read
 
     class Meta:
@@ -82,3 +86,31 @@ class ReviewSerializer(serializers.ModelSerializer):
         fields = ["id", "user", "product", "rating", "comment", "created_at"]
 
 
+class AddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = ["id", "address", "city", "state", "zip_code", "country"]
+
+
+class PaymentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Payment
+        fields = ["id", "cvc", "card_number", "expiry_date"]
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    products = serializers.JSONField()
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
+
+
+    class Meta:
+        model = Order
+        fields = ["id", "user", "address", "payment",
+                  "products", "price", "ordered_on"]
+
+    # create a new order
+    def create(self, validated_data):
+        user = self.context["request"].user
+        products_data = validated_data.pop("products")
+        order = Order.objects.create(user=user, products=products_data, **validated_data)
+        return order

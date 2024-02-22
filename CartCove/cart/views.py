@@ -1,50 +1,48 @@
-from django.shortcuts import get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
-from rest_framework import viewsets, permissions, status
-from rest_framework.decorators import api_view, permission_classes,authentication_classes
+from django.db.models import Q
+from rest_framework import viewsets, status
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 import json
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from .models import Product, CartItem, Review
-from django.views.decorators.http import require_http_methods
-from rest_framework.views import APIView
+from .models import Product, CartItem, Review, Order, Address, Payment
 from rest_framework import status
-
-
 from .serializers import (
     ProductSerializer,
     CartItemSerializer,
     AddToCartSerializer,
     ReviewSerializer,
     RemoveFromCartSerializer,
+    OrderSerializer,
+    AddressSerializer,
+    PaymentSerializer
 )
 
 
-#@csrf_exempt
+# @csrf_exempt
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def add_to_cart(request, product_id):
     # make data copy
     data = request.data.copy()
     data["product_id"] = product_id  # add product_id to copy
-
     # use copy to create serializer
     serializer = AddToCartSerializer(data=data, context={"request": request})
 
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def remove_from_cart(request):
-    data = {"product_id": request.data.get("product_id"), "quantity": request.data.get("quantity", 1)}
-    serializer = RemoveFromCartSerializer(data=data, context={"request": request})
+    data = {"product_id": request.data.get(
+        "product_id"), "quantity": request.data.get("quantity", 1)}
+    serializer = RemoveFromCartSerializer(
+        data=data, context={"request": request})
     if serializer.is_valid():
         serializer.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
@@ -62,18 +60,20 @@ def view_cart_items(request):
 def create_product(request):
     try:
         data = json.loads(request.body)
-        product = Product.objects.create(name=data["name"], price=data["price"])
+        product = Product.objects.create(
+            name=data["name"], price=data["price"])
         return JsonResponse(
             {"id": product.id, "name": product.name, "price": product.price}, status=201
         )
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
 
-@authentication_classes([])
-@permission_classes([AllowAny])
-class ProductViewSet(viewsets.ModelViewSet):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
+
+# @authentication_classes([])
+# @permission_classes([AllowAny])
+# class ProductViewSet(viewsets.ModelViewSet):
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
 
 
 class CartItemViewSet(viewsets.ModelViewSet):
@@ -92,7 +92,6 @@ class ReviewViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-from django.db.models import Q
 
 @authentication_classes([])
 @permission_classes([AllowAny])
@@ -107,3 +106,57 @@ class ProductViewSet(viewsets.ModelViewSet):
         return super().get_queryset()
 
 
+# create OrderViewSet
+class OrderViewSet(viewsets.ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return self.queryset.filter(user=self.request.user)
+
+    def create(self, request, *args, **kwargs):
+        # calculate total price
+        total_price = 0
+        data = request.data.copy()
+        for product in data['products']:
+            total_price += Product.objects.get(
+                id=product['product_id']).price * product['quantity']
+        request.data['price'] = total_price
+        return super().create(request, *args, **kwargs)
+
+    def update(self, request, *args, **kwargs):
+        # request.data['address'] = request.data['address']['id']
+        return super().update(request, *args, **kwargs)
+
+# create AddressViewSet
+class AddressViewSet(viewsets.ModelViewSet):
+    queryset = Address.objects.all()
+    serializer_class = AddressSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return self.queryset.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
+# create PaymentViewSet
+
+
+class PaymentViewSet(viewsets.ModelViewSet):
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return self.queryset.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
