@@ -151,7 +151,7 @@ const ProductInfoPage: React.FC<ProductInfoPageProps> = ({ current, setCurrent }
                                     <Col span={6} style={{ textAlign: 'center', fontSize: '18px' }}>{productInfo.product.name}</Col>
                                     <Col span={6} style={{ textAlign: 'center', fontSize: '18px' }}>{productInfo.quantity}</Col>
                                     <Col span={6} style={{ textAlign: 'center', fontSize: '18px' }}>¥{productInfo.product.price}</Col>
-                                    <Col span={6} style={{ textAlign: 'center', fontSize: '18px', color: 'red' }}>¥{Number(productInfo.product.price) * productInfo.quantity}</Col>
+                                    <Col span={6} style={{ textAlign: 'center', fontSize: '18px', color: 'red' }}>${Number(productInfo.product.price) * productInfo.quantity}</Col>
                                 </Row>
                             ))}
                         </div>
