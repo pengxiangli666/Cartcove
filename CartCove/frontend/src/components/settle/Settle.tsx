@@ -68,7 +68,7 @@ const ProductInfoPage: React.FC<ProductInfoPageProps> = ({ current, setCurrent }
 
     const handleConfirmClick = async () => {
         if (selectedPayment && selectedAddress) {
-            const url = `http://127.0.0.1:8000/api/orders/${orders[0].id}/`;
+            const url = `https://www.cartcove.org/api/orders/${orders[0].id}/`;
             const data = {
                 address: selectedAddress,
                 ordered: true,
@@ -92,7 +92,7 @@ const ProductInfoPage: React.FC<ProductInfoPageProps> = ({ current, setCurrent }
 
     useEffect(() => {
         const fetchOrders = async () => {
-            const response = await axios.get('http://127.0.0.1:8000/api/orders/?pay=true', {
+            const response = await axios.get('https://www.cartcove.org/api/orders/?pay=true', {
                 headers: {
                     Authorization: "Token " + window.localStorage.getItem("Token"),
                 },
@@ -109,7 +109,7 @@ const ProductInfoPage: React.FC<ProductInfoPageProps> = ({ current, setCurrent }
         };
 
         const fetchPayments = async () => {
-            const response = await axios.get('http://127.0.0.1:8000/api/payments/', {
+            const response = await axios.get('https://www.cartcove.org/api/payments/', {
                 headers: {
                     Authorization: "Token " + window.localStorage.getItem("Token"),
                 },
@@ -118,7 +118,7 @@ const ProductInfoPage: React.FC<ProductInfoPageProps> = ({ current, setCurrent }
         };
 
         const fetchAddresses = async () => {
-            const response = await axios.get('http://127.0.0.1:8000/api/addresses/', {
+            const response = await axios.get('https://www.cartcove.org/api/addresses/', {
                 headers: {
                     Authorization: "Token " + window.localStorage.getItem("Token"),
                 },

@@ -18,7 +18,7 @@ const Address = () => {
     const [form] = Form.useForm();
 
     const fetchAddresses = async () => {
-        const response = await axios.get('http://127.0.0.1:8000/api/addresses/', {
+        const response = await axios.get('https://www.cartcove.org/api/addresses/', {
             headers: {
                 Authorization: "Token " + window.localStorage.getItem("Token"),
             },
@@ -44,14 +44,14 @@ const Address = () => {
         const values = await form.validateFields();
         if (currentAddress) {
             // Update
-            await axios.put(`http://127.0.0.1:8000/api/addresses/${currentAddress.id}/`, values, {
+            await axios.put(`https://www.cartcove.org/api/addresses/${currentAddress.id}/`, values, {
                 headers: {
                     'Authorization': "Token " + window.localStorage.getItem("Token"),
                 },
             });
         } else {
             // Create
-            await axios.post('http://127.0.0.1:8000/api/addresses/', values, {
+            await axios.post('https://www.cartcove.org/api/addresses/', values, {
                 headers: {
                     'Authorization': "Token " + window.localStorage.getItem("Token"),
                 },

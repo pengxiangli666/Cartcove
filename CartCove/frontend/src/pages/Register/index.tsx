@@ -54,7 +54,7 @@ const Register: React.FC = () => {
       return;
     }
     axios
-      .post("http://127.0.0.1:8000/auth/registration/", formData)
+      .post("https://www.cartcove.org/auth/registration/", formData)
       .then(function (response) {
         // handle success
         setShow(true);

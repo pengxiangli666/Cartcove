@@ -39,7 +39,7 @@ const MyBag = () => {
 
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/cart/api/cart-items/", {
+      .get("https://www.cartcove.org/cart/api/cart-items/", {
         headers: {
           Authorization: "Token " + window.localStorage.getItem("Token"),
         },
@@ -59,7 +59,7 @@ const MyBag = () => {
 
   const handleDelete = (product_id: number) => {
     axios
-      .post(`http://127.0.0.1:8000/cart/api/remove-from-cart`,
+      .post(`https://www.cartcove.org/cart/api/remove-from-cart`,
         { product_id },
         {
           headers: {
@@ -69,7 +69,7 @@ const MyBag = () => {
       )
       .then(() => {
         axios
-          .get("http://127.0.0.1:8000/cart/api/cart-items/", {
+          .get("https://www.cartcove.org/cart/api/cart-items/", {
             headers: {
               Authorization: "Token " + window.localStorage.getItem("Token"),
             },
@@ -91,7 +91,7 @@ const MyBag = () => {
   const handleAddToCard = (product_id: number) => {
     axios
       .post(
-        `http://127.0.0.1:8000/cart/api/add-to-cart/${product_id}/`,
+        `https://www.cartcove.org/cart/api/add-to-cart/${product_id}/`,
         qs.stringify({ quantity: 1 }),
         {
           headers: {
@@ -102,7 +102,7 @@ const MyBag = () => {
       )
       .then(() => {
         axios
-          .get("http://127.0.0.1:8000/cart/api/cart-items/", {
+          .get("https://www.cartcove.org/cart/api/cart-items/", {
             headers: {
               Authorization: "Token " + window.localStorage.getItem("Token"),
             },
@@ -123,7 +123,7 @@ const MyBag = () => {
 
 
   const handleConfirmClick = async () => {
-    const url = 'http://127.0.0.1:8000/api/orders/';
+    const url = 'https://www.cartcove.org/api/orders/';
     let allProducts: CreateOrder[] = [];
     let data: Order;
 
@@ -148,7 +148,7 @@ const MyBag = () => {
       });
       console.log(response.data);
       // remove all from cart 
-      await axios.delete('http://127.0.0.1:8000/api/cart-items/delete_all/', {
+      await axios.delete('https://www.cartcove.org/api/cart-items/delete_all/', {
         headers: {
           Authorization: "Token " + window.localStorage.getItem("Token"),
         },

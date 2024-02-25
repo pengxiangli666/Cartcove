@@ -31,7 +31,7 @@ const OrdersPage: React.FC = () => {
 
     useEffect(() => {
         const fetchOrders = async () => {
-            const response = await axios.get<Order[]>('http://127.0.0.1:8000/api/orders/', {
+            const response = await axios.get<Order[]>('https://www.cartcove.org/api/orders/', {
                 headers: {
                     'Authorization': "Token " + window.localStorage.getItem("Token"),
                 },

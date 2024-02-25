@@ -17,7 +17,7 @@ const PaymentsPage: React.FC = () => {
 
   const fetchPayments = async () => {
     try {
-      const response = await axios.get<Payment[]>('http://127.0.0.1:8000/api/payments/', {
+      const response = await axios.get<Payment[]>('https://www.cartcove.org/api/payments/', {
         headers: {
           'Authorization': "Token " + window.localStorage.getItem("Token"),
         },
@@ -43,14 +43,14 @@ const PaymentsPage: React.FC = () => {
     try {
       if (currentPayment) {
         // 修改支付方式
-        await axios.put(`http://127.0.0.1:8000/api/payments/${currentPayment.id}/`, values, {
+        await axios.put(`https://www.cartcove.org/api/payments/${currentPayment.id}/`, values, {
           headers: {
             'Authorization': "Token " + window.localStorage.getItem("Token"),
           },
         });
       } else {
         // 添加支付方式
-        await axios.post('http://127.0.0.1:8000/api/payments/', values, {
+        await axios.post('https://www.cartcove.org/api/payments/', values, {
           headers: {
             'Authorization': "Token " + window.localStorage.getItem("Token"),
           },
