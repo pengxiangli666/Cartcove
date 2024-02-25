@@ -86,7 +86,7 @@ npm install -g chromedriver
 ```
 * To run the test, use the following command
 ```
-selenium-side-runner .\tests\CartCove.side
+selenium-side-runner tests/CartCove.side
 ```
 # Authors
 
