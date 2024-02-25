@@ -64,15 +64,15 @@ class Review(models.Model):
         return f"{self.user} on {self.product}"
 
 
-#class Address(models.Model):
-    #user = models.ForeignKey(User, on_delete=models.CASCADE)
-    #address = models.TextField()
-    #city = models.CharField(max_length=100)
-    #state = models.CharField(max_length=100)
-    #zip_code = models.CharField(max_length=100)
-    #country = models.CharField(max_length=100)
+class Address(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    address = models.TextField()
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    zip_code = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
 
-    #def __str__(self):
+    def __str__(self):
         return f"{self.user.username} - {self.address}"
 
 

@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import {
   Routes,
-  createBrowserRouter,
   BrowserRouter,
   Route,
 } from "react-router-dom";
@@ -17,8 +16,8 @@ import MyBag from "./pages/MyBag";
 import ProductPage from "./routes/ProductPage";
 import ReviewPage from "./routes/ReviewPage";
 import AddProduct from "./routes/AddProduct";
+import Settle from "./pages/Settle";
 import { SearchProvider } from './context/SearchContext'; // SearchProvider
-
 
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -32,6 +31,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="/Register" element={<Register></Register>} />
           <Route path="/Detail" element={<Detail></Detail>} />
           <Route path="/MyBag" element={<MyBag></MyBag>} />
+          <Route path="/Settle" element={<Settle></Settle>} />
           <Route
             path="/PersonalSettings"
             element={<PersonalSettings></PersonalSettings>}
@@ -40,7 +40,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="/reviews/*" element={<ReviewPage />} />
           <Route path="/add/*" element={<AddProduct />} />
           <Route path="*" element={<NotFound />} />
-
         </Routes>
       </BrowserRouter>
     </SearchProvider>

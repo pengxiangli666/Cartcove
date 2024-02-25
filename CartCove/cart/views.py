@@ -17,6 +17,8 @@ from .serializers import (
     AddressSerializer,
     PaymentSerializer
 )
+from rest_framework.decorators import action
+
 
 
 # @csrf_exempt
@@ -83,6 +85,11 @@ class CartItemViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return self.queryset.filter(user=self.request.user)
+    
+    @action(detail=False, methods=['delete'])
+    def delete_all(self, request, *args, **kwargs):
+        self.get_queryset().delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class ReviewViewSet(viewsets.ModelViewSet):
@@ -113,7 +120,13 @@ class OrderViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return self.queryset.filter(user=self.request.user)
+        if self.request.query_params.get('pay') == 'true':
+            queryset = self.queryset.filter(ordered=False,user=self.request.user).order_by('-ordered_on')
+            return queryset
+        
+        queryset = self.queryset.filter(user=self.request.user)
+        return queryset
+
 
     def create(self, request, *args, **kwargs):
         # calculate total price
@@ -126,7 +139,6 @@ class OrderViewSet(viewsets.ModelViewSet):
         return super().create(request, *args, **kwargs)
 
     def update(self, request, *args, **kwargs):
-        # request.data['address'] = request.data['address']['id']
         return super().update(request, *args, **kwargs)
 
 # create AddressViewSet
