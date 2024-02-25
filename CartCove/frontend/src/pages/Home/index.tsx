@@ -12,7 +12,7 @@ function Home() {
   useEffect(() => {
     // Send the request regardless of whether searchTerm is empty or not
     axios
-      .get("https://www.cartcove.org/api/products/", {
+      .get("http://127.0.0.1:8000/api/products/", {
         headers: {
           Authorization: "Token " + window.localStorage.getItem("Token"),
         },

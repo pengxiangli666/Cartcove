@@ -1,0 +1,37 @@
+.settle-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 88%;  
+    margin: 60px auto; 
+}
+
+.card {
+    width: 100%;
+}
+
+.card-header, .card-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.product-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.select-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 35%;  
+}
+
+.select {
+    width: 100%;
+}
+
+.submit-button {
+    align-self: flex-end;
+}

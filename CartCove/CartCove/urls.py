@@ -18,7 +18,7 @@ from cart.views import (
 # ViewSet
 router = DefaultRouter()
 router.register(r"products", ProductViewSet)
-router.register(r"cart-items", CartItemViewSet, basename="cart_item")
+router.register(r"cart-items", CartItemViewSet)
 router.register(r"orders", OrderViewSet)
 router.register(r"payments", PaymentViewSet)
 router.register(r"addresses", AddressViewSet)

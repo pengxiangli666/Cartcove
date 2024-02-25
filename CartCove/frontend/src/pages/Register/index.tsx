@@ -16,6 +16,8 @@ const Register: React.FC = () => {
   const [errors, setErrors] = useState({
     username: "",
     password1: "",
+    password2: "",
+    email: "",
   });
   const [show, setShow] = useState(false);
   const [variant, setVariant] = useState("");
@@ -28,6 +30,8 @@ const Register: React.FC = () => {
     const newErrors = {
       username: "",
       password1: "",
+      password2: "",
+      email: "",
     };
     console.log(formData, "formData");
 
@@ -50,7 +54,7 @@ const Register: React.FC = () => {
       return;
     }
     axios
-      .post("https://www.cartcove.org/auth/registration/", formData)
+      .post("http://127.0.0.1:8000/auth/registration/", formData)
       .then(function (response) {
         // handle success
         setShow(true);
