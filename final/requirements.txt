@@ -1,0 +1,10 @@
+django
+djangorestframework
+markdown
+django-filter
+pyjwt
+Pillow
+
+# swagger
+django-rest-swagger
+drf-yasg
