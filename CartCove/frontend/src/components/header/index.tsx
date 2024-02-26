@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./index.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -7,8 +7,10 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { SearchContext } from '../../context/SearchContext'; // SearchContext
+
+
 export default function Header() {
-  console.log(Button, "Button");
 
   const navigateTo = useNavigate();
   const location = useLocation();
@@ -40,15 +42,19 @@ export default function Header() {
       ),
     },
   ];
-  const MyBag=()=>{
+  const MyBag = () => {
     navigateTo("/MyBag");
   }
   useEffect(() => {
-    console.log(location.pathname, "location.pathname");
-
     const localUserName: string = window.localStorage.getItem("userName") || "";
     setUseName(localUserName);
   }, [location.pathname]);
+
+  const { setSearchTerm } = useContext(SearchContext);
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
   return (
     <header className="header">
       <Navbar expand="lg">
@@ -75,6 +81,7 @@ export default function Header() {
           type="text"
           aria-label="Disabled input example"
           placeholder="input search text"
+          onChange={handleSearchChange}
         />
       </div>
       <div>

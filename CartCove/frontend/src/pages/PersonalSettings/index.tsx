@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Button, Form, Alert } from "react-bootstrap";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import "./index.css";
@@ -17,6 +17,9 @@ const PersonalSettings: React.FC = () => {
   const [errors, setErrors] = useState({
     username: "",
     password: "",
+    hint: "",
+    email: "",
+    hint_answer: "",
   });
   const [show, setShow] = useState(false);
   const [variant, setVariant] = useState("");
@@ -29,8 +32,10 @@ const PersonalSettings: React.FC = () => {
     const newErrors = {
       username: "",
       password: "",
+      hint: errors.hint,
+      email: errors.email,
+      hint_answer: errors.hint_answer,
     };
-    console.log(formData, "formData");
 
     if (formData.username.trim() === "") {
       newErrors.username = "username cannot be empty";

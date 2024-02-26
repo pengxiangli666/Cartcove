@@ -16,6 +16,8 @@ const Register: React.FC = () => {
   const [errors, setErrors] = useState({
     username: "",
     password1: "",
+    password2: "",
+    email: "",
   });
   const [show, setShow] = useState(false);
   const [variant, setVariant] = useState("");
@@ -28,6 +30,8 @@ const Register: React.FC = () => {
     const newErrors = {
       username: "",
       password1: "",
+      password2: "",
+      email: "",
     };
     console.log(formData, "formData");
 
