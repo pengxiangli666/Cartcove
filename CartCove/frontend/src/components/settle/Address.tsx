@@ -11,7 +11,12 @@ interface Address {
     country: string;
 }
 
-const Address = () => {
+interface ProductInfoPageProps {
+    current: string;
+    setCurrent: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const Address: React.FC<ProductInfoPageProps> = ({ current, setCurrent }) => {
     const [addresses, setAddresses] = useState<Address[]>([]);
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
     const [currentAddress, setCurrentAddress] = useState<Address | null>(null);
@@ -109,7 +114,7 @@ const Address = () => {
             </Button>
             <Table dataSource={addresses} columns={columns} rowKey="id" />
 
-            <Modal title="Edit Address" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+            <Modal title="Edit Address" open={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
                 <Form form={form} layout="vertical">
                     <Form.Item name="address" label="Address" rules={[{ required: true }]}>
                         <Input />
@@ -120,7 +125,10 @@ const Address = () => {
                     <Form.Item name="state" label="State" rules={[{ required: true }]}>
                         <Input />
                     </Form.Item>
-                    <Form.Item name="zip_code" label="Zip Code" rules={[{ required: true }]}>
+                    <Form.Item name="zip_code" label="Zip Code" rules={[{ required: true }, {
+                        pattern: new RegExp(/(^\d{5}$)|(^\d{5}-\d{4}$)/),
+                        message: 'Invalid zip code',
+                    },]}>
                         <Input />
                     </Form.Item>
                     <Form.Item name="country" label="Country" rules={[{ required: true }]}>

@@ -6,6 +6,8 @@ import qs from "qs";
 import { Alert } from "react-bootstrap";
 import "./index.css";
 import ProductPageReview from "../../components/ProductPageReview";
+import { useNavigate } from "react-router-dom";
+
 const Detail = () => {
   const location: any = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -15,6 +17,7 @@ const Detail = () => {
   const [show, setShow] = useState(false);
   const [variant, setVariant] = useState("");
   const [message, setMessage] = useState("");
+  const navigateTo = useNavigate();
 
   const handleSelect = (selectedIndex: any) => {
     setIndex(selectedIndex);
@@ -32,12 +35,16 @@ const Detail = () => {
         }
       )
       .then((res) => {
-        if (res.status === 200) {
-          setShow(true);
-          setVariant("success");
-          setMessage("Add successfully");
-        }
-      });
+        setShow(true);
+        setVariant("success");
+        setMessage("Add successfully");
+      })
+      .catch((error) => {
+        navigateTo("/SignIn");
+      })
+      ;
+
+
   };
   return (
     <div className="Detail">

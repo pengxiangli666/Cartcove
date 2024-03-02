@@ -55,8 +55,8 @@ const OrdersPage: React.FC = () => {
                             renderItem={item => (
                                 <List.Item>
                                     <List.Item.Meta
-                                        avatar={<img src={item.product.image} alt={item.product.name} style={{ width: '48px', height: '48px' }} />}
-                                        title={item.product.name}
+                                        avatar={<img src={item.product.image} style={{ width: '110px', height: '110px' }} />}
+                                        title={<div style={{ maxWidth: '170px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.product.name}</div>}
                                         description={`Quantity: ${item.quantity} - Price: $${item.product.price}`}
                                     />
                                 </List.Item>
