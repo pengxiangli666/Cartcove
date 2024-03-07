@@ -80,4 +80,3 @@ This test includes whether a user can be successfully created and the correct to
 * Jamel chouarfj@email.sc.edu
 * Yixuan Liu yixuanl@email.sc.edu
 * Zhongsheng Li	zl11@email.sc.edu
-1
