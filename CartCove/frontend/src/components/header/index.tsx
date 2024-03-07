@@ -20,7 +20,9 @@ export default function Header() {
   };
   const logOut = () => {
     window.localStorage.removeItem("userName");
+    window.localStorage.removeItem("Token");
     setUseName("");
+    console.log("Log out successfully");
     // message.success("Log out successfully");
     navigateTo("/");
   };
@@ -57,21 +59,15 @@ export default function Header() {
 
   return (
     <header className="header">
-      <Navbar expand="lg">
+      <Navbar collapseOnSelect expand="lg" bg="#f5d07e" variant="light">
         <Container>
           <Navbar.Brand href="/">Cartcove</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="#home">Fresh Grocery</Nav.Link>
-              <Nav.Link href="#link">Fast Food</Nav.Link>
-              <Nav.Link href="#link">Drinks</Nav.Link>
-              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Homes</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Tools</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Makeup</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.4">Health</NavDropdown.Item>
-              </NavDropdown>
+              <Nav.Link href="#link1">Fast Food</Nav.Link>
+              <Nav.Link href="#link2">Drinks</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

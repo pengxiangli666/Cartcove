@@ -49,8 +49,8 @@ const Settle: React.FC = () => {
                 style={{ fontSize: '20px' }}
             />
             {current === 'Overview' && <ProductInfoPage current={current} setCurrent={setCurrent} />}
-            {current === 'address' && <Address />}
-            {current === 'pay' && <PaymentsPage />}
+            {current === 'address' && <Address current={current} setCurrent={setCurrent} />}
+            {current === 'pay' && <PaymentsPage current={current} setCurrent={setCurrent} />}
             {current === 'billing' && <OrdersPage />}
         </div>
     );

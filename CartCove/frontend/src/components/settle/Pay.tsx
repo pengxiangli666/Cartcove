@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Modal, Form, Input, FormInstance } from 'antd';
+import { Table, Button, Modal, Form, Input, DatePicker } from 'antd';
 import axios from 'axios';
+import moment from 'moment';
+
 
 interface Payment {
   id: number;
@@ -9,7 +11,12 @@ interface Payment {
   cvc: string;
 }
 
-const PaymentsPage: React.FC = () => {
+interface ProductInfoPageProps {
+  current: string;
+  setCurrent: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const PaymentsPage: React.FC<ProductInfoPageProps> = ({ current, setCurrent }) =>  {
   const [payments, setPayments] = useState<Payment[]>([]);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [currentPayment, setCurrentPayment] = useState<Payment | null>(null);
@@ -103,13 +110,36 @@ const PaymentsPage: React.FC = () => {
 
       <Modal title={currentPayment ? "Edit Payment Method" : "Add Payment Method"} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <Form form={form} layout="vertical">
-          <Form.Item name="card_number" label="Card Number" rules={[{ required: true }]}>
+          <Form.Item
+            name="card_number"
+            label="Card Number"
+            rules={[
+              { required: true },
+              {
+                pattern: new RegExp(/^\d{16}$/),
+                message: 'Invalid card number',
+              },
+            ]}
+          >
             <Input />
           </Form.Item>
-          <Form.Item name="expiry_date" label="Expiry Date" rules={[{ required: true }]}>
-            <Input placeholder="MM/YY" />
+          <Form.Item
+            name="expiry_date"
+            label="Expiry Date"
+            rules={[
+              { required: true },
+              {
+                pattern: new RegExp(/^(0[1-9]|1[0-2])\/([0-9]{2})$/),
+                message: 'Invalid date format, please input as MM/YY',
+              },
+            ]}
+          >
+            <Input addonBefore="MM/YY" />
           </Form.Item>
-          <Form.Item name="cvc" label="CVC" rules={[{ required: true }]}>
+          <Form.Item name="cvc" label="CVC" rules={[{ required: true }, {
+            pattern: new RegExp(/^\d{3,4}$/),
+            message: 'Invalid CVC',
+          }]}>
             <Input />
           </Form.Item>
         </Form>

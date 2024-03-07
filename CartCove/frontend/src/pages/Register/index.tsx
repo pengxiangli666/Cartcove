@@ -68,7 +68,7 @@ const Register: React.FC = () => {
         // handle error
         setShow(true);
         setVariant("danger");
-        setMessage(JSON.stringify(error.response.data, null, 2));
+        setMessage(error.response.data.password1[0]);
       })
       .finally(function () {
         // always executed
@@ -120,7 +120,7 @@ const Register: React.FC = () => {
             Password
           </Form.Label>
           <Form.Control
-            type="password1"
+            type="password"
             name="password1"
             value={formData.password1}
             onChange={handleChange}
@@ -136,7 +136,7 @@ const Register: React.FC = () => {
             Enter the password once
           </Form.Label>
           <Form.Control
-            type="password2"
+            type="password"
             name="password2"
             value={formData.password2}
             onChange={handleChange}
