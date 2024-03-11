@@ -3,7 +3,7 @@ import { Button, Form, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 import "./index.css";
 
 const SignIn: React.FC = () => {
@@ -28,7 +28,6 @@ const SignIn: React.FC = () => {
       username: "",
       password: "",
     };
-    console.log(formData, "formData");
 
     if (formData.username.trim() === "") {
       newErrors.username = "username cannot be empty";
@@ -45,14 +44,12 @@ const SignIn: React.FC = () => {
     axios
       .post("https://www.cartcove.org/auth/login/", formData)
       .then((response: any) => {
-        // handle success
         setShow(true);
         setVariant("success");
         setMessage("Registered successfully");
         window.localStorage.setItem("userName", formData.username);
         window.localStorage.setItem("Token", response.data.key);
         console.log(response, "response");
-        // Cookies.set('Token', response.data.key);
         setTimeout(() => {
           navigateTo("/");
         }, 1000);
@@ -61,7 +58,7 @@ const SignIn: React.FC = () => {
         // handle error
         setShow(true);
         setVariant("danger");
-        setMessage(JSON.stringify(error.response.data, null, 2));
+        setMessage(error.response.data.non_field_errors[0]);
       })
       .finally(function () {
         // always executed

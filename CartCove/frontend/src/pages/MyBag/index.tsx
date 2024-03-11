@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
+import { Button, Alert } from "react-bootstrap";
 import axios from "axios";
 import "./index.css";
 import qs from "qs";
@@ -24,13 +24,15 @@ interface Order {
   products: CreateOrder[];
 }
 
-// const navigate = useNavigate();
-
 
 const MyBag = () => {
   const [lists, setLists] = useState<ListItem[]>([]);
   const [numbers, setNumbers] = useState(0);
   const [allPrice, setAllPrice] = useState(0);
+
+  const [show, setShow] = useState(false);
+  const [variant, setVariant] = useState("");
+  const [message, setMessage] = useState("");
 
   const navigateTo = useNavigate();
   const settle = () => {
@@ -50,10 +52,15 @@ const MyBag = () => {
         let price = 0;
         res.data.forEach((element: any) => {
           number += element.quantity;
-          price += element.quantity * element.product_price;
+          // 将价格转换为以分为单位的整数，进行计算后再转换回以元为单位的浮点数
+          price += element.quantity * Math.round(element.product_price * 100);
         });
         setNumbers(number);
-        setAllPrice(price);
+        // 将总价转换回以元为单位的浮点数
+        setAllPrice(price / 100);
+      })
+      .catch((error) => {
+        navigateTo("/SignIn");
       });
   }, []);
 
@@ -80,10 +87,12 @@ const MyBag = () => {
             let price = 0;
             res.data.forEach((element: any) => {
               number += element.quantity;
-              price += element.quantity * element.product_price;
+              // 将价格转换为以分为单位的整数，进行计算后再转换回以元为单位的浮点数
+              price += element.quantity * Math.round(element.product_price * 100);
             });
             setNumbers(number);
-            setAllPrice(price);
+            // 将总价转换回以元为单位的浮点数
+            setAllPrice(price / 100);
           });
       });
   };
@@ -113,16 +122,35 @@ const MyBag = () => {
             let price = 0;
             res.data.forEach((element: any) => {
               number += element.quantity;
-              price += element.quantity * element.product_price;
+              // 将价格转换为以分为单位的整数，进行计算后再转换回以元为单位的浮点数
+              price += element.quantity * Math.round(element.product_price * 100);
             });
             setNumbers(number);
-            setAllPrice(price);
+            // 将总价转换回以元为单位的浮点数
+            setAllPrice(price / 100);
           });
       });
   };
 
 
   const handleConfirmClick = async () => {
+    // before settle, create order
+    const response = await axios.get('https://www.cartcove.org/api/orders/?pay=true', {
+      headers: {
+        Authorization: "Token " + window.localStorage.getItem("Token"),
+      },
+    });
+
+    if (response.data.length > 0) {
+      setShow(true);
+      setVariant("danger");
+      setMessage("You have an open order, Please complete your pending order as soon as possible.");
+      setTimeout(() => {
+        settle()
+      },2000);
+      return;
+    }
+
     const url = 'https://www.cartcove.org/api/orders/';
     let allProducts: CreateOrder[] = [];
     let data: Order;
@@ -146,7 +174,6 @@ const MyBag = () => {
           Authorization: "Token " + window.localStorage.getItem("Token"),
         },
       });
-      console.log(response.data);
       // remove all from cart 
       await axios.delete('https://www.cartcove.org/api/cart-items/delete_all/', {
         headers: {
@@ -160,60 +187,77 @@ const MyBag = () => {
   };
 
   return (
-    <div className="MyBag">
-      <div>
+    <div>
+      <Alert
+        show={show}
+        variant={variant}
+        style={{
+          position: "fixed",
+          top: "10px",
+          left: "50%",
+          transform: "translateX(-50%)",
+        }}
+        onClose={() => setShow(false)}
+        dismissible
+      >
+        <p>{message}</p>
+      </Alert>
+      <div className="MyBag">
         <div>
-          <div>Shopping Cart (all {numbers})</div>
           <div>
-            <div>${allPrice}</div>
-            <Button variant="primary" onClick={handleConfirmClick}>Settle accounts</Button>
+            <div>Shopping Cart (all {numbers})</div>
+            <div>
+              <div>${allPrice}</div>
+              <Button variant="primary" onClick={handleConfirmClick}>Settle accounts</Button>
+            </div>
           </div>
-        </div>
-        <div>
-          <div>Commodity information</div>
-          <div>Unit price</div>
-          <div>quantity</div>
-          <div>amount</div>
-          <div>Controls</div>
-        </div>
-        <ul>
-          {lists.map((res, i) => {
-            return (
-              <li key={i}>
-                <div>
-                  <img src={res.product_image} alt="" />
-                </div>
-                <div>{res.product_name}</div>
-                <div>${res.product_price}</div>
-                <div>
-                  <div onClick={() => handleDelete(res.id)}>-</div>
-                  <div>{res.quantity}</div>
-                  <div onClick={() => handleAddToCard(res.product_id)}>+</div>
-                </div>
-                <div>${res.quantity * res.product_price}</div>
-                <div>
+          <div>
+            <div>Commodity information</div>
+            <div>Unit price</div>
+            <div>quantity</div>
+            <div>amount</div>
+            <div>Controls</div>
+          </div>
+          <ul>
+            {lists.map((res, i) => {
+              return (
+                <li key={i}>
                   <div>
-                    <div
-                      onClick={() => handleDelete(res.id)}
-                      style={{
-                        color: 'white',
-                        backgroundColor: 'red',
-                        padding: '10px',
-                        borderRadius: '5px',
-                        cursor: 'pointer',
-                        fontWeight: 'bold',
-                      }}
-                    >
-                      delete
+                    <img src={res.product_image} alt="" />
+                  </div>
+                  <div>{res.product_name}</div>
+                  <div>${res.product_price}</div>
+                  <div>
+                    <div onClick={() => handleDelete(res.id)}>-</div>
+                    <div>{res.quantity}</div>
+                    <div onClick={() => handleAddToCard(res.product_id)}>+</div>
+                  </div>
+                  <div>${res.quantity * Math.round(res.product_price * 100) / 100}</div>
+                  <div>
+                    <div>
+                      <div
+                        onClick={() => handleDelete(res.id)}
+                        style={{
+                          color: 'white',
+                          backgroundColor: 'red',
+                          padding: '10px',
+                          borderRadius: '5px',
+                          cursor: 'pointer',
+                          fontWeight: 'bold',
+                        }}
+                      >
+                        delete
+                      </div>
                     </div>
                   </div>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </div>
     </div>
+
   );
 };
 
