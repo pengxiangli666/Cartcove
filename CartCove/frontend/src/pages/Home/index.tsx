@@ -30,7 +30,7 @@ function Home() {
   }, [searchTerm]); // Add searchTerm as dependency
 
   const liClick = (res: any) => {
-    navigateTo("/Detail?res=" + JSON.stringify(res));
+    navigateTo("/Detail?id=" + res.id);
   };
 
   return (
