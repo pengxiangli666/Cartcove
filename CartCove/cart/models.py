@@ -22,9 +22,10 @@ class Product(models.Model):
     image = models.ImageField(
         upload_to="products/", blank=True, null=True
     )
+    description = models.TextField(blank=True)
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name='products', null=True, blank=True)
-    # description = models.TextField(blank=True)
+    
 
     def __str__(self):
         return self.name
