@@ -19,6 +19,26 @@
     justify-content: center;
 }
 
+
+/*firefox header fix*/
+
+@-moz-document url-prefix() {
+    .header {
+        width: 100%;
+        min-width: 1190px;
+        height: 65px;
+        min-height: 65px;
+        background: #f5d07e;
+        display: block ruby
+    }
+}
+
+.header>div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .header>div {
     margin: 0 15px;
 }

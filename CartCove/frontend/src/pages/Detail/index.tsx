@@ -13,6 +13,7 @@ type Product = {
   name: string;
   price: string;
   image: string;
+  description: string;
 };
 
 const Detail = () => {
@@ -84,7 +85,7 @@ const Detail = () => {
           <div>
             <div>{product?.name}</div>
             <div>${product?.price}</div>
-            <div>Description</div>
+            <div>{product?.description}</div>
             <div>500 remaining</div>
           </div>
         </div>
