@@ -63,9 +63,9 @@ def create_product(request):
     try:
         data = json.loads(request.body)
         product = Product.objects.create(
-            name=data["name"], price=data["price"], description=data.get("description", ""))
+            name=data["name"], price=data["price"], description=data.get("description", ""), category_id=data.get("category_id"))
         return JsonResponse(
-            {"id": product.id, "name": product.name, "price": product.price, "description": product.description}, status=201
+            {"id": product.id, "name": product.name, "price": product.price, "description": product.description, "category": product.category.name if product.category else None}, status=201
         )
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)

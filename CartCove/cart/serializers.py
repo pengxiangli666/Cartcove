@@ -9,7 +9,7 @@ import json
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ["id", "name", "price", "image", "description"]
+        fields = ["id", "name", "price", "image", "description", "category"]
 
 
 class CartItemSerializer(serializers.ModelSerializer):
