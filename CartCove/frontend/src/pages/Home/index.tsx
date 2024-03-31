@@ -3,31 +3,41 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./index.css";
 import { SearchContext } from '../../context/SearchContext';
+import { MyContext } from '../../context/MenuContext';
+
 
 function Home() {
   const navigateTo = useNavigate();
   const { searchTerm } = useContext(SearchContext);
+  const { menu } = useContext(MyContext);
   const [lists, setLists] = useState([]);
 
   useEffect(() => {
-    // Send the request regardless of whether searchTerm is empty or not
+    // Create params object
+    const params: { [key: string]: string | number } = {};
+
+    // Add searchTerm to params if it is not empty
+    if (searchTerm) {
+      params.query = searchTerm;
+    }
+
+    // Add menu to params if it is not empty
+    if (menu) {
+      params.category = menu;
+    }
+
+    // Send the request
     axios
-      .get("https://www.cartcove.org/api/products/", {
+      .get("/api/products/", {
         headers: {
           Authorization: "Token " + window.localStorage.getItem("Token"),
         },
-        params: {
-          query: searchTerm,
-        },
+        params,
       })
       .then((res) => {
         setLists(res.data);
       })
-      .catch((error) => {
-        console.error("Error fetching data: ", error);
-        // Errors can be handled here, such as setting error status or displaying error messages
-      });
-  }, [searchTerm]); // Add searchTerm as dependency
+  }, [searchTerm, menu]);
 
   const liClick = (res: any) => {
     navigateTo("/Detail?id=" + res.id);

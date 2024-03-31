@@ -74,11 +74,12 @@ const ProductInfoPage: React.FC<ProductInfoPageProps> = ({ current, setCurrent }
 
     const handleConfirmClick = async () => {
         if (selectedPayment && selectedAddress) {
-            const url = `https://www.cartcove.org/api/orders/${orders[0].id}/`;
+            const url = `/api/orders/${orders[0].id}/`;
             const data = {
                 address: selectedAddress,
                 ordered: true,
                 payment: selectedPayment,
+                status: "completed"
             };
 
             try {
@@ -99,7 +100,7 @@ const ProductInfoPage: React.FC<ProductInfoPageProps> = ({ current, setCurrent }
 
     useEffect(() => {
         const fetchOrders = async () => {
-            const response = await axios.get('https://www.cartcove.org/api/orders/?pay=true', {
+            const response = await axios.get('/api/orders/?pay=true', {
                 headers: {
                     Authorization: "Token " + window.localStorage.getItem("Token"),
                 },
@@ -116,7 +117,7 @@ const ProductInfoPage: React.FC<ProductInfoPageProps> = ({ current, setCurrent }
         };
 
         const fetchPayments = async () => {
-            const response = await axios.get('https://www.cartcove.org/api/payments/', {
+            const response = await axios.get('/api/payments/', {
                 headers: {
                     Authorization: "Token " + window.localStorage.getItem("Token"),
                 },
@@ -125,7 +126,7 @@ const ProductInfoPage: React.FC<ProductInfoPageProps> = ({ current, setCurrent }
         };
 
         const fetchAddresses = async () => {
-            const response = await axios.get('https://www.cartcove.org/api/addresses/', {
+            const response = await axios.get('/api/addresses/', {
                 headers: {
                     Authorization: "Token " + window.localStorage.getItem("Token"),
                 },
@@ -174,7 +175,7 @@ const ProductInfoPage: React.FC<ProductInfoPageProps> = ({ current, setCurrent }
                 <label htmlFor="payment-method">Payment Method Selection</label>
                 {
                     payments.length === 0 ? (
-                        <div style={{ color: 'red' }} onClick={()=>setCurrent('pay')}>Please add a payment method</div>
+                        <div style={{ color: 'red' }} onClick={() => setCurrent('pay')}>Please add a payment method</div>
                     ) : (
                         <Select id="billing-address" placeholder="Select Payment Method" className="select" onChange={(value: number) => setSelectedPayment(value)}>
                             {payments.map((payment) => (
@@ -190,7 +191,7 @@ const ProductInfoPage: React.FC<ProductInfoPageProps> = ({ current, setCurrent }
                 <label htmlFor="billing-address">Billing Address Selection</label>
                 {
                     addresses.length === 0 ? (
-                        <div style={{ color: 'red' }} onClick={()=>setCurrent('address')}>Please add a billing address</div>
+                        <div style={{ color: 'red' }} onClick={() => setCurrent('address')}>Please add a billing address</div>
                     ) : (
                         <Select id="billing-address" placeholder="Select Billing Address" className="select" onChange={(value: number) => setSelectedAddress(value)}>
                             {addresses.map((address) => (

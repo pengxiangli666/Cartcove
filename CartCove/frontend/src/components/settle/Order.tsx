@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, List, Tag } from 'antd';
+import { message } from 'antd';
 import axios from 'axios';
 
 interface Product {
@@ -24,6 +25,7 @@ interface Order {
     products: { product_id: number; quantity: number }[];
     price: string;
     ordered_on: string;
+    status: string;
 }
 
 const OrdersPage: React.FC = () => {
@@ -31,7 +33,7 @@ const OrdersPage: React.FC = () => {
 
     useEffect(() => {
         const fetchOrders = async () => {
-            const response = await axios.get<Order[]>('https://www.cartcove.org/api/orders/', {
+            const response = await axios.get<Order[]>('/api/orders/', {
                 headers: {
                     'Authorization': "Token " + window.localStorage.getItem("Token"),
                 },
@@ -42,13 +44,38 @@ const OrdersPage: React.FC = () => {
         fetchOrders();
     }, []);
 
+    const handleRefund = async (orderId: number) => {
+        try {
+            // Send a request to your API
+            await axios.patch(`/api/orders/${orderId}/`, { status: "refund" }, {
+                headers: {
+                    'Authorization': "Token " + window.localStorage.getItem("Token"),
+                },
+            });
+
+            const response = await axios.get<Order[]>('/api/orders/', {
+                headers: {
+                    'Authorization': "Token " + window.localStorage.getItem("Token"),
+                },
+            });
+            setOrders(response.data);
+
+            // Show a success message
+            message.success('Refund successful');
+        } catch (error) {
+            // Handle error
+            console.error('Error refunding order:', error);
+            message.error('Error refunding order');
+        }
+    };
+
     return (
         <List
             grid={{ gutter: 16, column: 4 }}
             dataSource={orders}
             renderItem={order => (
                 <List.Item key={order.id}>
-                    <Card title={`Order #${order.id}`} extra={order.ordered ? <Tag color="green">Completed</Tag> : <Tag color="volcano">Pending</Tag>}>
+                    <Card title={`Order #${order.id}`} extra={<Tag color="green">{order.status}</Tag>}>
                         <List
                             itemLayout="horizontal"
                             dataSource={order.products_info}
@@ -64,6 +91,7 @@ const OrdersPage: React.FC = () => {
                         />
                         <div style={{ marginTop: '20px', textAlign: 'right' }}>
                             <Tag color="blue">Total Price: ${order.price}</Tag>
+                            <Tag color='red' onClick={() => handleRefund(order.id)}>Refund</Tag>
                         </div>
                     </Card>
                 </List.Item>

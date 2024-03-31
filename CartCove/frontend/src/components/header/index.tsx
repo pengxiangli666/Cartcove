@@ -6,8 +6,17 @@ import { Button, Dropdown, Form } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import { SearchContext } from '../../context/SearchContext'; // SearchContext
+import { SearchContext } from '../../context/SearchContext';
+import { MyContext } from '../../context/MenuContext';
+import axios from 'axios';
+
+
+type Category = {
+  id: number;
+  name: string;
+  description: string;
+  parent: null | string; // or whatever the type of 'parent' is
+};
 
 
 export default function Header() {
@@ -15,6 +24,7 @@ export default function Header() {
   const navigateTo = useNavigate();
   const location = useLocation();
   const [useName, setUseName] = useState("");
+  const [categories, setCategories] = useState<Category[]>([]);
   const setting = () => {
     navigateTo("/PersonalSettings");
   };
@@ -52,10 +62,24 @@ export default function Header() {
     setUseName(localUserName);
   }, [location.pathname]);
 
+  useEffect(() => {
+    axios.get('/api/categories/')
+      .then(response => {
+        setCategories(response.data);
+      })
+      .catch(error => {
+        console.error('There was an error!', error);
+      });
+  }, []);
+
+
+
   const { setSearchTerm } = useContext(SearchContext);
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
+
+  const { setMenu } = useContext(MyContext);
 
   return (
     <header className="header">
@@ -65,9 +89,18 @@ export default function Header() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#home">Fresh Grocery</Nav.Link>
-              <Nav.Link href="#link1">Fast Food</Nav.Link>
-              <Nav.Link href="#link2">Drinks</Nav.Link>
+              {categories.map((category) => (
+                <Nav.Link
+                  key={category.id}
+                  href={`#${category.name}`}
+                  onClick={(event) => {
+                    setMenu(category.id);
+                    event.preventDefault();
+                  }}
+                >
+                  {category.name}
+                </Nav.Link>
+              ))}
             </Nav>
           </Navbar.Collapse>
         </Container>
