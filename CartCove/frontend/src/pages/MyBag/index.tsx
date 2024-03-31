@@ -41,7 +41,7 @@ const MyBag = () => {
 
   useEffect(() => {
     axios
-      .get("https://www.cartcove.org/cart/api/cart-items/", {
+      .get("/cart/api/cart-items/", {
         headers: {
           Authorization: "Token " + window.localStorage.getItem("Token"),
         },
@@ -66,7 +66,7 @@ const MyBag = () => {
 
   const handleDelete = (product_id: number) => {
     axios
-      .post(`https://www.cartcove.org/cart/api/remove-from-cart`,
+      .post(`/cart/api/remove-from-cart`,
         { product_id },
         {
           headers: {
@@ -76,7 +76,7 @@ const MyBag = () => {
       )
       .then(() => {
         axios
-          .get("https://www.cartcove.org/cart/api/cart-items/", {
+          .get("/cart/api/cart-items/", {
             headers: {
               Authorization: "Token " + window.localStorage.getItem("Token"),
             },
@@ -100,7 +100,7 @@ const MyBag = () => {
   const handleAddToCard = (product_id: number) => {
     axios
       .post(
-        `https://www.cartcove.org/cart/api/add-to-cart/${product_id}/`,
+        `/cart/api/add-to-cart/${product_id}/`,
         qs.stringify({ quantity: 1 }),
         {
           headers: {
@@ -111,7 +111,7 @@ const MyBag = () => {
       )
       .then(() => {
         axios
-          .get("https://www.cartcove.org/cart/api/cart-items/", {
+          .get("/cart/api/cart-items/", {
             headers: {
               Authorization: "Token " + window.localStorage.getItem("Token"),
             },
@@ -135,7 +135,7 @@ const MyBag = () => {
 
   const handleConfirmClick = async () => {
     // before settle, create order
-    const response = await axios.get('https://www.cartcove.org/api/orders/?pay=true', {
+    const response = await axios.get('/api/orders/?pay=true', {
       headers: {
         Authorization: "Token " + window.localStorage.getItem("Token"),
       },
@@ -151,7 +151,7 @@ const MyBag = () => {
       return;
     }
 
-    const url = 'https://www.cartcove.org/api/orders/';
+    const url = '/api/orders/';
     let allProducts: CreateOrder[] = [];
     let data: Order;
 
@@ -175,7 +175,7 @@ const MyBag = () => {
         },
       });
       // remove all from cart 
-      await axios.delete('https://www.cartcove.org/api/cart-items/delete_all/', {
+      await axios.delete('/api/cart-items/delete_all/', {
         headers: {
           Authorization: "Token " + window.localStorage.getItem("Token"),
         },

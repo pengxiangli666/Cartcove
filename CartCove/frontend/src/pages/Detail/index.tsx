@@ -44,7 +44,7 @@ const Detail = () => {
   const add = () => {
     axios
       .post(
-        `https://www.cartcove.org/cart/api/add-to-cart/${id}/`,
+        `/cart/api/add-to-cart/${id}/`,
         qs.stringify({ quantity: 1 }),
         {
           headers: {
@@ -86,7 +86,6 @@ const Detail = () => {
             <div>{product?.name}</div>
             <div>${product?.price}</div>
             <div>{product?.description}</div>
-            <div>500 remaining</div>
           </div>
         </div>
         <div>

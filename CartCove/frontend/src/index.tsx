@@ -18,30 +18,33 @@ import ReviewPage from "./routes/ReviewPage";
 import AddProduct from "./routes/AddProduct";
 import Settle from "./pages/Settle";
 import { SearchProvider } from './context/SearchContext'; // SearchProvider
+import { MyProvider } from './context/MenuContext'; // MyProvider
 
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <SearchProvider>
-      <BrowserRouter>
-        <Header></Header>
-        <Routes>
-          <Route path="/" element={<Home></Home>} />
-          <Route path="/SignIn" element={<SignIn></SignIn>} />
-          <Route path="/Register" element={<Register></Register>} />
-          <Route path="/Detail" element={<Detail></Detail>} />
-          <Route path="/MyBag" element={<MyBag></MyBag>} />
-          <Route path="/Settle" element={<Settle></Settle>} />
-          <Route
-            path="/PersonalSettings"
-            element={<PersonalSettings></PersonalSettings>}
-          />
-          <Route path="/product/*" element={<ProductPage />} />
-          <Route path="/reviews/*" element={<ReviewPage />} />
-          <Route path="/add/*" element={<AddProduct />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <MyProvider>
+        <BrowserRouter>
+          <Header></Header>
+          <Routes>
+            <Route path="/" element={<Home></Home>} />
+            <Route path="/SignIn" element={<SignIn></SignIn>} />
+            <Route path="/Register" element={<Register></Register>} />
+            <Route path="/Detail" element={<Detail></Detail>} />
+            <Route path="/MyBag" element={<MyBag></MyBag>} />
+            <Route path="/Settle" element={<Settle></Settle>} />
+            <Route
+              path="/PersonalSettings"
+              element={<PersonalSettings></PersonalSettings>}
+            />
+            <Route path="/product/*" element={<ProductPage />} />
+            <Route path="/reviews/*" element={<ReviewPage />} />
+            <Route path="/add/*" element={<AddProduct />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </MyProvider>
     </SearchProvider>
   </React.StrictMode>
 );
