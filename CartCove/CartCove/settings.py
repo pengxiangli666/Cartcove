@@ -107,8 +107,8 @@ WSGI_APPLICATION = "CartCove.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        # "NAME": "/app/db.sqlite3", # for docker
-        "NAME": "db.sqlite3", # for local
+        "NAME": "/app/db.sqlite3", # for docker
+        #"NAME": "db.sqlite3", # for local
     }
 }
 
