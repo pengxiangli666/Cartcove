@@ -9,16 +9,3 @@ export const MyContext = createContext({
     console.log(menu);
   },
 });
-
-// Create Provider component
-export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [menu, setMenu] = useState(0);
-
-  return (
-    <MyContext.Provider value={{ menu, setMenu }}>
-      {children}
-    </MyContext.Provider>
-  );
-};
-
-
