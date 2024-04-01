@@ -2,14 +2,20 @@ from rest_framework import serializers
 from django.shortcuts import get_object_or_404
 from .models import Product, CartItem
 from .models import Review, Product
-from .models import Address, Payment, Order
+from .models import Address, Payment, Order, Category
 import json
+
 
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ["id", "name", "price", "image", "description"]
+        fields = ["id", "name", "price", "image", "description", "category"]
+        
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ["id", "name", "description", "parent"]
 
 
 class CartItemSerializer(serializers.ModelSerializer):
@@ -108,7 +114,7 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ["id", "user", "address", "payment", "ordered", "products_info",
-                  "products", "price", "ordered_on"]
+                  "products", "price", "ordered_on", "status"]
 
     # create a new order
     def create(self, validated_data):

@@ -99,6 +99,7 @@ class Order(models.Model):
         Address, on_delete=models.CASCADE, null=True, blank=True)
     payment = models.ForeignKey(
         Payment, on_delete=models.CASCADE, null=True, blank=True)
+    status = models.CharField(max_length=100, default="Pending")
 
     def __str__(self):
         return f"{self.user.username} - {self.ordered_on}"

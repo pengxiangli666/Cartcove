@@ -23,7 +23,7 @@ const Address: React.FC<ProductInfoPageProps> = ({ current, setCurrent }) => {
     const [form] = Form.useForm();
 
     const fetchAddresses = async () => {
-        const response = await axios.get('https://www.cartcove.org/api/addresses/', {
+        const response = await axios.get('/api/addresses/', {
             headers: {
                 Authorization: "Token " + window.localStorage.getItem("Token"),
             },
@@ -49,14 +49,14 @@ const Address: React.FC<ProductInfoPageProps> = ({ current, setCurrent }) => {
         const values = await form.validateFields();
         if (currentAddress) {
             // Update
-            await axios.put(`https://www.cartcove.org/api/addresses/${currentAddress.id}/`, values, {
+            await axios.put(`/api/addresses/${currentAddress.id}/`, values, {
                 headers: {
                     'Authorization': "Token " + window.localStorage.getItem("Token"),
                 },
             });
         } else {
             // Create
-            await axios.post('https://www.cartcove.org/api/addresses/', values, {
+            await axios.post('/api/addresses/', values, {
                 headers: {
                     'Authorization': "Token " + window.localStorage.getItem("Token"),
                 },

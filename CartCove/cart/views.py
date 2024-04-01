@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 import json
 from django.http import JsonResponse
-from .models import Product, CartItem, Review, Order, Address, Payment
+from .models import Product, CartItem, Review, Order, Address, Payment, Category
 from rest_framework import status
 from .serializers import (
     ProductSerializer,
@@ -15,7 +15,8 @@ from .serializers import (
     RemoveFromCartSerializer,
     OrderSerializer,
     AddressSerializer,
-    PaymentSerializer
+    PaymentSerializer,
+    CategorySerializer
 )
 from rest_framework.decorators import action
 
@@ -63,9 +64,9 @@ def create_product(request):
     try:
         data = json.loads(request.body)
         product = Product.objects.create(
-            name=data["name"], price=data["price"], description=data.get("description", ""))
+            name=data["name"], price=data["price"], description=data.get("description", ""), category_id=data.get("category_id"))
         return JsonResponse(
-            {"id": product.id, "name": product.name, "price": product.price, "description": product.description}, status=201
+            {"id": product.id, "name": product.name, "price": product.price, "description": product.description, "category": product.category.name if product.category else None}, status=201
         )
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
@@ -107,10 +108,16 @@ class ProductViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
 
     def get_queryset(self):
+        queryset = super().get_queryset()
         query = self.request.query_params.get('query', None)
+        category = self.request.query_params.get('category', None)
+
         if query is not None:
-            return Product.objects.filter(Q(name__icontains=query))
-        return super().get_queryset()
+            queryset = queryset.filter(Q(name__icontains=query))
+        if category is not None:
+            queryset = queryset.filter(category=category)
+
+        return queryset
 
 
 # create OrderViewSet
@@ -172,3 +179,18 @@ class PaymentViewSet(viewsets.ModelViewSet):
 
     def update(self, request, *args, **kwargs):
         return super().update(request, *args, **kwargs)
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    
+    def get_permissions(self):
+        if self.request.method in ['GET','POST','PUT','DELETE']:
+            return []
+        return [IsAuthenticated()]
+
+    def get_queryset(self):
+        if self.request.method == 'GET':
+            return Category.objects.all()
+        else:
+            return self.queryset.filter(category__isnull=False).values('category').distinct()

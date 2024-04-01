@@ -42,7 +42,7 @@ const SignIn: React.FC = () => {
       return;
     }
     axios
-      .post("https://www.cartcove.org/auth/login/", formData)
+      .post("/auth/login/", formData)
       .then((response: any) => {
         setShow(true);
         setVariant("success");

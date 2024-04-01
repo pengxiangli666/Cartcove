@@ -13,6 +13,7 @@ from cart.views import (
     OrderViewSet,
     PaymentViewSet,
     AddressViewSet,
+    CategoryViewSet
 )
 
 # ViewSet
@@ -22,6 +23,7 @@ router.register(r"cart-items", CartItemViewSet)
 router.register(r"orders", OrderViewSet)
 router.register(r"payments", PaymentViewSet)
 router.register(r"addresses", AddressViewSet)
+router.register(r"categories", CategoryViewSet, basename="category")
 
 # URL patterns
 urlpatterns = [
