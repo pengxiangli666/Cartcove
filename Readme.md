@@ -10,7 +10,7 @@ For Django, we're using Python.
 
 In order to build this project you first have to install:
 
-* [Python](https://https://www.python.org/downloads/)
+* [Python](https://www.python.org/downloads/)
 * [Node.js](https://nodejs.org/en/)
 
 For installing Django and the REST framework, run the following commands.
