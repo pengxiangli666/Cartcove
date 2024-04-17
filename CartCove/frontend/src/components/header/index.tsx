@@ -34,7 +34,7 @@ export default function Header() {
     setUseName("");
     console.log("Log out successfully");
     // message.success("Log out successfully");
-    navigateTo("/");
+    navigateTo("/Index");
   };
   const items = [
     {
@@ -94,7 +94,6 @@ export default function Header() {
                   key={category.id}
                   href={`#${category.name}`}
                   onClick={(event) => {
-                    navigateTo("/");
                     setMenu(category.id);
                     event.preventDefault();
                   }}
@@ -115,7 +114,7 @@ export default function Header() {
         />
       </div>
       <div>
-        <Button variant="primary" onClick={MyBag}>My Cart</Button>
+        <Button variant="primary" onClick={MyBag}>My Bag</Button>
       </div>
       {useName ? (
         <Dropdown>

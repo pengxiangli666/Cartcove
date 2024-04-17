@@ -5,7 +5,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from rest_framework.routers import DefaultRouter
-from frontend.views import index
+from frontend.views import index,web
 
 from cart.views import (
     ProductViewSet,
@@ -35,6 +35,7 @@ urlpatterns = [
     path("api/", include(router.urls)),
 
     # Makes it so that the frontend handles unknown URLs
+    path("", web),
     re_path(r'^.*', index)
 ]
 

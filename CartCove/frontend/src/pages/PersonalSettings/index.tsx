@@ -57,7 +57,7 @@ const PersonalSettings: React.FC = () => {
         setVariant("success");
         setMessage("Submit successfully");
         setTimeout(() => {
-          navigateTo("/");
+          navigateTo("/Index");
         }, 1000);
       })
       .catch(function (error) {
