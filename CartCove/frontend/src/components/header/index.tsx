@@ -41,7 +41,7 @@ export default function Header() {
       key: "1",
       label: (
         <a target="_blank" rel="noopener noreferrer" onClick={setting}>
-          Personal Settings
+          Password change
         </a>
       ),
     },

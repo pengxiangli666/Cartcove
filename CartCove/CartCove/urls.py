@@ -8,6 +8,7 @@ from rest_framework.routers import DefaultRouter
 from frontend.views import index,web
 
 from cart.views import (
+    ChangePasswordView,
     ProductViewSet,
     CartItemViewSet,
     OrderViewSet,
@@ -33,6 +34,7 @@ urlpatterns = [
     # registration-related URL
     path("cart/", include("cart.urls")),
     path("api/", include(router.urls)),
+    path('auth/password_change/', ChangePasswordView.as_view(), name='auth_password_change'),
 
     # Makes it so that the frontend handles unknown URLs
     path("", web),

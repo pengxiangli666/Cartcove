@@ -4,6 +4,8 @@ from rest_framework.decorators import api_view, permission_classes, authenticati
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 import json
+from rest_framework.views import APIView
+
 from django.http import JsonResponse
 from .models import Product, CartItem, Review, Order, Address, Payment, Category
 from rest_framework import status
@@ -194,3 +196,24 @@ class CategoryViewSet(viewsets.ModelViewSet):
             return Category.objects.all()
         else:
             return self.queryset.filter(category__isnull=False).values('category').distinct()
+        
+class ChangePasswordView(APIView):
+    """
+    An endpoint for changing password.
+    """
+    
+    permission_classes = [IsAuthenticated]
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def put(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        old_password = request.data.get("old_password")
+        if not self.object.check_password(old_password):
+            return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
+        new_password = request.data.get("new_password")
+        if not new_password:
+            return Response({"new_password": ["This field is required."]}, status=status.HTTP_400_BAD_REQUEST)
+        self.object.set_password(new_password)
+        self.object.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)

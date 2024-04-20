@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, List, Tag } from 'antd';
+import { Card, List, Tag, Button } from 'antd';
 import { message } from 'antd';
 import axios from 'axios';
 
@@ -90,8 +90,8 @@ const OrdersPage: React.FC = () => {
                             )}
                         />
                         <div style={{ marginTop: '20px', textAlign: 'right' }}>
-                            <Tag color="blue">Total Price: ${order.price}</Tag>
-                            <Tag color='red' onClick={() => handleRefund(order.id)}>Refund</Tag>
+                            <Button type="primary">Total Price: ${order.price}</Button>
+                            {order.status !== 'refund' && <Button type="primary" onClick={() => handleRefund(order.id)} danger>Refund</Button>}
                         </div>
                     </Card>
                 </List.Item>
