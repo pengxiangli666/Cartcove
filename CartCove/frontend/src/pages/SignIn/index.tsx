@@ -51,7 +51,7 @@ const SignIn: React.FC = () => {
         window.localStorage.setItem("Token", response.data.key);
         console.log(response, "response");
         setTimeout(() => {
-          navigateTo("/");
+          navigateTo("/Index");
         }, 1000);
       })
       .catch(function (error) {

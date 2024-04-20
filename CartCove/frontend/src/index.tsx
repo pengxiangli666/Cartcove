@@ -20,7 +20,6 @@ import Settle from "./pages/Settle";
 import { SearchProvider } from './context/SearchContext'; // SearchProvider
 import { MyProvider } from './context/MenuContext'; // MyProvider
 
-
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <SearchProvider>
@@ -28,7 +27,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <BrowserRouter>
           <Header></Header>
           <Routes>
-            <Route path="/" element={<Home></Home>} />
+            <Route path="/Index" element={<Home></Home>} />
             <Route path="/SignIn" element={<SignIn></SignIn>} />
             <Route path="/Register" element={<Register></Register>} />
             <Route path="/Detail" element={<Detail></Detail>} />
