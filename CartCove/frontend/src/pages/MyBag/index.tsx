@@ -134,6 +134,14 @@ const MyBag = () => {
 
 
   const handleConfirmClick = async () => {
+    // check if list is empty
+    if (lists.length === 0) {
+      setShow(true);
+      setVariant("danger");
+      setMessage("Your shopping cart is empty, please add items to your cart before settling.");
+      return;
+    }
+
     // before settle, create order
     const response = await axios.get('/api/orders/?pay=true', {
       headers: {
@@ -207,7 +215,7 @@ const MyBag = () => {
           <div>
             <div>Shopping Cart (all {numbers})</div>
             <div>
-              <div>${allPrice}</div>
+              <div>${allPrice.toFixed(2)}</div>
               <Button variant="primary" onClick={handleConfirmClick}>Settle accounts</Button>
             </div>
           </div>
@@ -216,7 +224,7 @@ const MyBag = () => {
             <div>Unit price</div>
             <div>quantity</div>
             <div>amount</div>
-            <div>Controls</div>
+            {/* <div>Controls</div> */}
           </div>
           <ul>
             {lists.map((res, i) => {
@@ -232,10 +240,10 @@ const MyBag = () => {
                     <div>{res.quantity}</div>
                     <div onClick={() => handleAddToCard(res.product_id)}>+</div>
                   </div>
-                  <div>${res.quantity * Math.round(res.product_price * 100) / 100}</div>
+                  <div>${(res.quantity * Math.round(res.product_price * 100) / 100).toFixed(2)}</div>
                   <div>
                     <div>
-                      <div
+                      {/* <div
                         onClick={() => handleDelete(res.id)}
                         style={{
                           color: 'white',
@@ -247,7 +255,7 @@ const MyBag = () => {
                         }}
                       >
                         delete
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </li>

@@ -8,67 +8,71 @@ import "./index.css";
 const PersonalSettings: React.FC = () => {
   const navigateTo = useNavigate();
   const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    hint: "",
-    hint_answer: "",
+    old_password: "",
+    new_password: "",
   });
   const [errors, setErrors] = useState({
-    username: "",
-    password: "",
-    hint: "",
-    email: "",
-    hint_answer: "",
+    old_password: "",
+    new_password: "",
   });
   const [show, setShow] = useState(false);
   const [variant, setVariant] = useState("");
   const [message, setMessage] = useState("");
   const onFinish = (e: any) => {
-    // message.success("Registered successfully");
     e.preventDefault();
 
     let hasErrors = false;
     const newErrors = {
-      username: "",
-      password: "",
-      hint: errors.hint,
-      email: errors.email,
-      hint_answer: errors.hint_answer,
+      old_password: "",
+      new_password: "",
     };
 
-    if (formData.username.trim() === "") {
-      newErrors.username = "username cannot be empty";
+    if (!formData.old_password) {
       hasErrors = true;
+      newErrors.old_password = "Old password is required";
     }
-    if (formData.password.trim() === "") {
-      newErrors.password = "password cannot be empty";
+
+    if (!formData.new_password) {
       hasErrors = true;
+      newErrors.new_password = "New password is required";
     }
+
     if (hasErrors) {
       setErrors(newErrors);
       return;
     }
-    axios
-      .patch("http://127.0.0.1:8001/api/customer/info/update", formData)
-      .then(function (response) {
-        // handle success
-        setShow(true);
-        setVariant("success");
-        setMessage("Submit successfully");
-        setTimeout(() => {
-          navigateTo("/");
-        }, 1000);
+    // 发送请求到后端服务器
+
+    fetch('/auth/password_change/', {
+      method: 'PUT',
+      headers: {
+        'Authorization': "Token " + window.localStorage.getItem("Token"),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+      .then(response => {
+        if (response.status === 204) {
+          setVariant('success'); // 修改这里
+          setMessage('Password changed successfully');
+          setShow(true);
+          setTimeout(() => {
+            navigateTo("/Index");
+          }, 1000);
+        } else if (response.status === 400) { // 添加这里
+          return response.json().then(data => {
+            setVariant('danger');
+            setMessage(data.old_password ? data.old_password[0] : data.new_password[0]);
+            setShow(true);
+            setTimeout(() => {
+              setShow(false);
+            }, 1500);
+          });
+        }
+        return response.json();
       })
-      .catch(function (error) {
-        // handle error
-        setShow(true);
-        setVariant("danger");
-        setMessage(JSON.stringify(error.response.data, null, 2));
-      })
-      .finally(function () {
-        // always executed
-      });
+
+
   };
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -77,25 +81,6 @@ const PersonalSettings: React.FC = () => {
       [name]: value,
     }));
   };
-  useEffect(() => {
-    axios.defaults.withCredentials = true;
-    axios
-      .get("http://127.0.0.1:8001/api/customer/info", {})
-      .then((response) => {
-        // handle success
-        console.log(response.data, "response");
-        setFormData(response.data);
-      })
-      .catch(function (error) {
-        // handle error
-        setShow(true);
-        setVariant("danger");
-        setMessage(JSON.stringify(error.response.data, null, 2));
-      })
-      .finally(function () {
-        // always executed
-      });
-  }, []);
 
   return (
     <div className="PersonalSettings">
@@ -114,86 +99,39 @@ const PersonalSettings: React.FC = () => {
         <p>{message}</p>
       </Alert>
       <Form onSubmit={onFinish} name="normal_login" className="login-form">
-        <Form.Group controlId="username">
+        <Form.Group controlId="old_password">
           <Form.Label column sm="2">
-            Username
-          </Form.Label>
-          <Form.Control
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            isInvalid={!!errors.username}
-            placeholder="Username"
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.username}
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group controlId="password">
-          <Form.Label column sm="2">
-            Password
+            Old Password
           </Form.Label>
           <Form.Control
             type="password"
-            name="password"
-            value={formData.password}
+            name="old_password"
+            value={formData.old_password}
             onChange={handleChange}
-            isInvalid={!!errors.password}
+            isInvalid={!!errors.old_password}
             placeholder="Password"
           />
           <Form.Control.Feedback type="invalid">
-            {errors.password}
+            {errors.old_password}
           </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group controlId="email">
+        <Form.Group controlId="new_password">
           <Form.Label column sm="2">
-            E-mail
+            New Password
           </Form.Label>
           <Form.Control
-            type="email"
-            name="email"
-            value={formData.email}
+            type="password"
+            name="new_password"
+            value={formData.new_password}
             onChange={handleChange}
-            isInvalid={!!errors.email}
-            placeholder="E-mail"
+            isInvalid={!!errors.new_password}
+            placeholder="Password"
           />
           <Form.Control.Feedback type="invalid">
-            {errors.email}
+            {errors.new_password}
           </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group controlId="hint">
-          <Form.Label column sm="4">
-            hint
-          </Form.Label>
-          <Form.Control
-            type="text"
-            name="hint"
-            value={formData.hint}
-            onChange={handleChange}
-            isInvalid={!!errors.hint}
-            placeholder="hint"
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.hint}
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group controlId="hint_answer">
-          <Form.Label column sm="4">
-            hint_answer
-          </Form.Label>
-          <Form.Control
-            type="text"
-            name="hint_answer"
-            value={formData.hint_answer}
-            onChange={handleChange}
-            isInvalid={!!errors.hint_answer}
-            placeholder="hint_answer"
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.hint_answer}
-          </Form.Control.Feedback>
-        </Form.Group>
+
         <Form.Group>
           <Button type="submit" className="login-form-button">
             Submit

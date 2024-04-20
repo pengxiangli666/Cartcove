@@ -43,7 +43,7 @@ const Register: React.FC = () => {
       newErrors.password1 = "password cannot be empty";
       hasErrors = true;
     }
-    if (formData.password1.trim() !== formData.password2.trim()) {
+    if (formData.password1.trim()!==formData.password2.trim()) {
       setShow(true);
       setVariant("danger");
       setMessage("The two password entries are inconsistent");
@@ -65,25 +65,10 @@ const Register: React.FC = () => {
         }, 1000);
       })
       .catch(function (error) {
-        if (error.response.data.username) {
-      //     setShow(true);
-      // setVariant("danger");
-          setErrors({ ...errors, username: error.response.data.username[0] });
-        }
-
-        if (error.response.data.email) {
-          setShow(true);
-          setVariant("danger");
-          setErrors({ ...errors, email: error.response.data.email[0] });
-          return
-        }
-
-        if (error.response.data.password1) {
-          setShow(true);
-          setVariant("danger");
-          setErrors({ ...errors, password1: error.response.data.password1[0] });
-          return
-        }
+        // handle error
+        setShow(true);
+        setVariant("danger");
+        setMessage(error.response.data.password1[0]);
       })
       .finally(function () {
         // always executed
