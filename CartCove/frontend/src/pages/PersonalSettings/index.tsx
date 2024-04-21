@@ -41,6 +41,18 @@ const PersonalSettings: React.FC = () => {
       setErrors(newErrors);
       return;
     }
+<<<<<<< HEAD
+    axios
+      .patch("http://127.0.0.1:8001/api/customer/info/update", formData)
+      .then(function (response) {
+        // handle success
+        setShow(true);
+        setVariant("success");
+        setMessage("Submit successfully");
+        setTimeout(() => {
+          navigateTo("/Index");
+        }, 1000);
+=======
     // 发送请求到后端服务器
 
     fetch('/auth/password_change/', {
@@ -70,6 +82,7 @@ const PersonalSettings: React.FC = () => {
           });
         }
         return response.json();
+>>>>>>> main
       })
 
 

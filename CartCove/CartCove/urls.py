@@ -5,9 +5,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from rest_framework.routers import DefaultRouter
-from frontend.views import index
+from frontend.views import index,web
 
 from cart.views import (
+    ChangePasswordView,
     ProductViewSet,
     CartItemViewSet,
     OrderViewSet,
@@ -33,8 +34,10 @@ urlpatterns = [
     # registration-related URL
     path("cart/", include("cart.urls")),
     path("api/", include(router.urls)),
+    path('auth/password_change/', ChangePasswordView.as_view(), name='auth_password_change'),
 
     # Makes it so that the frontend handles unknown URLs
+    path("", web),
     re_path(r'^.*', index)
 ]
 
