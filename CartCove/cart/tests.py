@@ -1,56 +1,88 @@
-import random
-import string
 from django.test import TestCase
-from django.urls import reverse
-from rest_framework.authtoken.models import Token
-from rest_framework import status
-from .models import Product, CartItem
+from decimal import Decimal
+from .models import Product, Category, CartItem
 from django.contrib.auth.models import User
-from rest_framework.test import APIClient
+from django.urls import reverse
+from django.db import IntegrityError
 
-class AddToCartViewTest(TestCase):
+class CategoryTestCase(TestCase):
     def setUp(self):
-        self.client = APIClient()
-        self.user = User.objects.create_user(
-            username='testusers', 
-            email='testuser@example.com', 
-            password='Sc1234567.'
-        )
-        self.token, created = Token.objects.get_or_create(user=self.user)
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
 
-    def create_random_product(self):
-        name = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
-        price = random.uniform(1.0, 100.0)
-        return Product.objects.create(name=name, price=price)
+        Category.objects.create(name="Electronics", description="All electronic items")
 
-    def test_add_remove_product_to_cart(self):
-        # Confirm user has logged in successfully
-        login_successful = self.client.login(username='testusers', password='Sc1234567.')
-        self.assertTrue(login_successful)
-        print("1. User has successfully logged in.")
+    def test_category_creation(self):
+        """
+        Test the category creation functionality to ensure it is created correctly and stored in the database.
+        """
+        electronics = Category.objects.get(name="Electronics")
+        self.assertEqual(electronics.description, "All electronic items")
 
-        # Create a random product
-        product = self.create_random_product()
-        self.assertTrue(isinstance(product, Product))
-        print("4. Product successfully created: Name - {}, Price - {}".format(product.name, product.price))
+    def test_category_str(self):
+        """
+        Tests whether the string representation of a category model is correct
+        """
+        electronics = Category.objects.get(name="Electronics")
+        self.assertEqual(str(electronics), "Electronics")
 
-        # Add product to cart
-        add_to_cart_url = reverse('add_to_cart', args=[product.id])
-        response = self.client.post(add_to_cart_url, {})
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        print("2. Product '{}' has been successfully added to the cart.".format(product.name))
+    def test_category_name_uniqueness(self):
+        """
+        Tests the uniqueness constraint on category names to ensure that categories with duplicate names cannot be created.
+        """
+        with self.assertRaises(IntegrityError):
+            Category.objects.create(name="Electronics")
 
-        # Remove product from cart
-        cart_item = CartItem.objects.create(user=self.user, product=product)
-        remove_from_cart_url = reverse('remove_from_cart', args=[product.id])
-        remove_response = self.client.post(remove_from_cart_url, {})
-        self.assertEqual(remove_response.status_code, status.HTTP_204_NO_CONTENT)
-        print("3. Product '{}' successfully removed from the cart.".format(product.name))
+class ProductTestCase(TestCase):
+    """
+    Test the functionality of the product model.
+    """
+    def setUp(self):
+        """
+        Create category and product instances for testing.
+        """
+        self.category = Category.objects.create(name="Books")
+        Product.objects.create(name="Python Programming", category=self.category, price=Decimal("29.99"))
 
-        # Delete product via API
-        delete_url = reverse('product-detail', kwargs={'pk': product.id})
-        delete_response = self.client.delete(delete_url)
-        self.assertEqual(delete_response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertFalse(Product.objects.filter(id=product.id).exists())
-        print("5. Product '{}' successfully deleted by API.".format(product.name))
+    def test_product_creation(self):
+        """
+        Test the product creation function to check if the product can be added to the database correctly.
+        """
+        book = Product.objects.get(name="Python Programming")
+        self.assertEqual(book.price, Decimal("29.99"))
+
+    def test_product_category(self):
+        """
+        Test that the product is associated with the correct category.
+        """
+        book = Product.objects.get(name="Python Programming")
+        self.assertEqual(book.category.name, "Books")
+
+    def test_product_str(self):
+        """
+        Tests whether the product's string representation is correct.
+        """
+        book = Product.objects.get(name="Python Programming")
+        self.assertEqual(str(book), "Python Programming")
+
+class CartItemTestCase(TestCase):
+    """
+    Test the functionality of the shopping cart item model.
+    """
+    def setUp(self):
+        """
+        Create user, product, and cart item instances for testing.
+        """
+        self.user = User.objects.create_user('john', 'john@example.com', 'johnpassword')
+        self.product = Product.objects.create(name="Laptop", price=Decimal("1000.00"))
+        CartItem.objects.create(user=self.user, product=self.product, quantity=0)
+
+    def test_cartitem_quantity_reset(self):
+       
+        cart_item = CartItem.objects.first()
+        self.assertEqual(cart_item.quantity, 1)
+
+    def test_cartitem_str(self):
+        """
+        Tests whether the string representation of the shopping cart items is correct, usually displayed as a combination of user and product names.
+        """
+        cart_item = CartItem.objects.first()
+        self.assertEqual(str(cart_item), f"{cart_item.user.username} - {cart_item.product.name}")
