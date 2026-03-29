@@ -1,98 +1,64 @@
-# TheOverlords
-CartCove is a shopping website dedicated towards offering an easy shopping experience for our customers.
+# CartCove 电商系统平台
 
-This webapp is being developed using Django and React, with the Django REST api being used as well. We're also utilizing Babel, Webpack, and Bootstrap.
+A full-stack e-commerce web application supporting product browsing, 
+real-time inventory updates, shopping cart management, and order processing.
 
-For React, we're using TypeScript.
-For Django, we're using Python.
+## 🛠️ Tech Stack
 
-## External Requirements
+**Backend:** Python, Django, Django REST Framework  
+**Frontend:** React, TypeScript, Bootstrap  
+**Build Tools:** Babel, Webpack  
+**Testing:** Django Unit Tests, Selenium  
+**CI/CD:** GitHub Actions  
 
-In order to build this project you first have to install:
+## ✨ Features
 
-* [Python](https://www.python.org/downloads/)
-* [Node.js](https://nodejs.org/en/)
+- RESTful API for product catalog, cart, and order management
+- User authentication with token-based auth
+- Real-time inventory tracking
+- Responsive frontend with reusable React components
+- Automated unit & behavioral test suite
 
-For installing Django and the REST framework, run the following commands.
-```
+## 🚀 Getting Started
+
+**Prerequisites:** Python 3.x, Node.js
+
+**Backend setup:**
+```bash
 pip install Django==4.2.6
 pip install djangorestframework
+pip install -r requirements.txt
 ```
 
-To install React and the other related libraries, run the following command.
-```
-npm i react react-dom react-router-dom
-```
-
-Once that is done, clone the repository with the following command.
-```
-git clone https://github.com/SCCapstone/TheOverlords
-```
-
-## Setup
-
-Once the repo is done downloading, navigate to ~/TheOverlords/CartCove/frontend/ and run this command.
-```
+**Frontend setup:**
+```bash
+cd CartCove/frontend
 npm install
 ```
 
-## Running
+**Run the app** (two terminals):
+```bash
+# Terminal 1 - Django server
+cd CartCove
+python manage.py runserver
 
-To run this site, first open up two terminals. In the first one, navigate to ~/CartCove and run the following command.
-```
-python .\manage.py runserver
-```
-Then, use the other terminal and navigate to ~/CartCove/frontend/ and run the following command.
-```
+# Terminal 2 - React dev server  
+cd CartCove/frontend
 npm run dev
 ```
-After that, open up a browser and visit http://127.0.0.1:8000/
 
-## Coding Style
+Visit `http://127.0.0.1:8000/`
 
-Frontend:
-* [Prettier](https://prettier.io/)
+## 🧪 Testing
 
-Backend:
-* [Black](https://black.readthedocs.io/en/stable/)
-
-## Testing Part
-Unit Test:
-* First enter the virtual environment.
-```
-cd TheOverlords
-source venv/bin/activate
-```
-* Go to Cartcove 
-```
+**Unit tests:**
+```bash
 cd CartCove
-```
-* Download requirements app
-```
-pip install -r requirements.txt
-```
-* Run the test
-```
 python3 manage.py test cart
 ```
-* 
-   This test includes whether a user can be successfully created and the correct token is returned. Whether items can be added to the shopping cart and then removed. Whether new items can be created and deleted.
 
-Behavorial Test:
-* Navigate to ~/CartCove/frontend and run the following commands if this is the first time testing
-```
-npm install -g selenium-side-runner
-npm install -g chromedriver
-```
-* To run the test, use the following command
-```
+**Behavioral tests (Selenium):**
+```bash
+cd CartCove/frontend
 selenium-side-runner tests/CartCove.side
 ```
-# Authors
-
-* Pengxiang Li pl7@email.sc.edu
-* Jamel chouarfj@email.sc.edu
-* Yixuan Liu yixuanl@email.sc.edu
-* Zhongsheng Li	zl11@email.sc.edu
-
-
