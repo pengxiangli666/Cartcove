@@ -1,4 +1,4 @@
-# CartCove 电商系统平台
+# CartCove 
 
 A full-stack e-commerce web application supporting product browsing, 
 real-time inventory updates, shopping cart management, and order processing.
